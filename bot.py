@@ -10,7 +10,7 @@ TOKEN = os.getenv('DISCORD_TOKEN')
 
 #vyber random radku z filu - Ehrendil
 def rand_line(soubor):
-    x = random.choice(list(open(soubor)))
+    x = random.choice(list(open(soubor,encoding='utf-8'))) 
     return x
 
 @bot.command(name='leaveguld', help='!leaveguld osoba1 osoba2')
@@ -26,6 +26,7 @@ async def leaveguld(ctx, arg1, arg2):
     lesi = str(rand_line('lesi.txt')).rstrip()
     elgee = str(rand_line('elgee.txt')).rstrip()
     guilda = str(rand_line('guilda.txt')).rstrip()
+
 
     leave='Ahoj, rozhodl jsem se leavnout guildu, protože '+osoba1+' je ' + nad \
         + ' a ' + pridjm \
@@ -49,3 +50,4 @@ async def info_error(ctx, error):
         await ctx.send('Je potřeba dodat jmena lidi: osoba1 osoba2')
 
 bot.run(TOKEN)
+
