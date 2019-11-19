@@ -9,7 +9,7 @@ GUILD = os.getenv('DISCORD_GUILD')
 
 #vyber random radku z filu - Ehrendil
 def rand_line(soubor):
-    x = random.choice(list(open(soubor)))
+    x = random.choice(list(open(soubor,encoding='utf-8'))) 
     return x
 
 client = discord.Client()
