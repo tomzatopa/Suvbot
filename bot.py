@@ -17,31 +17,32 @@ def rand_line(soubor):
 async def leaveguld(ctx, arg1, arg2):
     osoba1 = str(arg1)
     osoba2 = str(arg2)
-    pridjm = str(rand_line('pridjm.txt')).rstrip()
-    nad = str(rand_line('nad.txt')).rstrip()
-    nade = str(rand_line('nade.txt')).rstrip()
-    nade2 = str(rand_line('nade2.txt')).rstrip()
-    nadm = str(rand_line('nadm.txt')).rstrip()
+    pridJm = str(rand_line('pridJm.txt')).rstrip()
+    nadFirst = str(rand_line('nadavky.txt')).rstrip()
+    nadSecond = str(rand_line('nadavky.txt')).rstrip()
+    nadTy = str(rand_line('nadavkyTy.txt')).rstrip()
+    nadLast = str(rand_line('nadavkyLast.txt')).rstrip()
+    nadS = str(rand_line('nadavkyS.txt')).rstrip()
     misto = str(rand_line('misto.txt')).rstrip()
-    lesi = str(rand_line('osoba1.txt')).rstrip()
-    elgee = str(rand_line('osoba2.txt')).rstrip()
+    os1 = str(rand_line('osoba1.txt')).rstrip()
+    os2 = str(rand_line('osoba2.txt')).rstrip()
     guilda = str(rand_line('guilda.txt')).rstrip()
 
 
-    leave='Ahoj, rozhodl jsem se leavnout guildu, protože '+osoba1+' je ' + nad \
-        + ' a ' + pridjm \
-        + ' ' + nad \
-        + ', který ' + lesi \
+    leave='Ahoj, rozhodl jsem se leavnout guildu, protože '+osoba1+' je ' + nadFirst \
+        + ' a ' + pridJm \
+        + ' ' + nadSecond \
+        + ', který ' + os1 \
         + '. Hraju to už '+str(random.randrange(5,51)) \
         +' let a prošel jsem už '+str(random.randrange(5,21)) \
-        +' guild a s takovým ' + nadm \
+        +' guild a s takovým ' + nadS \
         + ' jako je '+osoba1+' jsem se ještě nesetkal. Doufám, že v příštím tieru ' + guilda \
         + '. Strčte si vaší guildu do ' + misto \
         + ', jdu mít '+str(random.randrange(1,51)) \
-        +' parsy jinam! A '+osoba2+' ty ' + pridjm \
-        + ' ' + nade \
-        + ' se taky můžeš ' + elgee \
-        + ' ty ' + nade2+ '!'
+        +' parsy jinam! A '+osoba2+' ty ' + pridJm \
+        + ' ' + nadTy \
+        + ' se taky můžeš ' + os2 \
+        + ' ty ' + nadLast+ '!'
     await ctx.send(leave)
 
 @leaveguld.error
