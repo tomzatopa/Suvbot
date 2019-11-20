@@ -10,7 +10,14 @@ TOKEN = os.getenv('DISCORD_TOKEN')
 
 @bot.event
 async def on_ready():
-    await bot.change_presence(activity=discord.Game(name='si s tvojí mámou'))
+    akt=random.randrange(1,4)
+    if akt==1:
+        await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching,name='tvojí nahou mámu'))
+    elif akt==2:
+        await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.listening,name='tvojí mámu sténat'))
+    else:
+        await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.playing,name='si s tvojí mámou'))
+
 
 #vyber random radku z filu - Ehrendil
 def rand_line(soubor):
