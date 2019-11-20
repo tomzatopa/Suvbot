@@ -104,14 +104,10 @@ async def info_error(ctx, error):
         await ctx.send('Je potřeba zadat jméno člověka, kterého chcete urazit.')
 
 
-@bot.command(
-    name='tyshasound',
-    description='Prehraje tyshuv sound, you know kterej myslim',
-    pass_context=True,
-)
+@bot.command(name='tyshasound',help='!tyshasound')
 async def tyshasound(ctx):
     # check usera co poslal command
-    user=context.message.author
+    user=ctx.message.author
     voice_channel=user.voice.voice_channel
     channel=None
     # overeni ze je user v channelu
