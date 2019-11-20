@@ -20,6 +20,8 @@ async def leaveguld(ctx, arg1, arg2):
     pridJm = str(rand_line('pridJm.txt')).rstrip()
     nadFirst = str(rand_line('nadavky.txt')).rstrip()
     nadSecond = str(rand_line('nadavky.txt')).rstrip()
+    while nadFirst==nadSecond:
+        nadSecond = str(rand_line('nadavky.txt')).rstrip()
     nadTy = str(rand_line('nadavkyTy.txt')).rstrip()
     nadLast = str(rand_line('nadavkyLast.txt')).rstrip()
     nadS = str(rand_line('nadavkyS.txt')).rstrip()
