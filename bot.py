@@ -10,7 +10,7 @@ TOKEN = os.getenv('DISCORD_TOKEN')
 
 @bot.event
 async def on_ready():
-    await bot.change_presence(activity=discord.Game(name='si s tvojí mámou',type))
+    await bot.change_presence(activity=discord.Game(name='si s tvojí mámou'))
 
 #vyber random radku z filu - Ehrendil
 def rand_line(soubor):
