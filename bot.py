@@ -80,4 +80,14 @@ async def info_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
         await ctx.send('Je potřeba dodat jmena lidi: osoba1 osoba2')
 
+@bot.command(name='insult', help='!insult')
+async def insult(ctx):
+    pridJm1 = str(rand_line('pridJm.txt')).rstrip()
+    pridJm2 = str(rand_line('pridJm.txt')).rstrip()
+    while pridJm2==pridJm1:
+        pridJm2 = str(rand_line('pridJm.txt')).rstrip()
+    nad = str(rand_line('nadavkyTy.txt')).rstrip()
+    ins='Ty '+ pridJm1 +' '+ pridJm2 +' '+ nad+'!'
+    await ctx.send(ins)
+
 bot.run(TOKEN)
