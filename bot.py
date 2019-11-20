@@ -105,7 +105,7 @@ async def info_error(ctx, error):
 
 
 @bot.command(name='iaosound', help='!iaosound zeddone-honk tysha-death')
-async def iao-sound(ctx, arg1):
+async def iaosound(ctx, arg1):
     channel = ctx.author.voice.channel
     #await channel.connect()
     if arg1 == "zeddone-honk":
