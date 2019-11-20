@@ -111,7 +111,7 @@ async def tyshasound(ctx):
     if voice_channel!= None:
         # vyber userova channelu
         channel=voice_channel.name
-        await client.say('User is in channel: '+ channel)
+        await client.say('Uzivatel je v kanale: '+ channel)
         # vytvoreni streamplaye
         vc = await client.join_voice_channel(voice_channel)
         player = vc.create_ffmpeg_player('sounds/tysha-sample.mp3', after=lambda: print('prehravam'))
@@ -122,6 +122,6 @@ async def tyshasound(ctx):
         player.stop()
         await vc.disconnect()
     else:
-        await client.say('User is not in a channel.')
+        await client.say('Uzivatel neni v hlasovem kanale.')
 
 bot.run(TOKEN)
