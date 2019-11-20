@@ -23,27 +23,33 @@ async def on_ready():
 def rand_line(soubor):
     x = random.choice(list(open(soubor,encoding='utf-8')))
     return x
+#sklonovani slov do 5. padu (osloveni)
+def sklon_5p(text):
+    sklon=text
+    if text.startswith('<@') and text.endswith('>') : #pokud nekdo pouzije @ mention, tak se nesklonuje
+        return sklon
+    if text.endswith('a') or text.endswith('u'):
+        sklon=text[:-1]+'o'
+    elif text.endswith('ec'):
+        sklon=text[:-2]+'če'
+    elif text.endswith('c'):
+        sklon=text[:-1]+'če'
+    elif text.endswith('ek'):
+        sklon=text[:-2]+'ku'
+    elif text.endswith('s') or text.endswith('š') or text.endswith('x') or text.endswith('j')  or text.endswith('č') or text.endswith('ř'):
+        sklon+='i'
+    elif text.endswith('g') or text.endswith('h') or text.endswith('k') or text.endswith('q'):
+        sklon+='u'
+    elif text.endswith('i') or text.endswith('í') or text.endswith('e') or text.endswith('é') or text.endswith('o') or text.endswith('y') or text.endswith('á'):
+        sklon=text
+    else:
+        sklon+='e'
+    return sklon
 
 @bot.command(name='leaveguld', help='!leaveguld osoba1 osoba2')
 async def leaveguld(ctx, arg1, arg2):
     osoba1 = str(arg1)
-    osoba2 = str(arg2)
-    if osoba2.endswith('a') or osoba2.endswith('u'):
-        osoba2=osoba2[:-1]+'o'
-    elif osoba2.endswith('ec'):
-        osoba2=osoba2[:-2]+'če'
-    elif osoba2.endswith('c'):
-        osoba2=osoba2[:-1]+'če'
-    elif osoba2.endswith('ek'):
-        osoba2=osoba2[:-2]+'ku'
-    elif osoba2.endswith('s') or osoba2.endswith('š') or osoba2.endswith('x') or osoba2.endswith('j')  or osoba2.endswith('č') or osoba2.endswith('ř'):
-        osoba2+='i'
-    elif osoba2.endswith('g') or osoba2.endswith('h') or osoba2.endswith('k') or osoba2.endswith('q'):
-        osoba2+='u'
-    elif osoba2.endswith('i') or osoba2.endswith('í') or osoba2.endswith('e') or osoba2.endswith('é') or osoba2.endswith('o') or osoba2.endswith('y') or osoba2.endswith('á'):
-        osoba2=osoba2
-    else:
-        osoba2+='e'
+    osoba2 = sklon_5p(str(arg2))
     pridJm = str(rand_line('pridJm.txt')).rstrip()
     nadFirst = str(rand_line('nadavky.txt')).rstrip()
     nadSecond = str(rand_line('nadavky.txt')).rstrip()
@@ -82,7 +88,7 @@ async def info_error(ctx, error):
 
 @bot.command(name='insult', help='!insult osoba')
 async def insult(ctx,arg1):
-    nekdo = str(arg1)
+    nekdo = sklon_5p(str(arg1))
     pridJm1 = str(rand_line('pridJm.txt')).rstrip()
     pridJm2 = str(rand_line('pridJm.txt')).rstrip()
     while pridJm2==pridJm1:
@@ -90,7 +96,7 @@ async def insult(ctx,arg1):
     nad = str(rand_line('nadavkyTy.txt')).rstrip()
     ins= nekdo + ', ty '+ pridJm1 +' '+ pridJm2 +' '+ nad+'!'
     await ctx.send(ins)
-    
+
 @insult.error
 async def info_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
