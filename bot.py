@@ -78,16 +78,50 @@ async def leaveguld(ctx, arg1, arg2):
 @leaveguld.error
 async def info_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
-        await ctx.send('Je potřeba dodat jmena lidi: osoba1 osoba2')
+        await ctx.send('Je potřeba zadat jména lidí: !leaveguld osoba1 osoba2')
 
-@bot.command(name='insult', help='!insult')
-async def insult(ctx):
+@bot.command(name='insult', help='!insult osoba')
+async def insult(ctx,arg1):
+    nekdo = str(arg1)
     pridJm1 = str(rand_line('pridJm.txt')).rstrip()
     pridJm2 = str(rand_line('pridJm.txt')).rstrip()
     while pridJm2==pridJm1:
         pridJm2 = str(rand_line('pridJm.txt')).rstrip()
     nad = str(rand_line('nadavkyTy.txt')).rstrip()
-    ins='Ty '+ pridJm1 +' '+ pridJm2 +' '+ nad+'!'
+    ins= nekdo + ', ty '+ pridJm1 +' '+ pridJm2 +' '+ nad+'!'
     await ctx.send(ins)
+    
+@insult.error
+async def info_error(ctx, error):
+    if isinstance(error, commands.MissingRequiredArgument):
+        await ctx.send('Je potřeba zadat jméno člověka, kterého chcete urazit.')
+
+
+@bot.command(
+    name='tyshasound',
+    description='Prehraje tyshuv sound, you know kterej myslim',
+    pass_context=True,
+)
+async def tyshasound(ctx):
+    # check usera co poslal command
+    user=context.message.author
+    voice_channel=user.voice.voice_channel
+    channel=None
+    # overeni ze je user v channelu
+    if voice_channel!= None:
+        # vyber userova channelu
+        channel=voice_channel.name
+        await client.say('User is in channel: '+ channel)
+        # vytvoreni streamplaye
+        vc = await client.join_voice_channel(voice_channel)
+        player = vc.create_ffmpeg_player('sounds/tysha-sample.mp3', after=lambda: print('prehravam'))
+        player.start()
+        while not player.is_done():
+            await asyncio.sleep(1)
+        # disconnect po dohrani
+        player.stop()
+        await vc.disconnect()
+    else:
+        await client.say('User is not in a channel.')
 
 bot.run(TOKEN)
