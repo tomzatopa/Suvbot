@@ -104,8 +104,8 @@ async def info_error(ctx, error):
         await ctx.send('Je potřeba zadat jméno člověka, kterého chcete urazit.')
 
 
-@bot.command(name='tyshasound', help='!iao-sound zeddone-honk tysha-death')
-async def tyshasound(ctx, arg1):
+@bot.command(name='iaosound', help='!iaosound zeddone-honk tysha-death')
+async def iao-sound(ctx, arg1):
     channel = ctx.author.voice.channel
     #await channel.connect()
     if arg1 == "zeddone-honk":
@@ -118,4 +118,8 @@ async def tyshasound(ctx, arg1):
     else:
         await ctx.voice_client.disconnect()
 
+@iaosound.error
+async def info_error(ctx, error):
+    if isinstance(error, commands.MissingRequiredArgument):
+        await ctx.send('zadejte zvuk k prehrani')
 bot.run(TOKEN)
