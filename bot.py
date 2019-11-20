@@ -107,10 +107,10 @@ async def info_error(ctx, error):
 @bot.command(name='tyshasound', help='!tyshasound')
 async def tyshasound(ctx):
     channel = ctx.author.voice.channel
-    await channel.connect()
-    #vc = await channel.connect(channel)
-    #vc.play(discord.FFmpegPCMAudio('sounds/tysha-sound.mp3'), after=lambda e: print('prehravam', e))
+    #await channel.connect()
+    vc = await channel.connect()
+    vc.play(discord.FFmpegPCMAudio('sounds/tysha-sound.mp3'), after=lambda e: print('prehravam', e))
     #await vc.disconnect()
-    await channel.disconnect()
+    await ctx.voice_client.disconnect()
 
 bot.run(TOKEN)
