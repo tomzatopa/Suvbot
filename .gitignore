@@ -1,3 +1,2 @@
 .env
-sounds/tysha-sample.mp3
-tysha-sample.mp3
+sounds/*
