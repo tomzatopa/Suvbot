@@ -104,15 +104,18 @@ async def info_error(ctx, error):
         await ctx.send('Je potřeba zadat jméno člověka, kterého chcete urazit.')
 
 
-@bot.command(name='tyshasound', help='!tyshasound')
-async def tyshasound(ctx):
+@bot.command(name='tyshasound', help='!iao-sound zeddone-honk tysha-death')
+async def tyshasound(ctx, arg1):
     channel = ctx.author.voice.channel
     #await channel.connect()
-    vc = await channel.connect()
-    vc.play(discord.FFmpegPCMAudio('./sounds/tysha-sample.mp3'), after=lambda e: print('prehravam', e))
-    while vc.is_playing():
-        await asyncio.sleep(1)
-    #await vc.disconnect()
-    await ctx.voice_client.disconnect()
+    if arg1 == "zeddone-honk":
+        vc = await channel.connect()
+        vc.play(discord.FFmpegPCMAudio('./sounds/'+arg1+'.mp3'), after=lambda e: print('prehravam', e))
+        while vc.is_playing():
+            await asyncio.sleep(1)
+        #await vc.disconnect()
+        await ctx.voice_client.disconnect()
+    else:
+        await ctx.voice_client.disconnect()
 
 bot.run(TOKEN)
