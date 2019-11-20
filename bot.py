@@ -28,6 +28,22 @@ def rand_line(soubor):
 async def leaveguld(ctx, arg1, arg2):
     osoba1 = str(arg1)
     osoba2 = str(arg2)
+    if osoba2.endswith('a') or osoba2.endswith('u'):
+        osoba2=osoba2[:-1]+'o'
+    elif osoba2.endswith('ec'):
+        osoba2=osoba2[:-2]+'če'
+    elif osoba2.endswith('c'):
+        osoba2=osoba2[:-1]+'če'
+    elif osoba2.endswith('ek'):
+        osoba2=osoba2[:-2]+'ku'
+    elif osoba2.endswith('s') or osoba2.endswith('š') or osoba2.endswith('x') or osoba2.endswith('j')  or osoba2.endswith('č') or osoba2.endswith('ř'):
+        osoba2+='i'
+    elif osoba2.endswith('g') or osoba2.endswith('h') or osoba2.endswith('k') or osoba2.endswith('q'):
+        osoba2+='u'
+    elif osoba2.endswith('i') or osoba2.endswith('í') or osoba2.endswith('e') or osoba2.endswith('é') or osoba2.endswith('o') or osoba2.endswith('y') or osoba2.endswith('á'):
+        osoba2=osoba2
+    else:
+        osoba2+='e'
     pridJm = str(rand_line('pridJm.txt')).rstrip()
     nadFirst = str(rand_line('nadavky.txt')).rstrip()
     nadSecond = str(rand_line('nadavky.txt')).rstrip()
