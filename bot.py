@@ -1,6 +1,7 @@
 import os
 import random
 import discord
+import asyncio
 from dotenv import load_dotenv
 from discord.ext import commands
 
@@ -101,5 +102,33 @@ async def insult(ctx,arg1):
 async def info_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
         await ctx.send('Je potřeba zadat jméno člověka, kterého chcete urazit.')
+
+
+@bot.command(
+    name='tyshasound',
+    description='Prehraje tyshuv sound, you know kterej myslim',
+    pass_context=True,
+)
+async def tyshasound(ctx):
+    # check usera co poslal command
+    user=context.message.author
+    voice_channel=user.voice.voice_channel
+    channel=None
+    # overeni ze je user v channelu
+    if voice_channel!= None:
+        # vyber userova channelu
+        channel=voice_channel.name
+        await client.say('Uzivatel je v kanale: '+ channel)
+        # vytvoreni streamplaye
+        vc = await client.join_voice_channel(voice_channel)
+        player = vc.create_ffmpeg_player('sounds/tysha-sample.mp3', after=lambda: print('prehravam'))
+        player.start()
+        while not player.is_done():
+            await asyncio.sleep(1)
+        # disconnect po dohrani
+        player.stop()
+        await vc.disconnect()
+    else:
+        await client.say('Uzivatel neni v hlasovem kanale.')
 
 bot.run(TOKEN)
