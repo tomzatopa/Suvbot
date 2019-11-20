@@ -109,7 +109,7 @@ async def tyshasound(ctx):
     channel = ctx.author.voice.channel
     #await channel.connect()
     vc = await channel.connect()
-    vc.play(discord.FFmpegPCMAudio('sounds/tysha-sample.mp3'), after=lambda e: print('prehravam', e))
+    vc.play(discord.FFmpegPCMAudio('tysha-sample.mp3'), after=lambda e: print('prehravam', e))
     #await vc.disconnect()
     await ctx.voice_client.disconnect()
 
