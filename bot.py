@@ -128,7 +128,7 @@ async def insult(ctx,arg1):
     pridJm2 = str(rand_line('pridJm.txt')).rstrip()
     while pridJm2==pridJm1:
         pridJm2 = str(rand_line('pridJm.txt')).rstrip()
-    nad = str(rand_line('nadavkyTy.txt')).rstrip()
+    nad = sklon_5p(str(rand_line('nadavky.txt')).rstrip())
     ins= nekdo + ', ty '+ pridJm1 +' '+ pridJm2 +' '+ nad+'!'
     await ctx.send(ins)
 
