@@ -154,13 +154,10 @@ async def info_error(ctx, error):
 @bot.command(name='iaoimage', help='!iaoimage curvehrendil iao inv raidlidl taktika tyna-beam zedova-zena')
 async def iaoimage(ctx, arg1):
     if path.exists('./images/'+arg1+'.png'):
-        print("cesta nalezena"+arg1+".png")
         await ctx.send(file=discord.File('./images/'+arg1+'.png'))
     elif path.exists('./images/'+arg1+'.jpg'):
-        print("cesta nalezena"+arg1+".jpg")
         await ctx.send(file=discord.File('./images/'+arg1+'.jpg'))
     elif path.exists('./images/'+arg1+'.jpeg'):
-        print("cesta nalezena"+arg1+".jpeg")
         await ctx.send(file=discord.File('./images/'+arg1+'.jpeg'))
 
 @iaoimage.error
