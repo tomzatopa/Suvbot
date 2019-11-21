@@ -51,7 +51,10 @@ def sklon_5p(text):
 async def leaveguld(ctx, arg1, arg2):
     osoba1 = str(arg1)
     osoba2 = sklon_5p(str(arg2))
-    pridJm = str(rand_line('pridJm.txt')).rstrip()
+    pridJm1 = str(rand_line('pridJm.txt')).rstrip()
+    pridJm2 = str(rand_line('pridJm.txt')).rstrip()
+    while pridJm1==pridJm2:
+        pridJm2 = str(rand_line('pridJm.txt')).rstrip()
     nadFirst = str(rand_line('nadavky.txt')).rstrip()
     nadSecond = str(rand_line('nadavky.txt')).rstrip()
     while nadFirst==nadSecond:
@@ -67,7 +70,7 @@ async def leaveguld(ctx, arg1, arg2):
     guilda = str(rand_line('guilda.txt')).rstrip()
 
     leave='Ahoj, rozhodl jsem se leavnout guildu, protože '+osoba1+' je ' + nadFirst \
-        + ' a ' + pridJm \
+        + ' a ' + pridJm1 \
         + ' ' + nadSecond \
         + ', který ' + os1 \
         + '. Hraju to už '+str(random.randrange(5,51)) \
@@ -76,7 +79,7 @@ async def leaveguld(ctx, arg1, arg2):
         + ' jako je '+osoba1+' jsem se ještě nesetkal. Doufám, že v příštím tieru ' + guilda \
         + '. Strčte si vaší guildu ' + misto \
         + ', jdu mít '+str(random.randrange(1,51)) \
-        +' parsy jinam! A '+osoba2+' ty ' + pridJm \
+        +' parsy jinam! A '+osoba2+' ty ' + pridJm2 \
         + ' ' + nadTy \
         + ' se taky můžeš ' + os2 \
         + ' ty ' + nadLast+ '!'
