@@ -140,7 +140,7 @@ async def updatebot(ctx):
     if sendinguserid == MAINTAINER:
         await ctx.send('jupí', delete_after=5)
     else:
-        await ctx.send('nope', delete_after=5)
+        await ctx.send('nope '+str(MAINTAINER)+' '+str(sendinguserid), delete_after=5)
 
 
 @bot.command(name='slabikar', help='!slabikar')
