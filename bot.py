@@ -153,7 +153,7 @@ async def info_error(ctx, error):
 #iaoimage command
 @bot.command(name='iaoimage', help='!iaoimage curvehrendil iao inv raidlidl taktika tyna-beam zedova-zena')
 async def iaoimage(ctx, arg1):
-    channel = client.get_channel(ctx)
+    channel = ctx.author.text.channel
     if path.exists('./images/'+arg1+'.png'):
         print("cesta nalezena"+arg1+".png")
         await channel.send(file=bot.File('./images/'+arg1+'.png'))
