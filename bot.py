@@ -6,7 +6,6 @@ import discord
 import asyncio
 from dotenv import load_dotenv
 from discord.ext import commands
-import git 
 import subprocess
 
 bot = commands.Bot(command_prefix='!')
@@ -140,10 +139,10 @@ async def updatebot(ctx):
     #await ctx.send(final)
     sendinguserid = ctx.message.author.id
     if sendinguserid == MAINTAINER:
-        cwdir = os.getcwd()
-        g = git.cmd.Git(cwdir)
         await ctx.send('jdu se pullovat', delete_after=5)
-        g.pull()
+        cmd = '/bin/git pull'
+        proc = subprocess.Popen(cmd, shell=True,stdout=subprocess.PIPE)
+        await ctx.send(proc, delete_after=5)
         await asyncio.sleep(2)
         await ctx.send('jdu se zabit a znovu povstat', delete_after=5)
         cmd = '/bin/systemctl restart suvbot'
