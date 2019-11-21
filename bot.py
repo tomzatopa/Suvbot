@@ -1,13 +1,20 @@
+###############################
+############IMPORTY############
+###############################
 import os
 import os.path
-from os import path
+import subprocess
 import random
 import discord
 import asyncio
+from os import path
 from dotenv import load_dotenv
 from discord.ext import commands
-import subprocess
 
+
+###############################
+###SETTINGS + IMPORT PROMENNYCH
+###############################
 bot = commands.Bot(command_prefix='!')
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
@@ -16,8 +23,10 @@ MAINTAINER = [
     int(os.getenv('MAINTAINER2'))
     ]
 
-int(os.getenv('MAINTAINER1'))
-
+###############################
+##########BOT EVENTS###########
+###############################
+#nastaveni statusu
 @bot.event
 async def on_ready():
     akt=random.randrange(1,5)
@@ -30,7 +39,9 @@ async def on_ready():
     else:
         await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.playing,name='si s tvojí mámou'))
 
-
+###############################
+########OBECNE FUNKCE##########
+###############################
 #vyber random radku z filu - Ehrendil
 def rand_line(soubor):
     x = random.choice(list(open(soubor,encoding='utf-8')))
@@ -58,6 +69,10 @@ def sklon_5p(text):
         sklon+='e'
     return sklon
 
+###############################
+#########BOT COMMANDS##########
+###############################
+#leaveguld command
 @bot.command(name='leaveguld', help='!leaveguld osoba1 osoba2')
 async def leaveguld(ctx, arg1, arg2):
     osoba1 = str(arg1)
@@ -101,6 +116,7 @@ async def info_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
         await ctx.send('Je potřeba zadat jména lidí: !leaveguld osoba1 osoba2')
 
+#insult command
 @bot.command(name='insult', help='!insult osoba')
 async def insult(ctx,arg1):
     nekdo = sklon_5p(str(arg1))
@@ -117,7 +133,7 @@ async def info_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
         await ctx.send('Je potřeba zadat jméno člověka, kterého chcete urazit.')
 
-
+#iaosound command
 @bot.command(name='iaosound', help='!iaosound zeddone-honk')
 async def iaosound(ctx, arg1):
     channel = ctx.author.voice.channel
@@ -134,7 +150,7 @@ async def info_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
         await ctx.send('Je potřeba zadat zvuk k přehrání')
 
-######update bota skrz discord
+#update bota skrz discord
 @bot.command(name='updatebot', help='!updatebot omezeno pro urcite uzivatele')
 async def updatebot(ctx):
     sendinguserid = ctx.message.author.id
@@ -148,16 +164,22 @@ async def updatebot(ctx):
         cmd = '/bin/systemctl restart suvbot'
         proc = subprocess.Popen(cmd, shell=True,stdout=subprocess.PIPE)
     else:
-        await ctx.send('nope', delete_after=5)     
-#####get id
-@bot.command(name='getid', help='!getid')
-async def getid(ctx):
-    userid = str(ctx.message.author.id)
-    await ctx.send(userid, delete_after=5)
-
+        await ctx.send('nope', delete_after=5)   
+  
+#slabikar command
 @bot.command(name='slabikar', help='!slabikar')
 async def slabikar(ctx):
     ins = 'https://www.youtube.com/watch?v=u1HMzYSZGIo'
     await ctx.send(ins)
 
+###############################
+########IN CASE OF NEED########
+###############################
+#####get id
+#@bot.command(name='getid', help='!getid')
+#async def getid(ctx):
+#    userid = str(ctx.message.author.id)
+#    await ctx.send(userid, delete_after=5)
+
+###BOT RUN
 bot.run(TOKEN)
