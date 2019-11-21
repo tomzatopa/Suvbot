@@ -114,6 +114,7 @@ async def info_error(ctx, error):
 @bot.command(name='iaosound', help='!iaosound zeddone-honk')
 async def iaosound(ctx, arg1):
     channel = ctx.author.voice.channel
+    #checkuje jestli existuje file ve slozce sounds/
     if path.exists('./sounds/'+arg1+'.mp3'):
         vc = await channel.connect()
         vc.play(discord.FFmpegPCMAudio('./sounds/'+arg1+'.mp3'), after=lambda e: print('prehravam', e))
