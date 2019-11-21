@@ -141,7 +141,7 @@ async def updatebot(ctx):
     if sendinguserid == MAINTAINER:
         await ctx.send('jdu se pullovat', delete_after=5)
         cmd = '/bin/git pull'
-        proc = subprocess.Popen(cmd, shell=True,stdout=subprocess.PIPE):
+        proc = subprocess.Popen(cmd, shell=True,stdout=subprocess.PIPE)
         ctx.send(proc.communicate()[0].split('\n'), delete_after=5)
         proc.wait()
         await asyncio.sleep(2)
