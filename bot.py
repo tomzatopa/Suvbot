@@ -127,6 +127,13 @@ async def info_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
         await ctx.send('Je potřeba zadat zvuk k přehrání')
 
+######update bota skrz discord
+@bot.command(name='updatebot', help='!updatebot omezeno pro urcite uzivatele')
+async def updatebot(ctx):
+    user = ctx.ClientUser.name
+    await ctx.send(user)
+######
+
 @bot.command(name='slabikar', help='!slabikar')
 async def slabikar(ctx):
     ins = 'https://www.youtube.com/watch?v=u1HMzYSZGIo'
