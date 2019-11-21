@@ -169,6 +169,11 @@ async def info_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
         await ctx.send('Je potreba zadat obrazek')
 
+#iaomeme command - random image z iaoimage
+@bot.command(name='iaomeme', help='!iaomeme')
+async def iaoimage(ctx):
+    await ctx.send(file=discord.File('./images/'+random.choice(os.listdir('./images'))))
+
 #update bota skrz discord
 @bot.command(name='updatebot', help='!updatebot omezeno pro urcite uzivatele')
 async def updatebot(ctx):
