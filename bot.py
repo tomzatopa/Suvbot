@@ -104,7 +104,7 @@ async def info_error(ctx, error):
         await ctx.send('Je potřeba zadat jméno člověka, kterého chcete urazit.')
 
 
-@bot.command(name='iaosound', help='!iaosound zeddone-honk tysha-death')
+@bot.command(name='iaosound', help='!iaosound zeddone-honk')
 async def iaosound(ctx, arg1):
     channel = ctx.author.voice.channel
     #await channel.connect()
@@ -121,5 +121,11 @@ async def iaosound(ctx, arg1):
 @iaosound.error
 async def info_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
-        await ctx.send('zadejte zvuk k prehrani')
+        await ctx.send('Je potřeba zadat zvuk k přehrání')
+
+@bot.command(name='slabikar', help='!slabikar')
+async def insult(ctx):
+    ins= 'https://www.youtube.com/watch?v=u1HMzYSZGIo'
+    await ctx.send(ins)
+
 bot.run(TOKEN)
