@@ -77,23 +77,26 @@ def sklon_5p(text):
 async def leaveguld(ctx, arg1, arg2):
     osoba1 = str(arg1)
     osoba2 = sklon_5p(str(arg2))
+    os1 = str(rand_line('osoba1.txt')).rstrip()
+    os2 = str(rand_line('osoba2.txt')).rstrip()
+    misto = str(rand_line('misto.txt')).rstrip()
+    guilda = str(rand_line('guilda.txt')).rstrip()
+    nadS = str(rand_line('nadavkyS.txt')).rstrip()
+
     pridJm1 = str(rand_line('pridJm.txt')).rstrip()
     pridJm2 = str(rand_line('pridJm.txt')).rstrip()
     while pridJm1==pridJm2:
         pridJm2 = str(rand_line('pridJm.txt')).rstrip()
+
     nadFirst = str(rand_line('nadavky.txt')).rstrip()
     nadSecond = str(rand_line('nadavky.txt')).rstrip()
     while nadFirst==nadSecond:
         nadSecond = str(rand_line('nadavky.txt')).rstrip()
-    nadTy = str(rand_line('nadavkyTy.txt')).rstrip()
+
+    nadTy = sklon_5p(str(rand_line('nadavky.txt')).rstrip())
     nadLast = str(rand_line('nadavkyLast.txt')).rstrip()
     while nadTy==nadLast:
         nadLast = str(rand_line('nadavkyLast.txt')).rstrip()
-    nadS = str(rand_line('nadavkyS.txt')).rstrip()
-    misto = str(rand_line('misto.txt')).rstrip()
-    os1 = str(rand_line('osoba1.txt')).rstrip()
-    os2 = str(rand_line('osoba2.txt')).rstrip()
-    guilda = str(rand_line('guilda.txt')).rstrip()
 
     leave='Ahoj, rozhodl jsem se leavnout guildu, protože '+osoba1+' je ' + nadFirst \
         + ' a ' + pridJm1 \
@@ -109,6 +112,7 @@ async def leaveguld(ctx, arg1, arg2):
         + ' ' + nadTy \
         + ' se taky můžeš ' + os2 \
         + ' ty ' + nadLast+ '!'
+
     await ctx.send(leave)
 
 @leaveguld.error
@@ -179,8 +183,8 @@ async def updatebot(ctx):
         cmd = '/bin/systemctl restart suvbot'
         proc = subprocess.Popen(cmd, shell=True,stdout=subprocess.PIPE)
     else:
-        await ctx.send('nope', delete_after=5)   
-  
+        await ctx.send('nope', delete_after=5)
+
 #slabikar command
 @bot.command(name='slabikar', help='!slabikar')
 async def slabikar(ctx):
