@@ -1,4 +1,6 @@
 import os
+import os.path
+from os import path
 import random
 import discord
 import asyncio
@@ -112,15 +114,11 @@ async def info_error(ctx, error):
 @bot.command(name='iaosound', help='!iaosound zeddone-honk')
 async def iaosound(ctx, arg1):
     channel = ctx.author.voice.channel
-    #await channel.connect()
-    if arg1 == "zeddone-honk":
+    if path.exists('./sounds/'+arg1+'.mp3'):
         vc = await channel.connect()
         vc.play(discord.FFmpegPCMAudio('./sounds/'+arg1+'.mp3'), after=lambda e: print('prehravam', e))
         while vc.is_playing():
             await asyncio.sleep(1)
-        #await vc.disconnect()
-        await ctx.voice_client.disconnect()
-    else:
         await ctx.voice_client.disconnect()
 
 @iaosound.error
