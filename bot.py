@@ -10,6 +10,7 @@ from discord.ext import commands
 bot = commands.Bot(command_prefix='!')
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
+MAINTAINER = os.getenv('MAINTAINER1')
 
 @bot.event
 async def on_ready():
@@ -130,12 +131,17 @@ async def info_error(ctx, error):
 ######update bota skrz discord
 @bot.command(name='updatebot', help='!updatebot omezeno pro urcite uzivatele')
 async def updatebot(ctx):
-    username = str(ctx.message.author.name)
-    userid = str(ctx.message.author.id)
-    userdiscriminator = str(ctx.message.author.discriminator)
-    final = 'name = ' + username + ', userid = ' + userid + ', discriminator = ' + userdiscriminator 
-    await ctx.send(final)
-######
+    #username = str(ctx.message.author.name)
+    #userid = str(ctx.message.author.id)
+    #userdiscriminator = str(ctx.message.author.discriminator)
+    #final = 'name = ' + username + ', userid = ' + userid + ', discriminator = ' + userdiscriminator 
+    #await ctx.send(final)
+    sendinguserid = ctx.message.author.id
+    if sendinguserid == MAINTAINER:
+        await ctx.send('jupí', delete_after=5)
+    else
+        await ctx.send('nope', delete_after=5)
+
 
 @bot.command(name='slabikar', help='!slabikar')
 async def slabikar(ctx):
