@@ -130,8 +130,11 @@ async def info_error(ctx, error):
 ######update bota skrz discord
 @bot.command(name='updatebot', help='!updatebot omezeno pro urcite uzivatele')
 async def updatebot(ctx):
-    user = ctx.message.author.name
-    await ctx.send(user)
+    username = str(ctx.message.author.name)
+    userid = str(ctx.message.author.id)
+    userdiscriminator = str(ctx.message.author.discriminator)
+    final = 'name = ' + username + ', userid = ' + userid + ', discriminator = ' + userdiscriminator 
+    await ctx.send(final)
 ######
 
 @bot.command(name='slabikar', help='!slabikar')
