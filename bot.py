@@ -69,6 +69,27 @@ def sklon_5p(text):
         sklon+='e'
     return sklon
 
+#sklonovani do slovenskeho osloveni
+def sklon_slovak(text):
+    sklon=text
+    if text.endswith('a') or text.endswith('u'):
+        sklon=text[:-1]+'ko'
+    elif text.endswith('ec'):
+        sklon=text[:-2]+'ko'
+    elif text.endswith('c'):
+        sklon=text[:-1]+'ko'
+    elif text.endswith('ek'):
+        sklon=text[:-2]+'ko'
+    elif text.endswith('s') or text.endswith('š') or text.endswith('x') or text.endswith('j')  or text.endswith('č') or text.endswith('ř'):
+        sklon+='ko'
+    elif text.endswith('g') or text.endswith('h') or text.endswith('k') or text.endswith('q'):
+        sklon+='ko'
+    elif text.endswith('i') or text.endswith('í') or text.endswith('e') or text.endswith('é') or text.endswith('o') or text.endswith('y') or text.endswith('á'):
+        sklon+=ko
+    else:
+        sklon+='ko'
+    return sklon
+
 ###############################
 #########BOT COMMANDS##########
 ###############################
@@ -173,6 +194,17 @@ async def info_error(ctx, error):
 @bot.command(name='iaomeme', help='!iaomeme')
 async def iaoimage(ctx):
     await ctx.send(file=discord.File('./images/'+random.choice(os.listdir('./images'))))
+
+#slovak command
+@bot.command(name='slovak', help='!slovak')
+async def slovak(ctx,arg):
+    os = sklon_slovak(arg)
+    sl= 'Nie je ti kokotno '+ os +'?'
+    await ctx.send(sl)
+@slovak.error
+async def info_error(ctx, error):
+    if isinstance(error, commands.MissingRequiredArgument):
+        await ctx.send('Je potřeba zadat jméno člověka.')
 
 #update bota skrz discord
 @bot.command(name='updatebot', help='!updatebot omezeno pro urcite uzivatele')
