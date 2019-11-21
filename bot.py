@@ -153,16 +153,14 @@ async def info_error(ctx, error):
 #iaoimage command
 @bot.command(name='iaoimage', help='!iaoimage curvehrendil iao inv raidlidl taktika tyna-beam zedova-zena')
 async def iaoimage(ctx, arg1):
-    channel = ctx.author.text.channel
     if path.exists('./images/'+arg1+'.png'):
-        with open(''+arg1+'.png', 'rb') as fp:
-            await channel.send(file=discord.File(fp, ''+arg1+'.png'))
+        await ctx.send(file=discord.File('my_file.png'))
     elif path.exists('./images/'+arg1+'.jpg'):
         with open(''+arg1+'.jpg', 'rb') as fp:
-            await channel.send(file=discord.File(fp, ''+arg1+'.jpg'))
+            await ctx.send(file=discord.File(fp, ''+arg1+'.jpg'))
     elif path.exists('./images/'+arg1+'.jpeg'):
         with open(''+arg1+'.jpeg', 'rb') as fp:
-            await channel.send(file=discord.File(fp, ''+arg1+'.jpeg'))
+            await ctx.send(file=discord.File(fp, ''+arg1+'.jpeg'))
 
 @iaoimage.error
 async def info_error(ctx, error):
