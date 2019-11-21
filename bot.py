@@ -129,8 +129,8 @@ async def info_error(ctx, error):
         await ctx.send('Je potřeba zadat zvuk k přehrání')
 
 @bot.command(name='slabikar', help='!slabikar')
-async def insult(ctx):
-    ins= 'https://www.youtube.com/watch?v=u1HMzYSZGIo'
+async def slabikar(ctx):
+    ins = 'https://www.youtube.com/watch?v=u1HMzYSZGIo'
     await ctx.send(ins)
 
 bot.run(TOKEN)
