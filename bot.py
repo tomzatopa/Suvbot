@@ -11,7 +11,12 @@ import subprocess
 bot = commands.Bot(command_prefix='!')
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
-MAINTAINER = int(os.getenv('MAINTAINER1'))
+MAINTAINER = [
+    int(os.getenv('MAINTAINER1')),
+    int(os.getenv('MAINTAINER2'))
+    ]
+
+int(os.getenv('MAINTAINER1'))
 
 @bot.event
 async def on_ready():
@@ -132,11 +137,6 @@ async def info_error(ctx, error):
 ######update bota skrz discord
 @bot.command(name='updatebot', help='!updatebot omezeno pro urcite uzivatele')
 async def updatebot(ctx):
-    #username = str(ctx.message.author.name)
-    #userid = str(ctx.message.author.id)
-    #userdiscriminator = str(ctx.message.author.discriminator)
-    #final = 'name = ' + username + ', userid = ' + userid + ', discriminator = ' + userdiscriminator 
-    #await ctx.send(final)
     sendinguserid = ctx.message.author.id
     if sendinguserid == MAINTAINER:
         await ctx.send('jdu se pullovat', delete_after=5)
@@ -148,8 +148,12 @@ async def updatebot(ctx):
         cmd = '/bin/systemctl restart suvbot'
         proc = subprocess.Popen(cmd, shell=True,stdout=subprocess.PIPE)
     else:
-        await ctx.send('nope '+str(MAINTAINER)+' '+str(sendinguserid), delete_after=5)
-
+        await ctx.send('nope '+str(MAINTAINER)+' '+str(sendinguserid), delete_after=5)     
+#####get id
+@bot.command(name='getid', help='!getid')
+async def getid(ctx):
+    userid = str(ctx.message.author.id)
+    await ctx.send(userid, delete_after=5)
 
 @bot.command(name='slabikar', help='!slabikar')
 async def slabikar(ctx):
