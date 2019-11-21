@@ -138,7 +138,7 @@ async def info_error(ctx, error):
 @bot.command(name='updatebot', help='!updatebot omezeno pro urcite uzivatele')
 async def updatebot(ctx):
     sendinguserid = ctx.message.author.id
-    if sendinguserid == MAINTAINER:
+    if sendinguserid in MAINTAINER:
         await ctx.send('jdu se pullovat', delete_after=5)
         cmd = '/bin/git pull'
         proc = subprocess.Popen(cmd, shell=True,stdout=subprocess.PIPE)
@@ -148,7 +148,7 @@ async def updatebot(ctx):
         cmd = '/bin/systemctl restart suvbot'
         proc = subprocess.Popen(cmd, shell=True,stdout=subprocess.PIPE)
     else:
-        await ctx.send('nope '+str(MAINTAINER)+' '+str(sendinguserid), delete_after=5)     
+        await ctx.send('nope', delete_after=5)     
 #####get id
 @bot.command(name='getid', help='!getid')
 async def getid(ctx):
