@@ -10,7 +10,7 @@ from discord.ext import commands
 bot = commands.Bot(command_prefix='!')
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
-MAINTAINER = os.getenv('MAINTAINER1')
+MAINTAINER = int(os.getenv('MAINTAINER1'))
 
 @bot.event
 async def on_ready():
@@ -138,7 +138,7 @@ async def updatebot(ctx):
     #await ctx.send(final)
     sendinguserid = ctx.message.author.id
     if sendinguserid == MAINTAINER:
-        await ctx.send('jupí', delete_after=5)
+        await ctx.send('jupí '+str(MAINTAINER)+' '+str(sendinguserid), delete_after=5)
     else:
         await ctx.send('nope '+str(MAINTAINER)+' '+str(sendinguserid), delete_after=5)
 
