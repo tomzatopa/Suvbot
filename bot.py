@@ -136,8 +136,8 @@ async def help(ctx, *args):
 #leaveguld command
 @bot.command(name='leaveguld')
 async def leaveguld(ctx, arg1, arg2):
-    osoba1 = str(arg1)
-    osoba2 = sklon_5p(str(arg2))
+    osoba1 = str(arg1).capitalize()
+    osoba2 = sklon_5p(str(arg2)).capitalize()
     os1 = str(rand_line('osoba1.txt')).rstrip()
     os2 = str(rand_line('osoba2.txt')).rstrip()
     misto = str(rand_line('misto.txt')).rstrip()
@@ -184,7 +184,7 @@ async def info_error(ctx, error):
 #insult command
 @bot.command(name='insult')
 async def insult(ctx,arg1):
-    nekdo = sklon_5p(str(arg1))
+    nekdo = sklon_5p(str(arg1)).capitalize()
     pridJm1 = str(rand_line('pridJm.txt')).rstrip()
     pridJm2 = str(rand_line('pridJm.txt')).rstrip()
     while pridJm2==pridJm1:
@@ -238,7 +238,7 @@ async def iaomeme(ctx):
 #slovak command
 @bot.command(name='slovak')
 async def slovak(ctx,arg):
-    os = sklon_slovak(arg)
+    os = sklon_slovak(arg).capitalize()
     sl= 'Nie je ti kokotno '+ os +'?'
     await ctx.send(sl)
 @slovak.error
@@ -290,7 +290,7 @@ async def leave(ctx):
             vc=await channel.connect()
         await vc.disconnect()
     else:
-        await ctx.send('nope', delete_after=5)        
+        await ctx.send('nope', delete_after=5)
 
 ###############################
 ########IN CASE OF NEED########
