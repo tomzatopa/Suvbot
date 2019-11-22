@@ -94,7 +94,7 @@ def sklon_slovak(text):
 @bot.command(name='help')
 async def help(ctx, arg1):
     user = ctx.author
-    helpmsg = discord.Embed(discord.Colour.blue())
+    helpmsg = discord.Embed(colour = discord.Colour.blue())
     helpmsg.set_author(name='SUVBOT HELPIK')
     helpmsg.add_field(name='!leaveguld osoba1 osoba2', value='Generátor souvětí, které se Vám může hodit při opouštění guildy s uražením dvou osob které Vás štvaly nejvíc.', inline=True)
     helpmsg.add_field(name='!insult osoba', value='Urazí osobu, funguje mention. ', inline=True)
