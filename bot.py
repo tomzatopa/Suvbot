@@ -110,12 +110,12 @@ async def help(ctx, *args):
             posimage=str(os.listdir('./images'))
             helpmsg.add_field(name='!iaoimage vybrany-img', value='Pošle do kanálu vyberaný image', inline=True)
             helpmsg.add_field(name='mozne image:', value=''+posimage+'', inline=False)
-            user.send(helpmsg)
+            await user.send(helpmsg)
         elif "iaosound" in args:
             helpmsg.set_author(name='SUVBOT HELPIK')
-            user.send(helpmsg)
+            await user.send(helpmsg)
     else:
-        user.send(helpmsg)
+        await user.send(helpmsg)
 
 #################################
 #leaveguld command
