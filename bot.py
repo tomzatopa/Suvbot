@@ -134,7 +134,7 @@ async def help(ctx, *args):
 
 #################################
 #leaveguld command
-@bot.command(name='leaveguld', help='!leaveguld osoba1 osoba2')
+@bot.command(name='leaveguld')
 async def leaveguld(ctx, arg1, arg2):
     osoba1 = str(arg1)
     osoba2 = sklon_5p(str(arg2))
@@ -182,7 +182,7 @@ async def info_error(ctx, error):
         await ctx.send('Je potřeba zadat jména lidí: !leaveguld osoba1 osoba2')
 
 #insult command
-@bot.command(name='insult', help='!insult osoba')
+@bot.command(name='insult')
 async def insult(ctx,arg1):
     nekdo = sklon_5p(str(arg1))
     pridJm1 = str(rand_line('pridJm.txt')).rstrip()
@@ -199,7 +199,7 @@ async def info_error(ctx, error):
         await ctx.send('Je potřeba zadat jméno člověka, kterého chcete urazit.')
 
 #iaosound command
-@bot.command(name='iaosound', help='!iaosound zeddone-honk')
+@bot.command(name='iaosound')
 async def iaosound(ctx, arg1):
     channel = ctx.author.voice.channel
     #checkuje jestli existuje file ve slozce sounds/
@@ -216,7 +216,7 @@ async def info_error(ctx, error):
         await ctx.send('Je potřeba zadat zvuk k přehrání')
 
 #iaoimage command
-@bot.command(name='iaoimage', help='!iaoimage curvehrendil iao inv raidlidl taktika tyna-beam zedova-zena')
+@bot.command(name='iaoimage')
 async def iaoimage(ctx, arg1):
     if path.exists('./images/'+arg1+'.png'):
         await ctx.send(file=discord.File('./images/'+arg1+'.png'))
@@ -231,12 +231,12 @@ async def info_error(ctx, error):
         await ctx.send('Je potreba zadat obrazek')
 
 #iaomeme command - random image z iaoimage
-@bot.command(name='iaomeme', help='!iaomeme')
+@bot.command(name='iaomeme')
 async def iaoimage(ctx):
     await ctx.send(file=discord.File('./images/'+random.choice(os.listdir('./images'))))
 
 #slovak command
-@bot.command(name='slovak', help='!slovak')
+@bot.command(name='slovak')
 async def slovak(ctx,arg):
     os = sklon_slovak(arg)
     sl= 'Nie je ti kokotno '+ os +'?'
@@ -247,7 +247,7 @@ async def info_error(ctx, error):
         await ctx.send('Je potřeba zadat jméno člověka.')
 
 #update bota skrz discord
-@bot.command(name='updatebot', help='!updatebot omezeno pro urcite uzivatele')
+@bot.command(name='updatebot')
 async def updatebot(ctx):
     sendinguserid = ctx.message.author.id
     if sendinguserid in MAINTAINER:
@@ -263,13 +263,13 @@ async def updatebot(ctx):
         await ctx.send('nope', delete_after=5)
 
 #slabikar command
-@bot.command(name='slabikar', help='!slabikar')
+@bot.command(name='slabikar')
 async def slabikar(ctx):
     ins = 'https://www.youtube.com/watch?v=u1HMzYSZGIo'
     await ctx.send(ins)
 
 #join channel command
-@bot.command(name='join', help='!join')
+@bot.command(name='join')
 async def join(ctx):
     sendinguserid = ctx.message.author.id
     if sendinguserid in MAINTAINER:
@@ -279,7 +279,7 @@ async def join(ctx):
         await ctx.send('nope', delete_after=5)
 
 #leave channel command
-@bot.command(name='leave', help='!leave')
+@bot.command(name='leave')
 async def leave(ctx):
     sendinguserid = ctx.message.author.id
     if sendinguserid in MAINTAINER:
@@ -296,7 +296,7 @@ async def leave(ctx):
 ########IN CASE OF NEED########
 ###############################
 #####get id
-#@bot.command(name='getid', help='!getid')
+#@bot.command(name='getid')
 #async def getid(ctx):
 #    userid = str(ctx.message.author.id)
 #    await ctx.send(userid, delete_after=5)
