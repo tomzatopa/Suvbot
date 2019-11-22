@@ -224,6 +224,32 @@ async def slabikar(ctx):
     ins = 'https://www.youtube.com/watch?v=u1HMzYSZGIo'
     await ctx.send(ins)
 
+#join channel command
+@bot.command(name='join', help='!join')
+async def join(ctx):
+    sendinguserid = ctx.message.author.id
+    if sendinguserid in MAINTAINER:
+        channel=ctx.author.voice.channel
+        await channel.connect()
+    else:
+        await ctx.send('nope', delete_after=5)
+
+#leave channel command
+@bot.command(name='leave', help='!leave')
+async def leave(ctx):
+    sendinguserid = ctx.message.author.id
+    if sendinguserid in MAINTAINER:
+        if ctx.voice_client !=None :
+            vc=ctx.voice_client
+        else:
+            channel=ctx.author.voice.channel
+            vc=await channel.connect()
+        await vc.disconnect()
+    else:
+        await ctx.send('nope', delete_after=5)
+
+
+
 ###############################
 ########IN CASE OF NEED########
 ###############################
