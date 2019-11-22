@@ -246,14 +246,7 @@ async def leave(ctx):
             vc=await channel.connect()
         await vc.disconnect()
     else:
-        await ctx.send('nope', delete_after=5)
-
-#join channel command
-@bot.command(name='play', help='!play')
-async def play(ctx,arg):
-    song=str(arg)
-    await ctx.send('+play '+song)
-
+        await ctx.send('nope', delete_after=5)        
 
 ###############################
 ########IN CASE OF NEED########
