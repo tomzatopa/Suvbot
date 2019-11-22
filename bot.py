@@ -94,7 +94,7 @@ def strip_extensions(seznam):
         soubor = os.path.splitext(soubor)[0]
         soubory.append(soubor)
     souboryfinal='\n'.join(soubory)
-        return(souboryfinal)
+    return(souboryfinal)
 
 ###############################
 #########BOT COMMANDS##########
