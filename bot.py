@@ -232,8 +232,8 @@ async def info_error(ctx, error):
 
 #iaomeme command - random image z iaoimage
 @bot.command(name='iaomeme')
-async def iaoimage(ctx):
-    await ctx.send(file=discord.File('./images/'+random.choice(os.listdir('./images'))))
+async def iaomeme(ctx):
+    await ctx.send(file=discord.File('./memes/'+random.choice(os.listdir('./memes'))))
 
 #slovak command
 @bot.command(name='slovak')
