@@ -16,6 +16,7 @@ from discord.ext import commands
 ###SETTINGS + IMPORT PROMENNYCH
 ###############################
 bot = commands.Bot(command_prefix='!')
+bot.remove_command('help')
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 MAINTAINER = [
@@ -89,6 +90,34 @@ def sklon_slovak(text):
 ###############################
 #########BOT COMMANDS##########
 ###############################
+####HELP COMMAND - IMPORTANTE
+@bot.command(name='help')
+async def help(ctx, arg1):
+    user = ctx.author
+    helpmsg = discord.Embed(discord.Colour.blue())
+    helpmsg.set_author(name='SUVBOT HELPIK')
+    helpmsg.add_field(name='!leaveguld osoba1 osoba2', value='Generátor souvětí, které se Vám může hodit při opouštění guildy s uražením dvou osob které Vás štvaly nejvíc.', inline=True)
+    helpmsg.add_field(name='!insult osoba', value='Urazí osobu, funguje mention. ', inline=True)
+    helpmsg.add_field(name='!iaosound vybrany-zvuk', value='Přehraje ve voice kanále vybraný zvuk. Pro list dostupných zvuků zadejte: !help iaosound', inline=True)
+    helpmsg.add_field(name='!iaoimage vybrany-img', value='Pošle do kanálu vyberaný image. Pro list dostupných zvuků zadejte: !help iaoimage', inline=True)
+    helpmsg.add_field(name='!iaomeme', value='Pošle do kanálu random meme :yikes:', inline=True)
+    helpmsg.add_field(name='!slovak osoba', value='Pro naše bratry, nebojte se užít mention a jednoho z nich označit! ', inline=True)
+    helpmsg.add_field(name='!slabikar', value='Bův ví co to je... :shrug:', inline=True)
+    if arg1:
+        helpmsg.clear_fields()
+        if arg1 == "iaosound":
+            helpmsg.set_author(name='SUVBOT HELPIK')
+            posimage=str(os.listdir('./images'))
+            helpmsg.add_field(name='!iaoimage vybrany-img', value='Pošle do kanálu vyberaný image', inline=True)
+            helpmsg.add_field(name='mozne image:', value=''+posimage+'', inline=False)
+            user.send(helpmsg)
+        elif arg1 == "iaoimage":
+            helpmsg.set_author(name='SUVBOT HELPIK')
+            user.send(helpmsg)
+    else:
+        user.send(helpmsg)
+
+#################################
 #leaveguld command
 @bot.command(name='leaveguld', help='!leaveguld osoba1 osoba2')
 async def leaveguld(ctx, arg1, arg2):
