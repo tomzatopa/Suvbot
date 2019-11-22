@@ -72,8 +72,10 @@ def sklon_5p(text):
 #sklonovani do slovenskeho osloveni
 def sklon_slovak(text):
     sklon=text
-    if text.endswith('a') or text.endswith('u') or text.endswith('c'):
+    if text.endswith('a') or text.endswith('u') or text.endswith('c') or text.endswith('e'):
         sklon=text[:-1]+'ko'
+    elif text.endswith('i') or text.endswith('í') or text.endswith('y') or text.endswith('ý'):
+        sklon=text+'nko'
     elif text.endswith('ek'):
         sklon=text[:-2]+'ko'
     elif text.endswith('k'):
