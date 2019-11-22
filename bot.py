@@ -75,11 +75,13 @@ def sklon_slovak(text):
     if text.endswith('a') or text.endswith('u') or text.endswith('c') or text.endswith('e'):
         sklon=text[:-1]+'ko'
     elif text.endswith('i') or text.endswith('í') or text.endswith('y') or text.endswith('ý'):
-        sklon=text+'nko'
+        sklon+='nko'
     elif text.endswith('ek'):
         sklon=text[:-2]+'ko'
     elif text.endswith('k'):
         sklon+='o'
+    elif text.endswith('ko'):
+        sklon=text
     else:
         sklon+='ko'
     return sklon
