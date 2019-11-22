@@ -92,7 +92,7 @@ def strip_extensions(seznam):
     soubory = []
     for soubor in seznam:
         soubor = os.path.splitext(soubor)[0]
-        list.append(soubor)
+        soubory.list.append(soubor)
         return(soubory)
 
 ###############################
