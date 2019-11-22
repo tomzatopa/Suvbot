@@ -87,6 +87,14 @@ def sklon_slovak(text):
         sklon+='ko'
     return sklon
 
+#removne extensions
+def strip_extensions(seznam):
+    soubory = []
+    for soubor in seznam:
+        soubor = os.path.splitext(soubor)[0]
+        list.append(soubor)
+        return(soubory)
+
 ###############################
 #########BOT COMMANDS##########
 ###############################
@@ -100,16 +108,17 @@ async def help(ctx, *args):
     helpmsg.add_field(name='!insult osoba', value='Urazí osobu, funguje mention. ', inline=True)
     helpmsg.add_field(name='!iaosound vybrany-zvuk', value='Přehraje ve voice kanále vybraný zvuk. Pro list dostupných zvuků zadejte: !help iaosound', inline=True)
     helpmsg.add_field(name='!iaoimage vybrany-img', value='Pošle do kanálu vyberaný image. Pro list dostupných zvuků zadejte: !help iaoimage', inline=True)
-    helpmsg.add_field(name='!iaomeme', value='Pošle do kanálu random meme :yikes:', inline=True)
+    helpmsg.add_field(name='!iaomeme', value='Pošle do kanálu random meme!', inline=True)
     helpmsg.add_field(name='!slovak osoba', value='Pro naše bratry, nebojte se užít mention a jednoho z nich označit! ', inline=True)
     helpmsg.add_field(name='!slabikar', value='Bův ví co to je... :shrug:', inline=True)
     if args:
         helpmsg.clear_fields()
         if "iaoimage" in args:
             helpmsg.set_author(name='SUVBOT HELPIK')
-            posimage=str(os.listdir('./images'))
+            imagelist=os.listdir('./images')
+            argumenty=strip_extensions(imagelist)
             helpmsg.add_field(name='!iaoimage vybrany-img', value='Pošle do kanálu vyberaný image', inline=True)
-            helpmsg.add_field(name='mozne image:', value=''+posimage+'', inline=False)
+            helpmsg.add_field(name='mozne image:', value=''+argumenty+'', inline=False)
             await user.send(embed=helpmsg)
         elif "iaosound" in args:
             helpmsg.set_author(name='SUVBOT HELPIK')
