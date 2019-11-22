@@ -118,7 +118,7 @@ async def help(ctx, *args):
             helpmsg.set_author(name='SUVBOT HELPIK')
             imagelist=os.listdir('./images')
             argumenty=strip_extensions(imagelist)
-            helpmsg.add_field(name='!iaoimage vybrany-img', value='Pošle do kanálu vyberaný image', inline=True)
+            helpmsg.add_field(name='!iaoimage vybrany-img', value='Pošle do kanálu vybraný image', inline=True)
             helpmsg.add_field(name='mozne image:', value=''+argumenty+'', inline=False)
             await user.send(embed=helpmsg)
         elif "iaosound" in args:
