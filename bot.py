@@ -92,7 +92,7 @@ def sklon_slovak(text):
 ###############################
 ####HELP COMMAND - IMPORTANTE
 @bot.command(name='help')
-async def help(ctx, arg1):
+async def help(ctx, *args):
     user = ctx.author
     helpmsg = discord.Embed(colour = discord.Colour.blue())
     helpmsg.set_author(name='SUVBOT HELPIK')
@@ -103,15 +103,15 @@ async def help(ctx, arg1):
     helpmsg.add_field(name='!iaomeme', value='Pošle do kanálu random meme :yikes:', inline=True)
     helpmsg.add_field(name='!slovak osoba', value='Pro naše bratry, nebojte se užít mention a jednoho z nich označit! ', inline=True)
     helpmsg.add_field(name='!slabikar', value='Bův ví co to je... :shrug:', inline=True)
-    if arg1:
+    if args:
         helpmsg.clear_fields()
-        if arg1 == "iaosound":
+        if "iaoimage" in args:
             helpmsg.set_author(name='SUVBOT HELPIK')
             posimage=str(os.listdir('./images'))
             helpmsg.add_field(name='!iaoimage vybrany-img', value='Pošle do kanálu vyberaný image', inline=True)
             helpmsg.add_field(name='mozne image:', value=''+posimage+'', inline=False)
             user.send(helpmsg)
-        elif arg1 == "iaoimage":
+        elif "iaosound" in args:
             helpmsg.set_author(name='SUVBOT HELPIK')
             user.send(helpmsg)
     else:
