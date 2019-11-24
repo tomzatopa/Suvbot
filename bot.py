@@ -303,7 +303,10 @@ async def gondorhelp(ctx,arg):
         co2 = str(rand_line('gondor.txt')).rstrip()
     gondor= kdo+'? Kde byl '+kdo+' když ' + co1 + '? Kde byl '+kdo+', když ' + co2 + '? Kde byl '+kdo[:2]+'… Ne, můj pane ' + autor + '. Jsme sami.'
     await ctx.send(gondor)
-
+@gondorhelp.error
+async def info_error(ctx, error):
+    if isinstance(error, commands.MissingRequiredArgument):
+        await ctx.send('Je potřeba zadat kdo neprisel na pomoc.')
 
 ###############################
 ########IN CASE OF NEED########
