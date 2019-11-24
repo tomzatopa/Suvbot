@@ -9,8 +9,10 @@ class Gamble(commands.Cog):
         self.bot = bot
         self.ucastnici = []
         self.rolly = {}
+        self.beh = False
 
     @commands.command()
+    @commands.check(self.beh)
     async def gamblereg(self, ctx):
         """registruje hrace do gamble poolu"""
         uzivatel = ctx.message.author.name
@@ -21,6 +23,7 @@ class Gamble(commands.Cog):
             await ctx.send("registrace úspěšná")
 
     @commands.command()
+    @commands.check(self.beh)
     async def gamblelist(self, ctx):
         """listne ucastnici se uzivatele"""
         listuzivatelu='\n'.join(self.ucastnici)
@@ -31,21 +34,26 @@ class Gamble(commands.Cog):
 
     @commands.command()
     async def gamble(self, ctx, amount: int):
-        """gamble uzivatelu z listu"""
-        await ctx.send('Gamble o ' + str(amount) + 'g')
-        await ctx.send('Gamble se spustí za 60s.')
-        await asyncio.sleep(60)
-        if not self.ucastnici:
-            await ctx.send('Zaregistrovalo se 0 účastníků.')
+        if self.beh == True :
+            await ctx.send('Gamble už jednou běží')
         else:
-            for x in self.ucastnici:
-                self.rolly[x] = random.randrange(1,101)
-            await ctx.send("aktuálni rolly:")
-            for y, z in self.rolly.items():
-                await ctx.send(str(y) + ' - ' + str(z))
-            self.ucastnici = []
-            self.rolly = {}
-            await ctx.send('Gamble ukončen.')
+            """gamble uzivatelu z listu"""
+            self.beh = True
+            await ctx.send('Gamble o ' + str(amount) + 'g')
+            await ctx.send('Gamble se spustí za 60s.')
+            await asyncio.sleep(60)
+            if not self.ucastnici:
+                await ctx.send('Zaregistrovalo se 0 účastníků.')
+            else:
+                for x in self.ucastnici:
+                    self.rolly[x] = random.randrange(1,101)
+                await ctx.send("aktuálni rolly:")
+                for y, z in self.rolly.items():
+                    await ctx.send(str(y) + ' - ' + str(z))
+                self.ucastnici = []
+                self.rolly = {}
+                await ctx.send('Gamble ukončen.')
+                self.beh = False
 
     
 
