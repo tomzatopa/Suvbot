@@ -27,14 +27,8 @@ MAINTAINER = [
 ###############################
 ###########EXTENSIONS##########
 ###############################
-rozsireni = ['gamble']
-
-if __name__ == '__main__':
-    for rozsirenicko in rozsireni:
-        try:
-            bot.load_extensions(rozsirenicko)
-        except Exception as error:
-            print('{} nemuze byt nactena. [{}]'.format(rozsirenicko, error))
+bot.load_extension('gamble')
+bot.add_cog(gamble(bot))
 
 ###############################
 ##########BOT EVENTS###########
