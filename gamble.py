@@ -8,6 +8,7 @@ class Gamble(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.ucastnici = []
+        self.rolly = {}
 
     @commands.command()
     async def gamblereg(self, ctx):
@@ -24,6 +25,18 @@ class Gamble(commands.Cog):
         """listne ucastnici se uzivatele"""
         listuzivatelu='\n'.join(self.ucastnici)
         await ctx.send(listuzivatelu)
+
+    @commands.command()
+    async def gamble(self, ctx, amount: int):
+        """gamble uzivatelu z listu"""
+        await asyncio.sleep(15)
+        for x in self.ucastnici:
+            self.rolly[x] = random.randrange(1,101)
+        await ctx.send("aktuálni rolly:")
+        for y, z in self.rolly.items():
+            print(y, z)
+        
+    
 
 
 # toto byl test
