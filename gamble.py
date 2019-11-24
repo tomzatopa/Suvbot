@@ -12,7 +12,7 @@ class Gamble(commands.Cog):
         self.beh = False
     
     async def beh(ctx):
-    return self.beh
+        return self.beh
 
     @commands.command()
     @commands.check(beh)
