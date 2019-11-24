@@ -16,12 +16,12 @@ class Gamble(commands.Cog):
     async def gamblereg(self, ctx):
         """registruje hrace do gamble poolu"""
         uzivatel = ctx.message.author.name
-        ucastnici.append(str(uzivatel))
+        self.ucastnici.append(str(uzivatel))
 
     @commands.command()
     async def gamblelist(self, ctx):
         """listne ucastnici se uzivatele"""
-        listuzivatelu='\n'.join(ucastnici)
+        listuzivatelu='\n'.join(self.ucastnici)
         await ctx.send(listuzivatelu)
 
     @commands.command()
