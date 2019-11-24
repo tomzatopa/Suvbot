@@ -292,6 +292,19 @@ async def leave(ctx):
     else:
         await ctx.send('nope', delete_after=5)
 
+#gondorhelp command - na prani mistru lesiho a dapha
+@bot.command(name='gondorhelp')
+async def gondorhelp(ctx,arg):
+    autor=sklon_5p(str(ctx.message.author.name))
+    kdo=str(arg).capitalize()
+    co1 = str(rand_line('gondor.txt')).rstrip()
+    co2 = str(rand_line('gondor.txt')).rstrip()
+    while co1==co2:
+        co2 = str(rand_line('gondor.txt')).rstrip()
+    gondor= kdo+'? Kde byl '+kdo+' když ' + co1 + '? Kde byl '+kdo+', když ' + co2 + '? Kde byl '+kdo[:2]+'… Ne, můj pane ' + autor + '. Jsme sami.'
+    await ctx.send(gondor)
+
+
 ###############################
 ########IN CASE OF NEED########
 ###############################
