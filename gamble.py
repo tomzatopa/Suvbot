@@ -10,9 +10,12 @@ class Gamble(commands.Cog):
         self.ucastnici = []
         self.rolly = {}
         self.beh = False
+    
+    async def beh(ctx):
+    return self.beh
 
     @commands.command()
-    @commands.check(self.beh)
+    @commands.check(beh)
     async def gamblereg(self, ctx):
         """registruje hrace do gamble poolu"""
         uzivatel = ctx.message.author.name
@@ -23,7 +26,7 @@ class Gamble(commands.Cog):
             await ctx.send("registrace úspěšná")
 
     @commands.command()
-    @commands.check(self.beh)
+    @commands.check(beh)
     async def gamblelist(self, ctx):
         """listne ucastnici se uzivatele"""
         listuzivatelu='\n'.join(self.ucastnici)
