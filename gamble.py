@@ -37,6 +37,9 @@ class Gamble(commands.Cog):
         await ctx.send("aktuálni rolly:")
         for y, z in self.rolly.items():
             await ctx.send(str(y) + ' ' + str(z))
+        self.ucastnici = []
+        self.rolly = {}
+        await ctx.send('Gamble ukončen.')
         
     
 
