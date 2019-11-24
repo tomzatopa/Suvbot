@@ -119,6 +119,8 @@ async def help(ctx, *args):
     helpmsg.add_field(name='__**!iaomeme**__', value='Pošle do kanálu random meme!', inline=True)
     helpmsg.add_field(name='__**!slovak osoba**__', value='Pro naše bratry, nebojte se užít mention a jednoho z nich označit! ', inline=True)
     helpmsg.add_field(name='__**!slabikar**__', value='Bův ví co to je... :shrug:', inline=True)
+    helpmsg.add_field(name='__**!gondorhelp**__', value='Gondor help.... mluví za vše', inline=True)
+
     if args:
         helpmsg.clear_fields()
         if "iaoimage" in args:

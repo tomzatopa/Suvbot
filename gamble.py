@@ -18,5 +18,7 @@ class Gamble(commands.Cog):
             await ctx.send("1")
         else:
             await ctx.send("0")
+
+###setup cogu
 def setup(bot):
     bot.add_cog(Gamble(bot))
