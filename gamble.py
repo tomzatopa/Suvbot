@@ -34,7 +34,7 @@ class Gamble(commands.Cog):
             self.rolly[x] = random.randrange(1,101)
         await ctx.send("aktuálni rolly:")
         for y, z in self.rolly.items():
-            print(y, z)
+            await ctx.send(y + ' ' + z)
         
     
 
