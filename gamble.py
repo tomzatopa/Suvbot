@@ -1,5 +1,6 @@
 import discord
 import asyncio
+import random
 from discord.ext import commands
 
 
@@ -11,7 +12,7 @@ class Gamble(commands.Cog):
         return random.randint(0, 1)
 
     @commands.command()
-    async def gamble(self, ctx, money: int):
+    async def gamble(self, ctx):
         """gamble"""
         if self.coinflip() == 1:
             await ctx.send("1")
