@@ -29,7 +29,7 @@ class Gamble(commands.Cog):
     @commands.command()
     async def gamble(self, ctx, amount: int):
         """gamble uzivatelu z listu"""
-        await ctx.send('Gamble o ' + amount + 'g')
+        await ctx.send('Gamble o ' + str(amount) + 'g')
         await ctx.send('Gamble se spustí za 60s.')
         await asyncio.sleep(60)
         for x in self.ucastnici:
