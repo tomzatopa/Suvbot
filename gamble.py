@@ -7,11 +7,10 @@ from discord.ext import commands
 class Gamble(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+        self.ucastnici = []
 
     def coinflip(self):
         return random.randint(0, 1)
-
-    ucastnici = []
 
     @commands.command()
     async def gamblereg(self, ctx):
