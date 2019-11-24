@@ -13,6 +13,18 @@ from discord.ext import commands
 
 
 ###############################
+###########EXTENSIONS##########
+###############################
+rozsireni = ['gamble']
+
+if __name__ == '__main__':
+    for rozsirenicko in rozsireni:
+        try:
+            bot.load_extensions(rozsirenicko)
+        except Vyjimka as error:
+            print('{} nemuze byt nactena. [{}]'.format(rozsirenicko, error))
+
+###############################
 ###SETTINGS + IMPORT PROMENNYCH
 ###############################
 bot = commands.Bot(command_prefix='!')
