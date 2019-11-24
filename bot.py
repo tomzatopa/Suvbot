@@ -61,7 +61,7 @@ def sklon_5p(text):
     elif text.endswith('ek'):
         sklon=text[:-2]+'ku'
     elif text.endswith('ph'):
-        sklon=text+'e'
+        sklon+='e'
     elif text.endswith('s') or text.endswith('š') or text.endswith('x') or text.endswith('j')  or text.endswith('č') or text.endswith('ř'):
         sklon+='i'
     elif text.endswith('g') or text.endswith('h') or text.endswith('k') or text.endswith('q'):
