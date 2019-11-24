@@ -17,6 +17,7 @@ class Gamble(commands.Cog):
             await ctx.send("uz jsi registrovan")
         else:
             self.ucastnici.append(str(uzivatel))
+            await ctx.send("registrace úspěšná")
 
     @commands.command()
     async def gamblelist(self, ctx):
