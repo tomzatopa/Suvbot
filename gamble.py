@@ -11,6 +11,20 @@ class Gamble(commands.Cog):
     def coinflip(self):
         return random.randint(0, 1)
 
+    ucastnici = []
+
+    @commands.command()
+    async def gamblereg(self, ctx):
+        """registruje hrace do gamble poolu"""
+        uzivatel = ctx.message.author.name
+        ucastnici.append(str(uzivatel))
+
+    @commands.command()
+    async def gamblelist(self, ctx):
+        """listne ucastnici se uzivatele"""
+        listuzivatelu='\n'.join(ucastnici)
+        await ctx.send(listuzivatelu)
+
     @commands.command()
     async def gamble(self, ctx):
         """gamble"""
