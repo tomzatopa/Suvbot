@@ -28,7 +28,7 @@ MAINTAINER = [
 ###########EXTENSIONS##########
 ###############################
 bot.load_extension('gamble')
-bot.add_cog(Gabmle(bot))
+bot.add_cog(Gamble(bot))
 
 ###############################
 ##########BOT EVENTS###########
