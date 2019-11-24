@@ -24,7 +24,10 @@ class Gamble(commands.Cog):
     async def gamblelist(self, ctx):
         """listne ucastnici se uzivatele"""
         listuzivatelu='\n'.join(self.ucastnici)
-        await ctx.send(listuzivatelu)
+        if not self.ucastnici:
+            await ctx.send("0 účastníků")
+        else:
+            await ctx.send(listuzivatelu)
 
     @commands.command()
     async def gamble(self, ctx, amount: int):
@@ -32,15 +35,18 @@ class Gamble(commands.Cog):
         await ctx.send('Gamble o ' + str(amount) + 'g')
         await ctx.send('Gamble se spustí za 60s.')
         await asyncio.sleep(60)
-        for x in self.ucastnici:
-            self.rolly[x] = random.randrange(1,101)
-        await ctx.send("aktuálni rolly:")
-        for y, z in self.rolly.items():
-            await ctx.send(str(y) + ' ' + str(z))
-        self.ucastnici = []
-        self.rolly = {}
-        await ctx.send('Gamble ukončen.')
-        
+        if not self.ucastnici:
+            await ctx.send('Zaregistrovalo se 0 účastníků.')
+        else:
+            for x in self.ucastnici:
+                self.rolly[x] = random.randrange(1,101)
+            await ctx.send("aktuálni rolly:")
+            for y, z in self.rolly.items():
+                await ctx.send(str(y) + ' ' + str(z))
+            self.ucastnici = []
+            self.rolly = {}
+            await ctx.send('Gamble ukončen.')
+            
     
 
 
