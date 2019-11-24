@@ -42,11 +42,11 @@ class Gamble(commands.Cog):
                 self.rolly[x] = random.randrange(1,101)
             await ctx.send("aktuálni rolly:")
             for y, z in self.rolly.items():
-                await ctx.send(str(y) + ' ' + str(z))
+                await ctx.send(str(y) + ' - ' + str(z))
             self.ucastnici = []
             self.rolly = {}
             await ctx.send('Gamble ukončen.')
-            
+
     
 
 
