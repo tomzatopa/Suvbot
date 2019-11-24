@@ -11,6 +11,18 @@ from os import path
 from dotenv import load_dotenv
 from discord.ext import commands
 
+###############################
+###SETTINGS + IMPORT PROMENNYCH
+###############################
+bot = commands.Bot(command_prefix='!')
+bot.remove_command('help')
+load_dotenv()
+TOKEN = os.getenv('DISCORD_TOKEN')
+MAINTAINER = [
+    int(os.getenv('MAINTAINER1')),
+    int(os.getenv('MAINTAINER2'))
+    ]
+
 
 ###############################
 ###########EXTENSIONS##########
@@ -23,18 +35,6 @@ if __name__ == '__main__':
             bot.load_extensions(rozsirenicko)
         except Exception as error:
             print('{} nemuze byt nactena. [{}]'.format(rozsirenicko, error))
-
-###############################
-###SETTINGS + IMPORT PROMENNYCH
-###############################
-bot = commands.Bot(command_prefix='!')
-bot.remove_command('help')
-load_dotenv()
-TOKEN = os.getenv('DISCORD_TOKEN')
-MAINTAINER = [
-    int(os.getenv('MAINTAINER1')),
-    int(os.getenv('MAINTAINER2'))
-    ]
 
 ###############################
 ##########BOT EVENTS###########
