@@ -60,8 +60,12 @@ class Gamble(commands.Cog):
                     roll = random.randrange(1,101)
                     self.rolly.update({x:roll})
                 await ctx.send("aktuálni rolly:")
+                embedik = discord.Embed(colour = discord.Colour.blue())
+                embedik.set_author(name='Rolly')
                 for y, z in self.rolly.items():
-                    await ctx.send(str(y) + ' - ' + str(z))
+                    embedik.add_field(name=y, value=' - '+ z, inline=True)
+                    #await ctx.send(str(y) + ' - ' + str(z))
+                await ctx.send(embed=embedik)
                 prohravajici = min(self.rolly, key=self.rolly.get)
                 vyhravajici = max(self.rolly, key=self.rolly.get)
                 await ctx.send('Gamble ukončen.')
