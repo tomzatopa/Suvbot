@@ -65,7 +65,7 @@ class Gamble(commands.Cog):
                 prohravajici = min(self.rolly, key=self.rolly.get)
                 vyhravajici = max(self.rolly, key=self.rolly.get)
                 await ctx.send('Gamble ukončen.')
-                await ctx.send('Uživatel '+ str(prohravajici) + 'dá ' + str(amount) + ' uživateli ' + vyhravajici)
+                await ctx.send('**Uživatel '+ str(prohravajici) + ' dá ' + str(amount) + 'g uživateli ' + vyhravajici+'**')
                 self.ucastnici = []
                 self.rolly = {}
                 self.beh = False
