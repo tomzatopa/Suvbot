@@ -11,29 +11,30 @@ class Gamble(commands.Cog):
         self.rolly = {}
         self.beh = False
     
-    async def beh(ctx):
-        return self.beh
-
     @commands.command()
-    @commands.check(beh)
     async def gamblereg(self, ctx):
-        """registruje hrace do gamble poolu"""
-        uzivatel = ctx.message.author.name
-        if uzivatel in self.ucastnici:
-            await ctx.send("uz jsi registrovan")
+        if self.beh == True :
+            """registruje hrace do gamble poolu"""
+            uzivatel = ctx.message.author.name
+            if uzivatel in self.ucastnici:
+                await ctx.send("uz jsi registrovan")
+            else:
+                self.ucastnici.append(str(uzivatel))
+                await ctx.send("registrace úspěšná")
         else:
-            self.ucastnici.append(str(uzivatel))
-            await ctx.send("registrace úspěšná")
+            await ctx.send("není kam se registrovat, není aktivní žádný gamble")
 
     @commands.command()
-    @commands.check(beh)
     async def gamblelist(self, ctx):
-        """listne ucastnici se uzivatele"""
-        listuzivatelu='\n'.join(self.ucastnici)
-        if not self.ucastnici:
-            await ctx.send("0 účastníků")
+        if self.beh == True :
+            """listne ucastnici se uzivatele"""
+            listuzivatelu='\n'.join(self.ucastnici)
+            if not self.ucastnici:
+                await ctx.send("0 účastníků")
+            else:
+                await ctx.send(listuzivatelu)
         else:
-            await ctx.send(listuzivatelu)
+            await ctx.send("není aktivní žádný gamble, není co vypsat")
 
     @commands.command()
     async def gamble(self, ctx, amount: int):
