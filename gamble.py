@@ -55,7 +55,7 @@ class Gamble(commands.Cog):
                 for y, z in self.rolly.items():
                     await ctx.send(str(y) + ' - ' + str(z))
                 for key, value in sorted(self.rolly.items(), key=lambda item: item[1]):
-                print("%s: %s" % (key, value))
+                    print("%s: %s" % (key, value))
                 self.ucastnici = []
                 self.rolly = {}
                 await ctx.send('Gamble ukončen.')
