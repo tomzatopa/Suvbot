@@ -51,7 +51,7 @@ class Gamble(commands.Cog):
             else:
                 for x in self.ucastnici:
                     roll = random.randrange(1,101)
-                    self.rolly.append(x:roll)
+                    self.rolly.append({x:roll})
                 await ctx.send("aktuálni rolly:")
                 for y, z in self.rolly.items():
                     await ctx.send(str(y) + ' - ' + str(z))
