@@ -59,13 +59,15 @@ class Gamble(commands.Cog):
                 for x in self.ucastnici:
                     roll = random.randrange(1,101)
                     self.rolly.update({x:roll})
-                self.rolly = sorted(self.rolly.items(), key=lambda x: x[1])
                 await ctx.send("aktuálni rolly:")
                 for y, z in self.rolly.items():
                     await ctx.send(str(y) + ' - ' + str(z))
+                prohravajici = min(self.rolly, key=self.rolly.get)
+                vyhravajici = max(self.rolly, key=self.rolly.get)
+                await ctx.send('Gamble ukončen.')
+                await ctx.send('Uživatel '+ str(prohravajici) + 'dá ' + str(amount) + ' uživateli ' + vyhravajici)
                 self.ucastnici = []
                 self.rolly = {}
-                await ctx.send('Gamble ukončen.')
                 self.beh = False
 
     
