@@ -49,6 +49,11 @@ class Gamble(commands.Cog):
             self.ucastnici.append('test3')
             self.ucastnici.append('test4')
             self.ucastnici.append('test5')
+            self.ucastnici.append('test6')
+            self.ucastnici.append('test7')
+            self.ucastnici.append('test8')
+            self.ucastnici.append('test9')
+            self.ucastnici.append('test10')
             ########
             await ctx.send('Gamble o ' + str(amount) + 'g')
             await ctx.send('Gamble se spustí za 20s.')
