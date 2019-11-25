@@ -43,6 +43,13 @@ class Gamble(commands.Cog):
         else:
             """gamble uzivatelu z listu"""
             self.beh = True
+            ###testovaci uzivatele
+            self.ucastnici.append('test1')
+            self.ucastnici.append('test2')
+            self.ucastnici.append('test3')
+            self.ucastnici.append('test4')
+            self.ucastnici.append('test5')
+            ########
             await ctx.send('Gamble o ' + str(amount) + 'g')
             await ctx.send('Gamble se spustí za 20s.')
             await asyncio.sleep(20)
