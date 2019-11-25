@@ -59,11 +59,11 @@ class Gamble(commands.Cog):
                 for x in self.ucastnici:
                     roll = random.randrange(1,101)
                     self.rolly.update({x:roll})
-                await ctx.send("aktuálni rolly:")
+                await ctx.send("**Aktuálni rolly:**")
                 embedik = discord.Embed(colour = discord.Colour.blue())
                 embedik.set_author(name='Rolly')
                 for y, z in self.rolly.items():
-                    embedik.add_field(name=str(y), value=' - '+ str(z), inline=True)
+                    embedik.add_field(name='**'+str(y)+'**', value=str(z), inline=True)
                     #await ctx.send(str(y) + ' - ' + str(z))
                 await ctx.send(embed=embedik)
                 prohravajici = min(self.rolly, key=self.rolly.get)
