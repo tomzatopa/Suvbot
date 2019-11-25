@@ -50,12 +50,11 @@ class Gamble(commands.Cog):
                 await ctx.send('Zaregistrovalo se 0 účastníků.')
             else:
                 for x in self.ucastnici:
-                    self.rolly[x] = random.randrange(1,101)
+                    roll = random.randrange(1,101)
+                    self.rolly.append(x : roll)
                 await ctx.send("aktuálni rolly:")
                 for y, z in self.rolly.items():
                     await ctx.send(str(y) + ' - ' + str(z))
-                for key, value in sorted(self.rolly.items(), key=lambda item: item[1]):
-                    print("%s: %s" % (key, value))
                 self.ucastnici = []
                 self.rolly = {}
                 await ctx.send('Gamble ukončen.')
