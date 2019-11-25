@@ -152,20 +152,41 @@ async def leaveguld(ctx, arg1, arg2):
     guilda = str(rand_line('guilda.txt')).rstrip()
     nadS = str(rand_line('nadavkyS.txt')).rstrip()
 
-    pridJm1 = str(rand_line('pridJm.txt')).rstrip()
-    pridJm2 = str(rand_line('pridJm.txt')).rstrip()
-    while pridJm1==pridJm2:
-        pridJm2 = str(rand_line('pridJm.txt')).rstrip()
+    if random.randrange(1,5)==1:
+        nadFirst = str(rand_line('nadavkyF.txt')).rstrip()
+    else:
+        nadFirst = str(rand_line('nadavky.txt')).rstrip()
 
-    nadFirst = str(rand_line('nadavky.txt')).rstrip()
-    nadSecond = str(rand_line('nadavky.txt')).rstrip()
-    while nadFirst==nadSecond:
+    if random.randrange(1,5)==1:
+        pridJm1 = str(rand_line('pridJmF.txt')).rstrip()
+        nadSecond = str(rand_line('nadavkyF.txt')).rstrip()
+        while nadFirst==nadSecond:
+            nadSecond = str(rand_line('nadavkyF.txt')).rstrip()
+    else:
+        pridJm1 = str(rand_line('pridJm.txt')).rstrip()
         nadSecond = str(rand_line('nadavky.txt')).rstrip()
+        while nadFirst==nadSecond:
+            nadSecond = str(rand_line('nadavky.txt')).rstrip()
 
-    nadTy = sklon_5p(str(rand_line('nadavky.txt')).rstrip())
-    nadLast = str(rand_line('nadavkyLast.txt')).rstrip()
-    while nadTy==nadLast:
-        nadLast = str(rand_line('nadavkyLast.txt')).rstrip()
+    if random.randrange(1,5)==1:
+        nadTy = sklon_5p(str(rand_line('nadavkyF.txt')).rstrip())
+        pridJm2 = str(rand_line('pridJmF.txt')).rstrip()
+        while pridJm1==pridJm2:
+            pridJm2 = str(rand_line('pridJmF.txt')).rstrip()
+    else:
+        nadTy = sklon_5p(str(rand_line('nadavky.txt')).rstrip())
+        pridJm2 = str(rand_line('pridJm.txt')).rstrip()
+        while pridJm1==pridJm2:
+            pridJm2 = str(rand_line('pridJm.txt')).rstrip()
+
+    if random.randrange(1,5)==1:
+        nadLast = sklon_5p(str(rand_line('nadavkyF.txt')).rstrip())
+        while nadTy==nadLast:
+            nadLast = sklon_5p(str(rand_line('nadavkyF.txt')).rstrip())
+    else:
+        nadLast = sklon_5p(str(rand_line('nadavky.txt')).rstrip())
+        while nadTy==nadLast:
+            nadLast = sklon_5p(str(rand_line('nadavky.txt')).rstrip())
 
     leave='Ahoj, rozhodl jsem se leavnout guildu, protože '+osoba1+' je ' + nadFirst \
         + ' a ' + pridJm1 \
@@ -193,11 +214,18 @@ async def info_error(ctx, error):
 @bot.command(name='insult')
 async def insult(ctx,arg1):
     nekdo = sklon_5p(str(arg1)).capitalize()
-    pridJm1 = str(rand_line('pridJm.txt')).rstrip()
-    pridJm2 = str(rand_line('pridJm.txt')).rstrip()
-    while pridJm2==pridJm1:
+    if random.randrange(1,5)==1:
+        pridJm1 = str(rand_line('pridJmF.txt')).rstrip()
+        pridJm2 = str(rand_line('pridJmF.txt')).rstrip()
+        while pridJm2==pridJm1:
+            pridJm2 = str(rand_line('pridJmF.txt')).rstrip()
+        nad = sklon_5p(str(rand_line('nadavkyF.txt')).rstrip())
+    else:
+        pridJm1 = str(rand_line('pridJm.txt')).rstrip()
         pridJm2 = str(rand_line('pridJm.txt')).rstrip()
-    nad = sklon_5p(str(rand_line('nadavky.txt')).rstrip())
+        while pridJm2==pridJm1:
+            pridJm2 = str(rand_line('pridJm.txt')).rstrip()
+        nad = sklon_5p(str(rand_line('nadavky.txt')).rstrip())
     ins= nekdo + ', ty '+ pridJm1 +' '+ pridJm2 +' '+ nad+'!'
     await ctx.send(ins)
 
