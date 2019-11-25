@@ -44,8 +44,8 @@ class Gamble(commands.Cog):
             """gamble uzivatelu z listu"""
             self.beh = True
             await ctx.send('Gamble o ' + str(amount) + 'g')
-            await ctx.send('Gamble se spustí za 60s.')
-            await asyncio.sleep(60)
+            await ctx.send('Gamble se spustí za 20s.')
+            await asyncio.sleep(20)
             if not self.ucastnici:
                 await ctx.send('Zaregistrovalo se 0 účastníků.')
             else:
@@ -54,6 +54,8 @@ class Gamble(commands.Cog):
                 await ctx.send("aktuálni rolly:")
                 for y, z in self.rolly.items():
                     await ctx.send(str(y) + ' - ' + str(z))
+                for key, value in sorted(self.rolly.items(), key=lambda item: item[1]):
+                print("%s: %s" % (key, value))
                 self.ucastnici = []
                 self.rolly = {}
                 await ctx.send('Gamble ukončen.')
