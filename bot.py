@@ -353,9 +353,7 @@ async def inspire(ctx):
     req = Request(site,headers=hdr)
     page = urlopen(req).read()
     soup = BeautifulSoup(page,features="html.parser")
-    print(soup)
     await ctx.send(soup)
-
 
 ###############################
 ########IN CASE OF NEED########
