@@ -10,6 +10,8 @@ import asyncio
 from os import path
 from dotenv import load_dotenv
 from discord.ext import commands
+from urllib.request import Request, urlopen
+from bs4 import BeautifulSoup
 
 ###############################
 ###SETTINGS + IMPORT PROMENNYCH
@@ -343,6 +345,18 @@ async def gondorhelp(ctx,arg):
 async def info_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
         await ctx.send('Je potřeba zadat kdo neprisel na pomoc.')
+
+#inspire command - inspirobot
+@bot.command(name='inspire')
+async def inspire(ctx):
+    site= "https://inspirobot.me/api?generate=true"
+    hdr = {'User-Agent': 'Mozilla/5.0'}
+    req = Request(site,headers=hdr)
+    page = urlopen(req).read()
+    soup = BeautifulSoup(page,features="html.parser")
+    print(soup)
+    await ctx.send(soup)
+
 
 ###############################
 ########IN CASE OF NEED########
