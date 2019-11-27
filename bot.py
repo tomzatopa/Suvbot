@@ -368,7 +368,10 @@ async def recipe(ctx,*args):
     response=requests.get('https://api.edamam.com/search?q='+a+'&app_id=29bd28f2&app_key=1abd93a6df57ca0164ee12b63b50dd98')
     dic=response.json()
     if dic['count'] != 0 :
-        ran=random.randrange(0,10)
+        if dic['count'] < 10 :
+            ran=random.randrange(0,dic['count'])
+        else:
+            ran=random.randrange(0,10)
         res=dic['hits'][ran]['recipe']['url']
         await ctx.send(res)
     else:
