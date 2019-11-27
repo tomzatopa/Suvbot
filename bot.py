@@ -121,6 +121,7 @@ async def help(ctx, *args):
     helpmsg.add_field(name='__**!slovak osoba**__', value='Pro naše bratry, nebojte se užít mention a jednoho z nich označit! ', inline=True)
     helpmsg.add_field(name='__**!slabikar**__', value='Bův ví co to je... :shrug:', inline=True)
     helpmsg.add_field(name='__**!gondorhelp**__', value='Gondor help.... mluví za vše', inline=True)
+    helpmsg.add_field(name='__**!inspire**__', value='Zobrazí náhodnou \"inspirational quote\"', inline=True)
     if args:
         helpmsg.clear_fields()
         if "iaoimage" in args:
