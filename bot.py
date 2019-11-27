@@ -361,7 +361,9 @@ async def inspire(ctx):
     req = Request(site,headers=hdr)
     page = urlopen(req).read()
     soup = BeautifulSoup(page,features="html.parser")
-    await ctx.send(soup)
+    embed = discord.Embed()
+    embed.set_image(url=soup)
+    await ctx.send(embed=embed)
 
 #recipe command
 @bot.command(name='recipe')
