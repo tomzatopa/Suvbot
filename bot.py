@@ -129,6 +129,7 @@ async def help(ctx, *args):
     helpmsg.add_field(name='__**!fact**__', value='Zobrazí náhodný fakt', inline=True)
     helpmsg.add_field(name='__**!joke**__', value='Zobrazí náhodný dad joke', inline=True)
     helpmsg.add_field(name='__**!wolfram**__', value='Zobrazí wolframalpha dotaz', inline=True)
+    helpmsg.add_field(name='__**!office**__', value='Zobrazí náhodnou hlášku Michaela Scotta z The Office', inline=True)
     if args:
         helpmsg.clear_fields()
         if "iaoimage" in args:
@@ -414,6 +415,13 @@ async def wolfram(ctx,*args):
         embed.set_image(url=dic['queryresult']['pods'][x]['subpods'][0]['img']['src'])
     await ctx.send(embed=embed)
 
+#office command
+@bot.command(name='office')
+async def office(ctx):
+    response=requests.get('https://michael-scott-quotes.herokuapp.com/quote')
+    dic=response.json()
+    res=dic['quote']
+    await ctx.send('\"'+res+'\"')
 
 
 
