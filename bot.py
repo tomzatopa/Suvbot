@@ -7,6 +7,9 @@ import subprocess
 import random
 import discord
 import asyncio
+import requests
+import json
+import urllib.parse
 from os import path
 from dotenv import load_dotenv
 from discord.ext import commands
@@ -122,6 +125,7 @@ async def help(ctx, *args):
     helpmsg.add_field(name='__**!slabikar**__', value='Bův ví co to je... :shrug:', inline=True)
     helpmsg.add_field(name='__**!gondorhelp**__', value='Gondor help.... mluví za vše', inline=True)
     helpmsg.add_field(name='__**!inspire**__', value='Zobrazí náhodnou \"inspirational quote\"', inline=True)
+    helpmsg.add_field(name='__**!recipe neco**__', value='Vyhledá recept', inline=True)
     if args:
         helpmsg.clear_fields()
         if "iaoimage" in args:
@@ -355,6 +359,20 @@ async def inspire(ctx):
     page = urlopen(req).read()
     soup = BeautifulSoup(page,features="html.parser")
     await ctx.send(soup)
+
+#recipe command
+@bot.command(name='recipe')
+async def recipe(ctx,*args):
+    a=" ".join(args)
+    a=urllib.parse.quote_plus(a)
+    response=requests.get('https://api.edamam.com/search?q='+a+'&app_id=29bd28f2&app_key=1abd93a6df57ca0164ee12b63b50dd98')
+    dic=response.json()
+    if dic['count'] != 0 :
+        ran=random.randrange(0,10)
+        res=dic['hits'][ran]['recipe']['url']
+        await ctx.send(res)
+    else:
+        await ctx.send("Žádný recept nenalezen.")
 
 ###############################
 ########IN CASE OF NEED########
