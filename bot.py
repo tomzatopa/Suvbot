@@ -126,6 +126,7 @@ async def help(ctx, *args):
     helpmsg.add_field(name='__**!gondorhelp**__', value='Gondor help.... mluví za vše', inline=True)
     helpmsg.add_field(name='__**!inspire**__', value='Zobrazí náhodnou \"inspirational quote\"', inline=True)
     helpmsg.add_field(name='__**!recipe neco**__', value='Vyhledá recept', inline=True)
+    helpmsg.add_field(name='__**!fact**__', value='Zobrazí náhodný fakt', inline=True)
     if args:
         helpmsg.clear_fields()
         if "iaoimage" in args:
@@ -376,6 +377,14 @@ async def recipe(ctx,*args):
         await ctx.send(res)
     else:
         await ctx.send("Žádný recept nenalezen.")
+
+#fact command
+@bot.command(name='fact')
+async def fact(ctx):
+    response=requests.get('https://uselessfacts.jsph.pl/random.json?language=en')
+    dic=response.json()
+    res=dic['text']
+    await ctx.send(res)
 
 ###############################
 ########IN CASE OF NEED########
