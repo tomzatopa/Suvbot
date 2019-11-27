@@ -127,6 +127,7 @@ async def help(ctx, *args):
     helpmsg.add_field(name='__**!inspire**__', value='Zobrazí náhodnou \"inspirational quote\"', inline=True)
     helpmsg.add_field(name='__**!recipe neco**__', value='Vyhledá recept', inline=True)
     helpmsg.add_field(name='__**!fact**__', value='Zobrazí náhodný fakt', inline=True)
+    helpmsg.add_field(name='__**!joke**__', value='Zobrazí náhodný dad joke', inline=True)
     if args:
         helpmsg.clear_fields()
         if "iaoimage" in args:
@@ -385,6 +386,15 @@ async def fact(ctx):
     dic=response.json()
     res=dic['text']
     await ctx.send(res)
+
+#joke command
+@bot.command(name='joke')
+async def joke(ctx):
+    response=requests.get('https://icanhazdadjoke.com/slack')
+    dic=response.json()
+    res=dic['attachments'][0]['text']
+    await ctx.send(res)
+
 
 ###############################
 ########IN CASE OF NEED########
