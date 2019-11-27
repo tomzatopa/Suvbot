@@ -128,6 +128,7 @@ async def help(ctx, *args):
     helpmsg.add_field(name='__**!recipe neco**__', value='Vyhledá recept', inline=True)
     helpmsg.add_field(name='__**!fact**__', value='Zobrazí náhodný fakt', inline=True)
     helpmsg.add_field(name='__**!joke**__', value='Zobrazí náhodný dad joke', inline=True)
+    helpmsg.add_field(name='__**!wolfram**__', value='Zobrazí wolframalpha dotaz', inline=True)
     if args:
         helpmsg.clear_fields()
         if "iaoimage" in args:
@@ -394,6 +395,24 @@ async def joke(ctx):
     dic=response.json()
     res=dic['attachments'][0]['text']
     await ctx.send(res)
+
+#wolfram command
+@bot.command(name='wolfram')
+async def wolfram(ctx,*args):
+    a=" ".join(args)
+    a=a.replace('+', 'plus')
+    a=urllib.parse.quote_plus(a)
+    response=requests.get('http://api.wolframalpha.com/v1/query?input='+a+'&appid=JJPWTU-E5XKPQ5U9X&output=json')
+    dic=response.json()
+    embed = discord.Embed()
+    for x in range(dic['queryresult']['numpods']):
+        text=dic['queryresult']['pods'][x]['subpods'][0]['plaintext']
+        if text != "":
+            embed.add_field(name=dic['queryresult']['pods'][x]['title'], value=text, inline=False)
+        embed.set_image(url=dic['queryresult']['pods'][x]['subpods'][0]['img']['src'])
+    await ctx.send(embed=embed)
+
+
 
 
 ###############################
