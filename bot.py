@@ -126,11 +126,12 @@ async def help(ctx, *args):
     helpmsg.add_field(name='__**!gondorhelp kdo-neprisel-na-pomoc**__', value='Gondor help.... mluví za vše', inline=True)
     helpmsg.add_field(name='__**!inspire**__', value='Zobrazí náhodnou \"inspirational quote\"', inline=True)
     helpmsg.add_field(name='__**!recipe neco**__', value='Vyhledá recept', inline=True)
-    helpmsg.add_field(name='__**!fact**__', value='Zobrazí náhodný fakt', inline=True)
+
     helpmsg.add_field(name='__**!joke**__', value='Zobrazí náhodný dad joke', inline=True)
     helpmsg.add_field(name='__**!wolfram**__', value='Zobrazí wolframalpha dotaz', inline=True)
     helpmsg.add_field(name='__**!office**__', value='Zobrazí náhodnou hlášku Michaela Scotta z The Office', inline=True)
     helpmsg.add_field(name='__**!poll "otázka" odpoved1 odpoved2 atd**__', value='Vytvoří hlasování. Pokud se nenapíšou možnosti, jsou odpovědi automaticky ANO/NE. Otázka musí být v uvozovkách (a jednotlivé odpověďi taky pokud mají být víceslovné).', inline=True)
+    helpmsg.add_field(name='__**!cat**__', value='Zobrazí náhodný cat pic', inline=True)
     if args:
         helpmsg.clear_fields()
         if "iaoimage" in args:
