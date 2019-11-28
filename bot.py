@@ -138,10 +138,11 @@ async def help(ctx, *args):
     helpmsg.add_field(name='__**!recipe neco**__', value='Vyhledá recept', inline=True)
 
     helpmsg.add_field(name='__**!joke**__', value='Zobrazí náhodný dad joke', inline=True)
-    helpmsg.add_field(name='__**!wolfram**__', value='Zobrazí wolframalpha dotaz', inline=True)
+    helpmsg.add_field(name='__**!wolfram**__', value='Zobrazí odpověď na wolframalpha dotaz', inline=True)
     helpmsg.add_field(name='__**!office**__', value='Zobrazí náhodnou hlášku Michaela Scotta z The Office', inline=True)
-    helpmsg.add_field(name='__**!poll "otázka" odpoved1 odpoved2 atd**__', value='Vytvoří hlasování. Pokud se nenapíšou možnosti, jsou odpovědi automaticky ANO/NE. Otázka musí být v uvozovkách (a jednotlivé odpověďi taky pokud mají být víceslovné).', inline=True)
     helpmsg.add_field(name='__**!cat**__', value='Zobrazí náhodný cat pic', inline=True)
+    helpmsg.add_field(name='__**!poll typ otázka odpoved1 odpoved2 atd**__', value='Vytvoří hlasování. Pro více info: !help poll', inline=True)
+
     if args:
         helpmsg.clear_fields()
         if "iaoimage" in args:
@@ -157,6 +158,13 @@ async def help(ctx, *args):
             argumenty=strip_extensions(soundlist)
             helpmsg.add_field(name='!__**iaosound vybrany-sound**__', value='Přehraje do kanálu vybraný zvuk', inline=True)
             helpmsg.add_field(name='mozne zvuky:', value=''+argumenty+'', inline=False)
+            await user.send(embed=helpmsg)
+        elif "poll" in args:
+            helpmsg.set_author(name='SUVBOT HELPIK')
+            helpmsg.add_field(name='!__**!poll typ otázka odpoved1 odpoved2 atd**__', value='Vytvoří hlasování.', inline=True)
+            helpmsg.add_field(name='typ:', value='sc nebo mc:\nsc=single choice - dovolí každému zvolit pouze jednu odpověď\nmc=multiple choice - dovolí vybrat více odpovědí najednou', inline=False)
+            helpmsg.add_field(name='otázka/odpovědi:', value='musí být v uvozovkách pokud mají být víceslovné', inline=False)
+            helpmsg.add_field(name='odpovědi:', value='max 10\npokud se nenapíšou žádné možnosti, jsou odpovědi automaticky ANO/NE.', inline=False)
             await user.send(embed=helpmsg)
     else:
         await user.send("Help, který by pochopil snad každý!")
@@ -439,7 +447,7 @@ async def office(ctx):
 @bot.command(name='poll')
 async def poll(ctx,type,question,*options: str):
     if type !='sc' and type !='mc':
-        await ctx.send('Je třeba zadat typ pollu.')
+        await ctx.send('Je třeba zadat typ pollu (sc/mc).')
         return
     if len(options) > 10:
         await ctx.send('Poll může mít maximálně 10 možností odpovědi.')
