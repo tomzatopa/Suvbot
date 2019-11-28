@@ -130,6 +130,7 @@ async def help(ctx, *args):
     helpmsg.add_field(name='__**!joke**__', value='Zobrazí náhodný dad joke', inline=True)
     helpmsg.add_field(name='__**!wolfram**__', value='Zobrazí wolframalpha dotaz', inline=True)
     helpmsg.add_field(name='__**!office**__', value='Zobrazí náhodnou hlášku Michaela Scotta z The Office', inline=True)
+    helpmsg.add_field(name='__**!poll "otázka" odpoved1 odpoved2 atd**__', value='Vytvoří hlasování. Pokud se nenapíšou možnosti, jsou odpovědi automaticky ANO/NE.', inline=True)
     if args:
         helpmsg.clear_fields()
         if "iaoimage" in args:
@@ -423,7 +424,26 @@ async def office(ctx):
     res=dic['quote']
     await ctx.send('\"'+res+'\"')
 
-
+@bot.command(name='poll')
+async def poll(ctx,question,*options: str):
+    if len(options) > 10:
+        await ctx.send('Poll může mít maximálně 10 možností odpovědi.')
+        return
+    if len(options) == 0:
+        reactions = ['✅', '❌']
+        options = ['ANO', 'NE']
+    else:
+        reactions = ['1️⃣', '2⃣', '3⃣', '4⃣', '5⃣', '6⃣', '7⃣', '8⃣', '9⃣', '🔟']
+    description = []
+    await ctx.send(":bar_chart: "+question)
+    for x, option in enumerate(options):
+        description += '\n {} {}'.format(reactions[x], option)
+    embed = discord.Embed(description=''.join(description))
+    react_message = await ctx.send(embed=embed)
+    for reaction in reactions[:len(options)]:
+        await react_message.add_reaction(reaction)
+    #embed.set_footer(text='Poll ID: {}'.format(react_message.id))
+    #await react_message.edit(embed=embed)
 
 ###############################
 ########IN CASE OF NEED########
