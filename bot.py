@@ -123,7 +123,7 @@ async def help(ctx, *args):
     helpmsg.add_field(name='__**!iaomeme**__', value='Pošle do kanálu random meme!', inline=True)
     helpmsg.add_field(name='__**!slovak osoba**__', value='Pro naše bratry, nebojte se užít mention a jednoho z nich označit! ', inline=True)
     helpmsg.add_field(name='__**!slabikar**__', value='Bův ví co to je... :shrug:', inline=True)
-    helpmsg.add_field(name='__**!gondorhelp**__', value='Gondor help.... mluví za vše', inline=True)
+    helpmsg.add_field(name='__**!gondorhelp kdo-neprisel-na-pomoc**__', value='Gondor help.... mluví za vše', inline=True)
     helpmsg.add_field(name='__**!inspire**__', value='Zobrazí náhodnou \"inspirational quote\"', inline=True)
     helpmsg.add_field(name='__**!recipe neco**__', value='Vyhledá recept', inline=True)
     helpmsg.add_field(name='__**!fact**__', value='Zobrazí náhodný fakt', inline=True)
@@ -445,6 +445,16 @@ async def poll(ctx,question,*options: str):
         await react_message.add_reaction(reaction)
     #embed.set_footer(text='Poll ID: {}'.format(react_message.id))
     #await react_message.edit(embed=embed)
+
+#cat command
+@bot.command(name='cat')
+async def cat(ctx):
+    response=requests.get('http://aws.random.cat/meow')
+    dic=response.json()
+    res=dic['file']
+    embed = discord.Embed()
+    embed.set_image(url=res)
+    await ctx.send(embed=embed)
 
 ###############################
 ########IN CASE OF NEED########
