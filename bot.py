@@ -49,6 +49,16 @@ async def on_ready():
     else:
         await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.playing,name='si s tvojí mámou'))
 
+@bot.event
+async def on_reaction_add(reaction, user):
+    channel=reaction.message.channel
+    for e in reaction.message.embeds:
+        if e.footer.text=='Vyber jednu možnost.':
+            if user!=bot.user:
+                for r in reaction.message.reactions:
+                    if r!=reaction:
+                        await r.remove(user)
+
 ###############################
 ########OBECNE FUNKCE##########
 ###############################
@@ -427,7 +437,10 @@ async def office(ctx):
 
 #poll command
 @bot.command(name='poll')
-async def poll(ctx,question,*options: str):
+async def poll(ctx,type,question,*options: str):
+    if type !='sc' and type !='mc':
+        await ctx.send('Je třeba zadat typ pollu.')
+        return
     if len(options) > 10:
         await ctx.send('Poll může mít maximálně 10 možností odpovědi.')
         return
@@ -446,7 +459,12 @@ async def poll(ctx,question,*options: str):
         await react_message.add_reaction(reaction)
     #embed.set_footer(text='Poll ID: {}'.format(react_message.id))
     #await react_message.edit(embed=embed)
-
+    if type =='sc':
+        embed.set_footer(text='Vyber jednu možnost.')
+        await react_message.edit(embed=embed)
+    if type =='mc':
+        embed.set_footer(text='Vyber jednu nebo více možností.')
+        await react_message.edit(embed=embed)
 #cat command
 @bot.command(name='cat')
 async def cat(ctx):
