@@ -243,8 +243,9 @@ async def info_error(ctx, error):
 #insult command
 @bot.command(name='insult')
 async def insult(ctx,arg1):
+
     nekdo = sklon_5p(str(arg1)).capitalize()
-    if random.randrange(1,5)==1:
+    if (ctx.message.author.id == 170858681418776576) or (ctx.message.author.id == 486946934473359360) or (random.randrange(1,5)==1):
         pridJm1 = str(rand_line('pridJmF.txt')).rstrip()
         pridJm2 = str(rand_line('pridJmF.txt')).rstrip()
         while pridJm2==pridJm1:
