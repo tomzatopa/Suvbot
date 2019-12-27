@@ -63,11 +63,15 @@ async def on_reaction_add(reaction, user):
 async def on_message(message):
     if (message.channel.id == 634683421616111616) and (message.author.id != 291891867703050240):
         finalmsg = message.content
-        channel = bot.get_channel(634689737910648832)
-        await channel.send(finalmsg)
-        await message.delete()
-        channel = bot.get_channel(634683421616111616)
-        await channel.send("Vaše přihláška byla odeslána!", delete_after=5)
+        if ("**Nick a class tvojí postavy:**" in finalmsg) and ("**Tvůj progress v BfA:**" in finalmsg) and ("**Předchozí guilda a důvod odchodu:**" in finalmsg) and ("**Odkaz na logy tvého charu a na raider.io:**" in finalmsg):
+            channel = bot.get_channel(634689737910648832)
+            await channel.send(finalmsg)
+            await message.delete()
+            channel = bot.get_channel(634683421616111616)
+            await channel.send("Vaše přihláška byla odeslána!", delete_after=5)
+        else:
+            channel = bot.get_channel(634683421616111616)
+            await channel.send("Použijte prosím template přihlášky", delete_after=5)
     else:
         await bot.process_commands(message)
 
