@@ -65,6 +65,8 @@ async def on_message(message):
         finalmsg = message.content
         message.channel = 634689737910648832
         await message.channel.send(finalmsg)
+    else:
+        pass
 
 ###############################
 ########OBECNE FUNKCE##########
