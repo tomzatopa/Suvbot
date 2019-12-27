@@ -70,6 +70,7 @@ async def on_message(message):
             channel = bot.get_channel(634683421616111616)
             await channel.send("Vaše přihláška byla odeslána!", delete_after=5)
         else:
+            await message.delete()
             channel = bot.get_channel(634683421616111616)
             await channel.send("Použijte prosím template přihlášky", delete_after=5)
     else:
