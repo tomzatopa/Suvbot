@@ -66,8 +66,7 @@ async def on_message(message):
         message.channel = 634689737910648832
         await message.channel.send(finalmsg)
     else:
-        print("test")
-        pass
+        await bot.process_commands(message)
 
 ###############################
 ########OBECNE FUNKCE##########
