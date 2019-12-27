@@ -59,6 +59,12 @@ async def on_reaction_add(reaction, user):
                     if r!=reaction:
                         await r.remove(user)
 
+@bot.event
+async def on_message(message):
+    if (message.channel.id == 634683421616111616) and (message.author.id != 291891867703050240):
+        finalmsg = message.content
+        await message.delete(finalmsg, delay=3)
+
 ###############################
 ########OBECNE FUNKCE##########
 ###############################
