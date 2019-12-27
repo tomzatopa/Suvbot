@@ -62,9 +62,13 @@ async def on_reaction_add(reaction, user):
 @bot.event
 async def on_message(message):
     if (message.channel.id == 634683421616111616) and (message.author.id != 291891867703050240):
+        print("test podminky")
         finalmsg = message.content
+        print(finalmsg)
         message.channel = 634689737910648832
+        print(message.channel)
         await message.channel.send(finalmsg)
+        print("poslano")
     else:
         await bot.process_commands(message)
 
