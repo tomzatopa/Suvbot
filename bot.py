@@ -65,10 +65,10 @@ async def on_message(message):
         print("test podminky")
         finalmsg = message.content
         print(finalmsg)
-        message.channel = 634689737910648832
+        #message.channel = 634689737910648832
         print(message.channel)
-        await message.send(finalmsg)
-        print("poslano")
+        #await message.send(finalmsg)
+        #print("poslano")
     else:
         await bot.process_commands(message)
 
