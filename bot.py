@@ -66,7 +66,10 @@ async def on_message(message):
         finalmsg = message.content
         print(finalmsg)
         #message.channel = 634689737910648832
-        print(message.channel)
+        #print(message.channel)
+        channel = bot.get_channel(634689737910648832)
+        print(channel)
+        #await channel.send(finalmsg)
         #await message.send(finalmsg)
         #print("poslano")
     else:
