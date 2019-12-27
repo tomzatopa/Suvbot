@@ -67,7 +67,7 @@ async def on_message(message):
         print(finalmsg)
         message.channel = 634689737910648832
         print(message.channel)
-        await message.channel.send(finalmsg)
+        await message.send(finalmsg)
         print("poslano")
     else:
         await bot.process_commands(message)
