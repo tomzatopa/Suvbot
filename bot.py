@@ -63,7 +63,8 @@ async def on_reaction_add(reaction, user):
 async def on_message(message):
     if (message.channel.id == 634683421616111616) and (message.author.id != 291891867703050240):
         finalmsg = message.content
-        await message.delete(finalmsg, delay=3)
+        message.channel = 634689737910648832
+        await message.channel.send(finalmsg)
 
 ###############################
 ########OBECNE FUNKCE##########
