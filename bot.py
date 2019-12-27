@@ -69,9 +69,13 @@ async def on_message(message):
         #print(message.channel)
         channel = bot.get_channel(634689737910648832)
         print(channel)
-        #await channel.send(finalmsg)
+        await channel.send(finalmsg)
+        await client.delete_message(message)
+        channel = bot.get_channel(634683421616111616)
+        print(channel)
+        await channel.send("Vaše přihláška byla odeslána!", delete_after=5)
         #await message.send(finalmsg)
-        #print("poslano")
+        print("poslano")
     else:
         await bot.process_commands(message)
 
