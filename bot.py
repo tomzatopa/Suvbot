@@ -63,6 +63,7 @@ async def on_reaction_add(reaction, user):
 async def on_message(message):
     if (message.channel.id == 634683421616111616) and (message.author.id != 291891867703050240):
         finalmsg = message.content
+        id = message.author.id
         if ("Nick a class tvojí postavy:" in finalmsg) or \
         ("Máš nějaké zásadní problémy s raid timem? (Třeba práce na směny, jezdíš později z práce každou středu atd.)" in finalmsg) or \
         ("Tvůj progress v BfA:" in finalmsg) or \
@@ -74,6 +75,7 @@ async def on_message(message):
         ("Napiš nám něco o sobě (kolik ti je? kde bydlíš? číslo kreditní karty?):" in finalmsg) or \
         ("Cokoliv dalšího, co nám chceš říct:" in finalmsg):
             channel = bot.get_channel(634689737910648832)
+            await channel.send('<@'+str(id)+'>')
             await channel.send(finalmsg)
             await message.delete()
             channel = bot.get_channel(634683421616111616)
