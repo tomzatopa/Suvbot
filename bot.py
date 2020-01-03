@@ -512,12 +512,6 @@ async def cat(ctx):
     embed.set_image(url=res)
     await ctx.send(embed=embed)
 
-@bot.command(name='test')
-async def test(ctx):
-    channel = bot.get_channel(446252384738476033)
-    author = bot.get_guild(153578963204046849).get_member(417369854161584128)
-    await author.move_to(channel)
-
 
 ###############################
 ########IN CASE OF NEED########
