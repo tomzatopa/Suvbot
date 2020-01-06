@@ -440,6 +440,14 @@ async def fact(ctx):
     res=dic['text']
     await ctx.send(res)
 
+#funfact command
+@bot.command(name='funfact')
+async def funfact(ctx):
+    response=requests.get('https://uselessfacts.jsph.pl/random.json?language=en')
+    dic=response.json()
+    res=dic['text']
+    await ctx.send(res)    
+
 #joke command
 @bot.command(name='joke')
 async def joke(ctx):
