@@ -164,7 +164,8 @@ async def help(ctx, *args):
     helpmsg.add_field(name='__**!gondorhelp kdo-neprisel-na-pomoc**__', value='Gondor help.... mluví za vše', inline=True)
     helpmsg.add_field(name='__**!inspire**__', value='Zobrazí náhodnou \"inspirational quote\"', inline=True)
     helpmsg.add_field(name='__**!recipe neco**__', value='Vyhledá recept', inline=True)
-
+    helpmsg.add_field(name='__**!fact **__', value='Zobrazí náhodný fun fact', inline=True)
+    helpmsg.add_field(name='__**!funfact **__', value='Same as !fact - cos all facts are fun', inline=True)
     helpmsg.add_field(name='__**!joke**__', value='Zobrazí náhodný dad joke', inline=True)
     helpmsg.add_field(name='__**!wolfram**__', value='Zobrazí odpověď na wolframalpha dotaz', inline=True)
     helpmsg.add_field(name='__**!office**__', value='Zobrazí náhodnou hlášku Michaela Scotta z The Office', inline=True)
@@ -446,7 +447,7 @@ async def funfact(ctx):
     response=requests.get('https://uselessfacts.jsph.pl/random.json?language=en')
     dic=response.json()
     res=dic['text']
-    await ctx.send(res)    
+    await ctx.send(res)
 
 #joke command
 @bot.command(name='joke')
