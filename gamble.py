@@ -61,17 +61,16 @@ class Gamble(commands.Cog):
             self.ucastnici.append('test10')
             ########
             await ctx.send('Gamble o ' + str(amount) + 'g')
-            await ctx.send('Gamble se spustí za 20s.')
-            await asyncio.sleep(20)
+            await ctx.send('O goldy přijdeš za 30s.')
+            await asyncio.sleep(30)
             if not self.ucastnici:
-                await ctx.send('Zaregistrovalo se 0 účastníků.')
+                await ctx.send('Nikdo se nepřidal.')
             elif len(self.ucastnici) == 1:
                 await ctx.send('Nemůžeš hrát sám, to prostě nejde!')
             else:
                 await ctx.send("Generuji velice příhodné výsledky!")
                 self.rolls(self.ucastnici, self.rolly)
                 while len(set(self.rolly.values())) != len(self.rolly.values()):
-                    await ctx.send("nejsou uniq hodnoty - reroll")
                     self.rolls(self.ucastnici, self.rolly)
                 await ctx.send("**Roll:**")
                 embedik = discord.Embed(colour = discord.Colour.blue())
