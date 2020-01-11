@@ -273,7 +273,9 @@ async def info_error(ctx, error):
 @bot.command(name='insult')
 async def insult(ctx,arg1):
     nekdo = sklon_5p(str(arg1)).capitalize()
-    print(nekdo)
+    if 'Suvbot' in nekdo or 'suvbot' in nekdo :
+        await ctx.send('Nice try...')
+        return              
     if (nekdo == "<@!170858681418776576>") or (nekdo == "<@!486946934473359360>") or (random.randrange(1,5)==1):
         pridJm1 = str(rand_line('pridJmF.txt')).rstrip()
         pridJm2 = str(rand_line('pridJmF.txt')).rstrip()
