@@ -45,6 +45,8 @@ class Gamble(commands.Cog):
     async def gamble(self, ctx, amount: int):
         if self.beh == True :
             await ctx.send('Gamble už jednou běží, nedokážu dělat dvě věci najednou, nejsem Sára.')
+        elif amount == 0:
+            await ctx.send('Nemůžet hrát o nic, takhle to teda nefunguje.')
         else:
             """gamble uzivatelu z listu"""
             self.beh = True
