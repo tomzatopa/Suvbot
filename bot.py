@@ -202,7 +202,7 @@ async def help(ctx, *args):
             helpmsg.add_field(name='!gamble "počet goldů"', value='vytvoří gamble o zadaný počet goldů', inline=False)
             helpmsg.add_field(name='!gamblereg', value='provede registraci do gamblu, musí být nejdříve někým zadán !gamble "počet goldů"', inline=False)
             helpmsg.add_field(name='!gamblelist', value='vrátí seznam uživatelů zapsaných do gamblu', inline=False)
-
+            await user.send(embed=helpmsg)
     else:
         await user.send("Help, který by pochopil snad každý!")
         await user.send(embed=helpmsg)
