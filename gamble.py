@@ -11,6 +11,11 @@ class Gamble(commands.Cog):
         self.rolly = {}
         self.beh = False
     
+    def rolls(self, seznam, dictionary):
+        for x in seznam:
+            roll = random.randrange(1,101)
+            dictionary.update({x:roll})
+
     @commands.command()
     async def gamblereg(self, ctx):
         if self.beh == True :
@@ -54,6 +59,11 @@ class Gamble(commands.Cog):
             self.ucastnici.append('test8')
             self.ucastnici.append('test9')
             self.ucastnici.append('test10')
+            self.ucastnici.append('test11')
+            self.ucastnici.append('test12)
+            self.ucastnici.append('test13')
+            self.ucastnici.append('test14')
+            self.ucastnici.append('test15')
             ########
             await ctx.send('Gamble o ' + str(amount) + 'g')
             await ctx.send('Gamble se spustí za 20s.')
@@ -61,10 +71,28 @@ class Gamble(commands.Cog):
             if not self.ucastnici:
                 await ctx.send('Zaregistrovalo se 0 účastníků.')
             else:
-                for x in self.ucastnici:
-                    roll = random.randrange(1,101)
-                    self.rolly.update({x:roll})
+                rolls(self.ucastnici, self.rolly)
                 await ctx.send("**Aktuálni rolly:**")
+                embedik = discord.Embed(colour = discord.Colour.blue())
+                embedik.set_author(name='Rolly')
+                for y, z in self.rolly.items():
+                    embedik.add_field(name='__**'+str(y)+'**__', value=str(z), inline=False)
+                    #await ctx.send(str(y) + ' - ' + str(z))
+                await ctx.send(embed=embedik)
+                maximalni = min(self.rolly, key=self.rolly.get)
+                minimalni = max(self.rolly, key=self.rolly.get)
+                while len(set(self.rolly.values())) != len(self.rolly.values()):
+                    for person, value in self.rolly.items():
+                        if person == maximalni:
+                            pass
+                        elif person == minimalni:
+                            pass
+                        elif value == self.rolly.get(maximalni):
+                            await ctx.send("byl tam TIE vyherce")
+                            rolls(self.ucastnici, self.rolly)
+                        elif value == self.rolly.get(minimalni):
+                            await ctx.send("byl tam TIE prohravajiciho")
+                            rolls(self.ucastnici, self.rolly)
                 embedik = discord.Embed(colour = discord.Colour.blue())
                 embedik.set_author(name='Rolly')
                 for y, z in self.rolly.items():
@@ -73,45 +101,6 @@ class Gamble(commands.Cog):
                 await ctx.send(embed=embedik)
                 prohravajici = min(self.rolly, key=self.rolly.get)
                 vyhravajici = max(self.rolly, key=self.rolly.get)
-                for person, value in self.rolly.items():
-                    if person == vyhravajici:
-                        pass
-                    elif value == self.rolly.get(vyhravajici):
-                        await ctx.send("byl tam TIE vyherce")
-                        roll = random.randrange(1,101)
-                        while roll == self.rolly.get(vyhravajici):
-                            roll = random.randrange(1,101)
-                        self.rolly.update({person:roll})
-                        vyhravajici = max(self.rolly, key=self.rolly.get)
-                        await ctx.send("**Aktuálni rolly:**")
-                        embedik = discord.Embed(colour = discord.Colour.blue())
-                        embedik.set_author(name='Rolly')
-                        for y, z in self.rolly.items():
-                            embedik.add_field(name='__**'+str(y)+'**__', value=str(z), inline=False)
-                            #await ctx.send(str(y) + ' - ' + str(z))
-                        await ctx.send(embed=embedik)
-                    else:
-                        pass
-                for person, value in self.rolly.items():
-                    if person == prohravajici:
-                        pass
-                    elif value == self.rolly.get(prohravajici):
-                        await ctx.send("byl tam TIE prohravajiciho")
-                        roll = random.randrange(1,101)
-                        while roll == self.rolly.get(prohravajici):
-                            roll = random.randrange(1,101)
-                        self.rolly.update({person:roll})
-                        prohravajici = min(self.rolly, key=self.rolly.get)
-                        await ctx.send("**Aktuálni rolly:**")
-                        embedik = discord.Embed(colour = discord.Colour.blue())
-                        embedik.set_author(name='Rolly')
-                        for y, z in self.rolly.items():
-                            embedik.add_field(name='__**'+str(y)+'**__', value=str(z), inline=False)
-                            #await ctx.send(str(y) + ' - ' + str(z))
-                        await ctx.send(embed=embedik)
-                    else:
-                        pass
-
                 await ctx.send('Gamble ukončen.')
                 await ctx.send('**Uživatel '+ str(prohravajici) + ' dá ' + str(amount) + 'g uživateli ' + vyhravajici+'**')
                 self.ucastnici = []
