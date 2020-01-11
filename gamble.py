@@ -60,7 +60,7 @@ class Gamble(commands.Cog):
             self.ucastnici.append('test9')
             self.ucastnici.append('test10')
             self.ucastnici.append('test11')
-            self.ucastnici.append('test12)
+            self.ucastnici.append('test12')
             self.ucastnici.append('test13')
             self.ucastnici.append('test14')
             self.ucastnici.append('test15')
