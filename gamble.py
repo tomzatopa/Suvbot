@@ -65,8 +65,10 @@ class Gamble(commands.Cog):
             await asyncio.sleep(30)
             if not self.ucastnici:
                 await ctx.send('Nikdo se nepřidal.')
+                await ctx.send('Gamble ukončen.')
             elif len(self.ucastnici) == 1:
                 await ctx.send('Nemůžeš hrát sám, to prostě nejde!')
+                await ctx.send('Gamble ukončen.')
             else:
                 await ctx.send("Generuji hodně...hodně krásné výsledky!")
                 self.rolls(self.ucastnici, self.rolly)
@@ -83,9 +85,9 @@ class Gamble(commands.Cog):
                 vyhravajici = max(self.rolly, key=self.rolly.get)
                 await ctx.send('Gamble ukončen.')
                 await ctx.send('**Uživatel '+ str(prohravajici) + ' dá ' + str(amount) + 'g uživateli ' + vyhravajici+'**')
-                self.ucastnici = []
-                self.rolly = {}
-                self.beh = False
+            self.ucastnici = []
+            self.rolly = {}
+            self.beh = False
 
 ###setup cogu
 def setup(bot):
