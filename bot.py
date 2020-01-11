@@ -171,6 +171,7 @@ async def help(ctx, *args):
     helpmsg.add_field(name='__**!office**__', value='Zobrazí náhodnou hlášku Michaela Scotta z The Office', inline=True)
     helpmsg.add_field(name='__**!cat**__', value='Zobrazí náhodný cat pic', inline=True)
     helpmsg.add_field(name='__**!poll typ otázka odpoved1 odpoved2 atd**__', value='Vytvoří hlasování. Pro více info: !help poll', inline=True)
+    helpmsg.add_field(name='__**!gamble prikaz mluvi sam za sebe**__', value='Vytvoří gamble. Pro více info: !help gamble', inline=True)
 
     if args:
         helpmsg.clear_fields()
@@ -195,6 +196,13 @@ async def help(ctx, *args):
             helpmsg.add_field(name='otázka/odpovědi:', value='musí být v uvozovkách pokud mají být víceslovné', inline=False)
             helpmsg.add_field(name='odpovědi:', value='max 10\npokud se nenapíšou žádné možnosti, jsou odpovědi automaticky ANO/NE.', inline=False)
             await user.send(embed=helpmsg)
+        elif "gamble" in args:
+            helpmsg.set_author(name='SUVBOT HELPIK')
+            helpmsg.add_field(name='Obecné info:', value='Gamble může být spuštěn pouze jeden v danou chvíli. \nNa registraci do gamblu od jeho zadání máte 30 sekund.\n', inline=False)
+            helpmsg.add_field(name='!gamble "počet goldů"', value='vytvoří gamble o zadaný počet goldů', inline=False)
+            helpmsg.add_field(name='!gamblereg', value='provede registraci do gamblu, musí být nejdříve někým zadán !gamble "počet goldů"', inline=False)
+            helpmsg.add_field(name='!gamblelist', value='vrátí seznam uživatelů zapsaných do gamblu', inline=False)
+
     else:
         await user.send("Help, který by pochopil snad každý!")
         await user.send(embed=helpmsg)
