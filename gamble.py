@@ -49,19 +49,19 @@ class Gamble(commands.Cog):
             """gamble uzivatelu z listu"""
             self.beh = True
             ###testovaci uzivatele
-            self.ucastnici.append('test1')
-            self.ucastnici.append('test2')
-            self.ucastnici.append('test3')
-            self.ucastnici.append('test4')
-            self.ucastnici.append('test5')
-            self.ucastnici.append('test6')
-            self.ucastnici.append('test7')
-            self.ucastnici.append('test8')
-            self.ucastnici.append('test9')
-            self.ucastnici.append('test10')
+            ###self.ucastnici.append('test1')
+            ###self.ucastnici.append('test2')
+            ###self.ucastnici.append('test3')
+            ###self.ucastnici.append('test4')
+            ###self.ucastnici.append('test5')
+            ###self.ucastnici.append('test6')
+            ###self.ucastnici.append('test7')
+            ###self.ucastnici.append('test8')
+            ###self.ucastnici.append('test9')
+            ###self.ucastnici.append('test10')
             ########
             await ctx.send('Gamble o ' + str(amount) + 'g')
-            await ctx.send('O goldy přijdeš za 30s, stačí se přihlásit pomocí příkazu /gamblereg')
+            await ctx.send('O goldy přijdeš za 30s, stačí se přihlásit pomocí příkazu !gamblereg')
             await asyncio.sleep(30)
             if not self.ucastnici:
                 await ctx.send('Nikdo se nepřidal.')
