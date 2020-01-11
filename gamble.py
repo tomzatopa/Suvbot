@@ -71,11 +71,12 @@ class Gamble(commands.Cog):
             if not self.ucastnici:
                 await ctx.send('Zaregistrovalo se 0 účastníků.')
             else:
+                await ctx.send("Generuji velice příhodné výsledky!")
                 self.rolls(self.ucastnici, self.rolly)
                 while len(set(self.rolly.values())) != len(self.rolly.values()):
                     await ctx.send("nejsou uniq hodnoty - reroll")
                     self.rolls(self.ucastnici, self.rolly)
-                await ctx.send("**Aktuálni rolly:**")
+                await ctx.send("**Roll:**")
                 embedik = discord.Embed(colour = discord.Colour.blue())
                 embedik.set_author(name='Rolly')
                 for y, z in self.rolly.items():
