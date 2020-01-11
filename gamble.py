@@ -59,17 +59,14 @@ class Gamble(commands.Cog):
             self.ucastnici.append('test8')
             self.ucastnici.append('test9')
             self.ucastnici.append('test10')
-            self.ucastnici.append('test11')
-            self.ucastnici.append('test12')
-            self.ucastnici.append('test13')
-            self.ucastnici.append('test14')
-            self.ucastnici.append('test15')
             ########
             await ctx.send('Gamble o ' + str(amount) + 'g')
             await ctx.send('Gamble se spustí za 20s.')
             await asyncio.sleep(20)
             if not self.ucastnici:
                 await ctx.send('Zaregistrovalo se 0 účastníků.')
+            elif len(self.ucastnici) == 1:
+                await ctx.send('Nemůžeš hrát sám, to prostě nejde!')
             else:
                 await ctx.send("Generuji velice příhodné výsledky!")
                 self.rolls(self.ucastnici, self.rolly)
@@ -80,7 +77,7 @@ class Gamble(commands.Cog):
                 embedik = discord.Embed(colour = discord.Colour.blue())
                 embedik.set_author(name='Rolly')
                 for y, z in self.rolly.items():
-                    embedik.add_field(name='__**'+str(y)+'**__', value=str(z), inline=False)
+                    embedik.add_field(name='__**'+str(y)+'**__', value=str(z), inline=True)
                     #await ctx.send(str(y) + ' - ' + str(z))
                 await ctx.send(embed=embedik)
                 prohravajici = min(self.rolly, key=self.rolly.get)
