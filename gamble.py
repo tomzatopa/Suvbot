@@ -44,7 +44,7 @@ class Gamble(commands.Cog):
     @commands.command()
     async def gamble(self, ctx, amount: int):
         if self.beh == True :
-            await ctx.send('Gamble už jednou běží')
+            await ctx.send('Gamble už jednou běží, nedokážu dělat dvě věci najednou, nejsem Sára.')
         else:
             """gamble uzivatelu z listu"""
             self.beh = True
@@ -61,14 +61,14 @@ class Gamble(commands.Cog):
             self.ucastnici.append('test10')
             ########
             await ctx.send('Gamble o ' + str(amount) + 'g')
-            await ctx.send('O goldy přijdeš za 30s.')
+            await ctx.send('O goldy přijdeš za 30s, stačí se přihlásit pomocí příkazu /gamblereg')
             await asyncio.sleep(30)
             if not self.ucastnici:
                 await ctx.send('Nikdo se nepřidal.')
             elif len(self.ucastnici) == 1:
                 await ctx.send('Nemůžeš hrát sám, to prostě nejde!')
             else:
-                await ctx.send("Generuji velice příhodné výsledky!")
+                await ctx.send("Generuji hodně...hodně krásné výsledky!")
                 self.rolls(self.ucastnici, self.rolly)
                 while len(set(self.rolly.values())) != len(self.rolly.values()):
                     self.rolls(self.ucastnici, self.rolly)
