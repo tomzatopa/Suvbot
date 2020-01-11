@@ -455,7 +455,7 @@ async def funfact(ctx):
 
 #joke command
 @bot.command(name='joke')
-async def joke(ctx):da
+async def joke(ctx):
     response=requests.get('https://icanhazdadjoke.com/slack')
     dic=response.json()
     res=dic['attachments'][0]['text']
