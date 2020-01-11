@@ -335,7 +335,11 @@ async def iaomeme(ctx):
 @bot.command(name='slovak')
 async def slovak(ctx,arg):
     os = sklon_slovak(arg).capitalize()
-    sl= 'Nie je ti kokotno '+ os +'?'
+    r=random.randrange(1,3)
+    if r==1:
+        sl= 'Nie je ti pičně '+ os +'?'
+    else:
+        sl= 'Nie je ti kokotno '+ os +'?'
     await ctx.send(sl)
 @slovak.error
 async def info_error(ctx, error):
@@ -451,7 +455,7 @@ async def funfact(ctx):
 
 #joke command
 @bot.command(name='joke')
-async def joke(ctx):
+async def joke(ctx):da
     response=requests.get('https://icanhazdadjoke.com/slack')
     dic=response.json()
     res=dic['attachments'][0]['text']
