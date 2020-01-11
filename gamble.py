@@ -80,6 +80,7 @@ class Gamble(commands.Cog):
                     #await ctx.send(str(y) + ' - ' + str(z))
                 await ctx.send(embed=embedik)
                 while len(set(self.rolly.values())) != len(self.rolly.values()):
+                    await ctx.send("nejsou uniq hodnoty - reroll")
                     self.rolls(self.ucastnici, self.rolly)
                 await ctx.send("**Aktuálni rolly:**")
                 embedik = discord.Embed(colour = discord.Colour.blue())
