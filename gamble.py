@@ -71,7 +71,7 @@ class Gamble(commands.Cog):
             if not self.ucastnici:
                 await ctx.send('Zaregistrovalo se 0 účastníků.')
             else:
-                rolls(self.ucastnici, self.rolly)
+                self.rolls(self.ucastnici, self.rolly)
                 await ctx.send("**Aktuálni rolly:**")
                 embedik = discord.Embed(colour = discord.Colour.blue())
                 embedik.set_author(name='Rolly')
@@ -89,10 +89,10 @@ class Gamble(commands.Cog):
                             pass
                         elif value == self.rolly.get(maximalni):
                             await ctx.send("byl tam TIE vyherce")
-                            rolls(self.ucastnici, self.rolly)
+                            self.rolls(self.ucastnici, self.rolly)
                         elif value == self.rolly.get(minimalni):
                             await ctx.send("byl tam TIE prohravajiciho")
-                            rolls(self.ucastnici, self.rolly)
+                            self.rolls(self.ucastnici, self.rolly)
                 embedik = discord.Embed(colour = discord.Colour.blue())
                 embedik.set_author(name='Rolly')
                 for y, z in self.rolly.items():
