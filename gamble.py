@@ -79,20 +79,9 @@ class Gamble(commands.Cog):
                     embedik.add_field(name='__**'+str(y)+'**__', value=str(z), inline=False)
                     #await ctx.send(str(y) + ' - ' + str(z))
                 await ctx.send(embed=embedik)
-                maximalni = min(self.rolly, key=self.rolly.get)
-                minimalni = max(self.rolly, key=self.rolly.get)
                 while len(set(self.rolly.values())) != len(self.rolly.values()):
-                    for person, value in self.rolly.items():
-                        if person == maximalni:
-                            pass
-                        elif person == minimalni:
-                            pass
-                        elif value == self.rolly.get(maximalni):
-                            await ctx.send("byl tam TIE vyherce")
-                            self.rolls(self.ucastnici, self.rolly)
-                        elif value == self.rolly.get(minimalni):
-                            await ctx.send("byl tam TIE prohravajiciho")
-                            self.rolls(self.ucastnici, self.rolly)
+                    self.rolls(self.ucastnici, self.rolly)
+                await ctx.send("**Aktuálni rolly:**")
                 embedik = discord.Embed(colour = discord.Colour.blue())
                 embedik.set_author(name='Rolly')
                 for y, z in self.rolly.items():
