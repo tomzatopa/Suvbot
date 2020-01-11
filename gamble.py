@@ -101,7 +101,7 @@ class Gamble(commands.Cog):
                         while roll == self.rolly.get(prohravajici):
                             roll = random.randrange(1,101)
                         self.rolly.update({person:roll})
-                        prohravajici = max(self.rolly, key=self.rolly.get)
+                        prohravajici = min(self.rolly, key=self.rolly.get)
                         await ctx.send("**Aktuálni rolly:**")
                         embedik = discord.Embed(colour = discord.Colour.blue())
                         embedik.set_author(name='Rolly')
