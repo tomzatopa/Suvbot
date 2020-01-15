@@ -59,8 +59,13 @@ async def on_reaction_add(reaction, user):
                     if r!=reaction:
                         await r.remove(user)
 
+<<<<<<< HEAD
 #@bot.event
 #async def on_member_update(before,after):
+=======
+@bot.event
+async def on_member_update(before,after):
+>>>>>>> c3b46e07d54c2d5aa148ceba627edbbd615d36bb
     #for b in before.roles:
     #    if b.id==464769766117212160:
     #        for a in after.roles:
