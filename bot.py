@@ -184,6 +184,7 @@ async def help(ctx, *args):
     helpmsg.add_field(name='__**!cat**__', value='Zobrazí náhodný cat pic', inline=True)
     helpmsg.add_field(name='__**!poll typ otázka odpoved1 odpoved2 atd**__', value='Vytvoří hlasování. Pro více info: !help poll', inline=True)
     helpmsg.add_field(name='__**!gamble prikaz mluvi sam za sebe**__', value='Vytvoří gamble. Pro více info: !help gamble', inline=True)
+    helpmsg.add_field(name='__**!short URL**__', value='Zkrátí URL', inline=True)
 
     if args:
         helpmsg.clear_fields()
@@ -491,6 +492,7 @@ async def shorturl(ctx, arg1: str):
     response = requests.request("POST", url, data=content, headers=headers)
     print(response.text)
     await user.send('Zkracena URL: {}'.format(response.json()["shortUrl"]))
+    await ctx.message.delete(ctx.embed())
     #print(content)
     #print(headers)
     #async with aiohttp.ClientSession(headers=headers) as session:
