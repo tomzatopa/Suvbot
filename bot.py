@@ -489,7 +489,7 @@ async def shorturl(ctx, arg1: str):
     resp=requests.post(api_url, json=content, headers=headers)
     if resp.status_code != 200:
         await user.send("něco se pokazilo")
-        await user.send("resp code:"+ resp.status_code)
+        await user.send("resp code:"+ str(resp.status_code))
     else:
         #await user.send('Zkracena URL: {}'.format(resp.json()["shortUrl"]))
         await user.send('Zkracena URL: {}'.format(resp.json()))
