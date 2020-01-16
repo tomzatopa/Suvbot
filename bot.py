@@ -485,10 +485,10 @@ async def shorturl(ctx, arg1: str):
     headers={'Content-Type':'application/json','Accept':'application/json','X-Api-Key':''+SPCKAPI+''}
     print(content)
     print(headers)
-    async with aiohttp.ClientSession() as session:
-        async with session.post('https://spck.cz/rest/v2/short_urls', data=content, headers=headers) as resp:
+    async with aiohttp.ClientSession(headers=headers) as session:
+        async with session.post('https://spck.cz/rest/v2/short_urls', data=content) as resp:
             print(resp.status)
-            print(await resp.read())
+            print(await resp.json())
     
 #joke command
 @bot.command(name='joke')
