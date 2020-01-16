@@ -491,7 +491,7 @@ async def shorturl(ctx, arg1: str):
             print(resp.method)
             print(resp.headers)
             print(resp.status)
-            print(await resp.text())
+            print(await resp.json())
     
 #joke command
 @bot.command(name='joke')
