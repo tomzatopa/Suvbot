@@ -481,7 +481,7 @@ async def shorturl(ctx, arg1: str):
     user = ctx.author
     begindate=datetime.datetime.now()
     enddate=begindate+datetime.timedelta(days=1)
-    api_url=requests.get('https://spck.cz/rest/v2/short_urls')
+    api_url="https://spck.cz/rest/v2/short_urls"
     content={"longUrl":""+arg1+"","validSince":""+begindate.strftime('%Y-%m-%dT%H:%M:%SZ')+"","validUntil":""+enddate.strftime('%Y-%m-%dT%H:%M:%SZ')+"","findIfExists":"true"}
     print(content)
     resp=requests.post(api_url, json=content)
