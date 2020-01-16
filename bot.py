@@ -476,7 +476,7 @@ async def funfact(ctx):
 
 #shorturl command
 @bot.command(name='shorturl')
-async def shorturl(ctx, arg1):
+async def shorturl(ctx, arg1: str):
     user = ctx.author
     begindate=datetime.datetime.now()
     enddate=begindate+datetime.timedelta(days=1)
