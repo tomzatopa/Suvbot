@@ -487,6 +487,9 @@ async def shorturl(ctx, arg1: str):
     print(headers)
     async with aiohttp.ClientSession() as session:
         async with session.post('https://spck.cz/rest/v2/short_urls', data=content, headers=headers) as resp:
+            print(resp.url)
+            print(resp.method)
+            print(resp.headers)
             print(resp.status)
             print(await resp.text())
     
