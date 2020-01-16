@@ -488,7 +488,7 @@ async def shorturl(ctx, arg1: str):
     #    'X-Api-Key':"\""+SPCKAPI+"\""
     #    }
     ###WORKING####url = "https://spck.cz/rest/v2/short-urls"
-    ###WORKING####payload = "{\"longUrl\": \"https://stackoverflow.com/questions/6871016/adding-5-days-to-a-date-in-python\",\"validSince\": \"2020-01-16T21:42:38Z\",\"validUntil\": \"2020-01-17T21:42:38Z\",\"findIfExists\": \"true\"}"
+    payload = "{\"longUrl\": \"https://stackoverflow.com/questions/6871016/adding-5-days-to-a-date-in-python\",\"validSince\": \"2020-01-16T21:42:38Z\",\"validUntil\": \"2020-01-17T21:42:38Z\",\"findIfExists\": \"true\"}"
     headers = {
     'x-api-key': "5fe7966f-5d78-4f16-b6b4-ad1690b3feb4",
     'content-type': "application/json",
@@ -499,7 +499,7 @@ async def shorturl(ctx, arg1: str):
     print(content)
     print(headers)
     async with aiohttp.ClientSession(headers=headers) as session:
-        async with session.post('https://spck.cz/rest/v2/short_urls', data=content) as resp:
+        async with session.post('https://spck.cz/rest/v2/short_urls', data=payload) as resp:
             print(resp.status)
             print(await resp.text())
     
