@@ -483,6 +483,7 @@ async def shorturl(ctx, arg1: str):
     enddate=begindate+datetime.timedelta(days=1)
     api_url=requests.get('https://spck.cz/rest/v2/short_urls')
     content={"longUrl":""+arg1+"","validSince":""+begindate.strftime('%Y-%m-%dT%H:%M:%SZ')+"","validUntil":""+enddate.strftime('%Y-%m-%dT%H:%M:%SZ')+"","findIfExists":"true"}
+    print(content)
     resp=requests.post(api_url, json=content)
     if resp.status_code != 200:
         await user.send("něco se pokazilo")
