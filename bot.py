@@ -496,8 +496,8 @@ async def shorturl(ctx, arg1: str):
     ###WORKING####}
     ###WORKING####response = requests.request("POST", url, data=payload, headers=headers)
     ###WORKING####print(response.text)
-    #print(content)
-    #print(headers)
+    print(content)
+    print(headers)
     async with aiohttp.ClientSession(headers=headers) as session:
         async with session.post('https://spck.cz/rest/v2/short_urls', data=content) as resp:
             print(resp.status)
