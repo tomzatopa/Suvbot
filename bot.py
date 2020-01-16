@@ -484,7 +484,7 @@ async def shorturl(ctx, arg1: str):
     content={"longUrl":""+arg1+"","validSince":""+begindate.strftime('%Y-%m-%dT%H:%M:%SZ')+"","validUntil":""+enddate.strftime('%Y-%m-%dT%H:%M:%SZ')+"","findIfExists":"true"}
     headers={'Content-Type':'application/json','Accept':'application/json','X-Api-Key':''+SPCKAPI+''}
     async with aiohttp.ClientSession() as session:
-        async with session.post('https://spck.cz/rest/v2/short_urls', json=content, headers=headers) as resp:
+        async with session.post('https://spck.cz/rest/v2/short_urls', data=content, headers=headers) as resp:
             print(resp.status)
             print(await resp.json())
     
