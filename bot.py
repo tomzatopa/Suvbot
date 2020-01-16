@@ -11,6 +11,7 @@ import requests
 import json
 import urllib.parse
 import datetime
+import aiohttp
 from datetime import timedelta
 from os import path
 from dotenv import load_dotenv
@@ -477,25 +478,15 @@ async def funfact(ctx):
 #shorturl command
 @bot.command(name='shorturl')
 async def shorturl(ctx, arg1: str):
-    print(arg1)
     user = ctx.author
     begindate=datetime.datetime.now()
     enddate=begindate+datetime.timedelta(days=1)
-    api_url="https://spck.cz/rest/v2/short_urls"
     content={"longUrl":""+arg1+"","validSince":""+begindate.strftime('%Y-%m-%dT%H:%M:%SZ')+"","validUntil":""+enddate.strftime('%Y-%m-%dT%H:%M:%SZ')+"","findIfExists":"true"}
-    print(content)
     headers={'Content-Type':'application/json','Accept':'application/json','X-Api-Key':''+SPCKAPI+''}
-    print(headers)
-    resp=requests.post('https://spck.cz/rest/v2/short_urls', json=content, headers=headers)
-    print(resp.request.body)
-    print(resp.request.headers)
-    if resp.status_code != 200:
-        await user.send("něco se pokazilo")
-        await user.send("resp code:"+ str(resp.status_code))
-        await user.send("resp code:"+ str(resp.url))
-    else:
-        #await user.send('Zkracena URL: {}'.format(resp.json()["shortUrl"]))
-        await user.send('Zkracena URL: {}'.format(resp.json()))
+    async with aiohttp.ClientSession() as session:
+        async with session.post('https://spck.cz/rest/v2/short_urls', json=content, headers=headers) as resp:
+            print(resp.status)
+            print(await resp.json())
     
 #joke command
 @bot.command(name='joke')
