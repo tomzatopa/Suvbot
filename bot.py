@@ -501,7 +501,7 @@ async def shorturl(ctx, arg1: str):
     async with aiohttp.ClientSession(headers=headers) as session:
         async with session.post('https://spck.cz/rest/v2/short_urls', data=content) as resp:
             print(resp.status)
-            print(await resp.json())
+            print(await resp.text())
     
 #joke command
 @bot.command(name='joke')
