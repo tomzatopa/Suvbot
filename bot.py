@@ -29,7 +29,7 @@ MAINTAINER = [
     int(os.getenv('MAINTAINER1')),
     int(os.getenv('MAINTAINER2'))
     ]
-
+SPCKAPI = s.getenv('SPCKAPI')
 ###############################
 ###########EXTENSIONS##########
 ###############################
@@ -484,7 +484,8 @@ async def shorturl(ctx, arg1: str):
     api_url="https://spck.cz/rest/v2/short_urls"
     content={"longUrl":""+arg1+"","validSince":""+begindate.strftime('%Y-%m-%dT%H:%M:%SZ')+"","validUntil":""+enddate.strftime('%Y-%m-%dT%H:%M:%SZ')+"","findIfExists":"true"}
     print(content)
-    resp=requests.post(api_url, json=content)
+    headers={'Content-Type':'application/json','Accept':'application/json','X-Api-Key':''+SPCKAPI+''}
+    resp=requests.post(api_url, json=content, headers=headers)
     if resp.status_code != 200:
         await user.send("něco se pokazilo")
     await user.send('Zkracena URL: {}'.format(resp.json()["shortUrl"]))
