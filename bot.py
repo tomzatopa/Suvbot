@@ -490,7 +490,7 @@ async def shorturl(ctx, arg1: str):
     url = "https://spck.cz/rest/v2/short-urls"
     response = requests.request("POST", url, data=content, headers=headers)
     print(response.text)
-    print('Zkracena URL: {}'.format(response.json()["shortUrl"]))
+    await user.send('Zkracena URL: {}'.format(response.json()["shortUrl"]))
     #print(content)
     #print(headers)
     #async with aiohttp.ClientSession(headers=headers) as session:
