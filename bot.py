@@ -499,9 +499,9 @@ async def shorturl(ctx, arg1: str):
     print(content)
     print(headers)
     async with aiohttp.ClientSession(headers=headers) as session:
-        async with session.post('https://spck.cz/rest/v2/short_urls', data=payload, headers=headers) as resp:
+        async with session.post('https://spck.cz/rest/v2/short_urls', json={"longUrl":"https://stackoverflow.com/questions/6871016/adding-5-days-to-a-date-in-python","validSince":"2020-01-16T23:26:42Z","validUntil":"2020-01-17T23:26:42Z","findIfExists":"true"}, headers=headers) as resp:
             print(resp.status)
-            print(await resp.text())
+            print(await resp.json())
     
 #joke command
 @bot.command(name='joke')
