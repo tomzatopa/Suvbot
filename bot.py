@@ -485,7 +485,7 @@ async def shorturl(ctx, arg1: str):
     headers={
         'Content-Type':'application/json',
         'Accept':'application/json',
-        'X-Api-Key':"\""+SPCKAPI+"\""
+        'X-Api-Key':''+SPCKAPI+''
         }
     url = "https://spck.cz/rest/v2/short-urls"
     #headers = {
