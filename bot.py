@@ -492,7 +492,7 @@ async def shorturl(ctx, arg1: str):
     response = requests.request("POST", url, data=content, headers=headers)
     print(response.text)
     await user.send('Zkracena URL: {}'.format(response.json()["shortUrl"]))
-    await ctx.message.delete(ctx.embed())
+    await ctx.message.edit(embed())
     #print(content)
     #print(headers)
     #async with aiohttp.ClientSession(headers=headers) as session:
