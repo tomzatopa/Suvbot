@@ -486,7 +486,7 @@ async def shorturl(ctx, arg1: str):
     print(content)
     headers={'Content-Type':'application/json','Accept':'application/json','X-Api-Key':''+SPCKAPI+''}
     print(headers)
-    resp=requests.post(api_url, json=content, headers=headers)
+    resp=requests.post('https://spck.cz/rest/v2/short_urls', json=content, headers=headers)
     print(resp.request.body)
     print(resp.request.headers)
     if resp.status_code != 200:
