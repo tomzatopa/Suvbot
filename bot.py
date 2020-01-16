@@ -29,7 +29,7 @@ MAINTAINER = [
     int(os.getenv('MAINTAINER1')),
     int(os.getenv('MAINTAINER2'))
     ]
-SPCKAPI = s.getenv('SPCKAPI')
+SPCKAPI = os.getenv('SPCKAPI')
 ###############################
 ###########EXTENSIONS##########
 ###############################
