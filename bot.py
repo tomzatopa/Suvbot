@@ -481,23 +481,27 @@ async def shorturl(ctx, arg1: str):
     user = ctx.author
     begindate=datetime.datetime.now()
     enddate=begindate+datetime.timedelta(days=1)
-    #content={"longUrl":""+arg1+"","validSince":""+begindate.strftime('%Y-%m-%dT%H:%M:%SZ')+"","validUntil":""+enddate.strftime('%Y-%m-%dT%H:%M:%SZ')+"","findIfExists":"true"}
-    #headers={'Content-Type':'application/json','Accept':'application/json','X-Api-Key':''+SPCKAPI+''}
-    url = "https://spck.cz/rest/v2/short-urls"
-    payload = "{\"longUrl\": \"https://stackoverflow.com/questions/6871016/adding-5-days-to-a-date-in-python\",\"validSince\": \"2020-01-16T21:42:38Z\",\"validUntil\": \"2020-01-17T21:42:38Z\",\"findIfExists\": \"true\"}"
-    headers = {
-    'x-api-key': "5fe7966f-5d78-4f16-b6b4-ad1690b3feb4",
-    'content-type': "application/json",
-    'accept': "application/json"
-    }
-    response = requests.request("POST", url, data=payload, headers=headers)
-    print(response.text)
+    content='{"longUrl":"'+arg1+'","validSince":"'+begindate.strftime('%Y-%m-%dT%H:%M:%SZ')+'","validUntil":"'+enddate.strftime('%Y-%m-%dT%H:%M:%SZ')+'","findIfExists":"true"}'
+    headers={
+        'Content-Type':'application/json',
+        'Accept':'application/json',
+        'X-Api-Key':'"'+SPCKAPI+'"'
+        }
+    ###WORKING####url = "https://spck.cz/rest/v2/short-urls"
+    ###WORKING####payload = "{\"longUrl\": \"https://stackoverflow.com/questions/6871016/adding-5-days-to-a-date-in-python\",\"validSince\": \"2020-01-16T21:42:38Z\",\"validUntil\": \"2020-01-17T21:42:38Z\",\"findIfExists\": \"true\"}"
+    ###WORKING####headers = {
+    ###WORKING####'x-api-key': "5fe7966f-5d78-4f16-b6b4-ad1690b3feb4",
+    ###WORKING####'content-type': "application/json",
+    ###WORKING####'accept': "application/json"
+    ###WORKING####}
+    ###WORKING####response = requests.request("POST", url, data=payload, headers=headers)
+    ###WORKING####print(response.text)
     #print(content)
     #print(headers)
-    #async with aiohttp.ClientSession(headers=headers) as session:
-    #    async with session.post('https://spck.cz/rest/v2/short_urls', data=content) as resp:
-    #        print(resp.status)
-    #        #print(await resp.json())
+    async with aiohttp.ClientSession(headers=headers) as session:
+        async with session.post('https://spck.cz/rest/v2/short_urls', data=content) as resp:
+            print(resp.status)
+            print(await resp.json())
     
 #joke command
 @bot.command(name='joke')
