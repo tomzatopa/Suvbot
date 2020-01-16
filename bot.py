@@ -485,7 +485,7 @@ async def shorturl(ctx, arg1: str):
     headers={
         'Content-Type':'application/json',
         'Accept':'application/json',
-        'X-Api-Key':''+SPCKAPI+''
+        'X-Api-Key':"\""+SPCKAPI+"\""
         }
     ###WORKING####url = "https://spck.cz/rest/v2/short-urls"
     ###WORKING####payload = "{\"longUrl\": \"https://stackoverflow.com/questions/6871016/adding-5-days-to-a-date-in-python\",\"validSince\": \"2020-01-16T21:42:38Z\",\"validUntil\": \"2020-01-17T21:42:38Z\",\"findIfExists\": \"true\"}"
