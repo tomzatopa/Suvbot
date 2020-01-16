@@ -488,13 +488,9 @@ async def shorturl(ctx, arg1: str):
         'X-Api-Key':''+SPCKAPI+''
         }
     url = "https://spck.cz/rest/v2/short-urls"
-    #headers = {
-    #'x-api-key': "5fe7966f-5d78-4f16-b6b4-ad1690b3feb4",
-    #'content-type': "application/json",
-    #'accept': "application/json"
-    #}
     response = requests.request("POST", url, data=content, headers=headers)
     print(response.text)
+    print('Zkracena URL: {}'.format(response.json()["shortUrl"]))
     #print(content)
     #print(headers)
     #async with aiohttp.ClientSession(headers=headers) as session:
