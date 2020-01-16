@@ -491,7 +491,8 @@ async def shorturl(ctx, arg1: str):
         await user.send("něco se pokazilo")
     else:
         #await user.send('Zkracena URL: {}'.format(resp.json()["shortUrl"]))
-        await user.send('Zkracena URL: {}'.format(resp.json())
+        await user.send('Zkracena URL: {}'.format(resp.json()))
+    
 #joke command
 @bot.command(name='joke')
 async def joke(ctx):
