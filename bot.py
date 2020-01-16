@@ -487,6 +487,8 @@ async def shorturl(ctx, arg1: str):
     headers={'Content-Type':'application/json','Accept':'application/json','X-Api-Key':''+SPCKAPI+''}
     print(headers)
     resp=requests.post(api_url, json=content, headers=headers)
+    print(resp.request.body)
+    print(resp.request.headers)
     if resp.status_code != 200:
         await user.send("něco se pokazilo")
         await user.send("resp code:"+ str(resp.status_code))
