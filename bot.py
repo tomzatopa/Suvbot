@@ -493,7 +493,7 @@ async def shorturl(ctx, arg1: str):
     async with aiohttp.ClientSession(headers=headers) as session:
         async with session.post('https://spck.cz/rest/v2/short-urls', data=content, headers=headers) as resp:
             if resp.status != 200:
-                await user.send("Něco se pokazilo - err: "+resp.status)
+                await user.send("Něco se pokazilo - err: "+str(resp.status))
             else:
                 answ=await resp.json()
                 await user.send('Zkracena URL: {}'.format(answ.get("shortUrl")))
