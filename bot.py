@@ -67,9 +67,9 @@ async def on_member_update(before,after):
         if len(before.roles) < len(after.roles):
         	new_role = next(role for role in after.roles if role not in before.roles)
         	if new_role.name in ('Guild'):
-        		await after.send("Vítej v IAO\! \n\nJsem useless guildovní bot na memy, ale protože naši officeři jsou ještě víc useless a většinou novým lidem zapomenou napsat, jak to v téhle rádoby tryhard guildě chodí, tak ti to radši napíšu já. \n\n**NEJDŮLEŽITĚJŠÍ INFO NA ZAČÁTKU!!!** Nesnaž se hledat info ingame v nějakých guild messages nebo guild infu. Jsme strašně moderní a hip, takže 99 % věcí řešíme přes discord. \n\nPokud jsi dostal/a invite do guildy, je dost pravděpodobné, že jsi dostal/a ingame rank \"kus hovna\". Jestli tě to vyloženě sere, tak ~~je nám to moc líto, ale~~ máš bohužel smůlu. Každý nějak začíná a po dvou nebo třech raidech stejně dostaneš promote. Každopádně si prosím přečti **#kus-hovna-info** , kde je víceméně to samé co ti teď píšu, jen méně aktuální. \n\nNejdůležitější v téhle guildě jsou ~~raidy~~ memes. Naše guildovní memes najdeš v channelu **#guild-memes** (neasi) a neboj se přispět i nějakým svým výtvorem. Ideální samozřejmě bude, když to nebude úplná sračka, protože špatný memy jsou horší než šedivý parsy. Kdyby ses chtěl/a inspirovat, napiš do #guild-memes !iaomeme a vyhodí ti to nějakej náhodnej z asi 10 memů, protože Suvoj s Ehrendilem dodneška nebyli schopní jich do toho commandu přidat víc. \n\n**Raidy** se tady taky řeší docela dost.**Důležité** je, aby ses přihlašoval/a na raidy v channelu **#kalendář**. Raidujeme ve středu a v neděli od 18:40 do 22:00. \n\nPokud nejsi nějakej strašnej frajer, kterej k nám přišel z Eternal Shadows nebo nějaký jiný wannabe #1worldrank guildy, tak si přečti #jak-zlepšit-dps . Možná ti to pomůže, možná ne, ale když budeš hrát jako ~~tvoje~~ Lesiho máma, tak tě stejně do raidů nikdo brát nebude a za chvíli leavneš do jiný guildy. \n\nNeboj se tady bavit s lidma a zkus se prosím nechovat jako kokot :) I když tady si tady ze sebe rádi děláme prdel, tak pořád chceme hlavně pohodáře, kteří po sobě nebudou řvát kvůli každé píčovince. Pokud máš nějaké otázky, můžeš s nima otravovat eLGeeho.")
+        		await after.send('Vítej v IAO\! \n\nJsem useless guildovní bot na memy, ale protože naši officeři jsou ještě víc useless a většinou novým lidem zapomenou napsat, jak to v téhle rádoby tryhard guildě chodí, tak ti to radši napíšu já. \n\n**NEJDŮLEŽITĚJŠÍ INFO NA ZAČÁTKU\!\!\!** Nesnaž se hledat info ingame v nějakých guild messages nebo guild infu. Jsme strašně moderní a hip, takže 99 % věcí řešíme přes discord. \n\nPokud jsi dostal/a invite do guildy, je dost pravděpodobné, že jsi dostal/a ingame rank \"kus hovna\". Jestli tě to vyloženě sere, tak ~~je nám to moc líto, ale~~ máš bohužel smůlu. Každý nějak začíná a po dvou nebo třech raidech stejně dostaneš promote. Každopádně si prosím přečti **#kus-hovna-info** , kde je víceméně to samé co ti teď píšu, jen méně aktuální. \n\nNejdůležitější v téhle guildě jsou ~~raidy~~ memes. Naše guildovní memes najdeš v channelu **#guild-memes** (neasi) a neboj se přispět i nějakým svým výtvorem. Ideální samozřejmě bude, když to nebude úplná sračka, protože špatný memy jsou horší než šedivý parsy. Kdyby ses chtěl/a inspirovat, napiš do #guild-memes \!iaomeme a vyhodí ti to nějakej náhodnej z asi 10 memů, protože Suvoj s Ehrendilem dodneška nebyli schopní jich do toho commandu přidat víc. \n\n**Raidy** se tady taky řeší docela dost.**Důležité** je, aby ses přihlašoval/a na raidy v channelu **#kalendář**. Raidujeme ve středu a v neděli od 18:40 do 22:00. \n\nPokud nejsi nějakej strašnej frajer, kterej k nám přišel z Eternal Shadows nebo nějaký jiný wannabe #1worldrank guildy, tak si přečti #jak-zlepšit-dps . Možná ti to pomůže, možná ne, ale když budeš hrát jako ~~tvoje~~ Lesiho máma, tak tě stejně do raidů nikdo brát nebude a za chvíli leavneš do jiný guildy. \n\nNeboj se tady bavit s lidma a zkus se prosím nechovat jako kokot :) I když tady si tady ze sebe rádi děláme prdel, tak pořád chceme hlavně pohodáře, kteří po sobě nebudou řvát kvůli každé píčovince. Pokud máš nějaké otázky, můžeš s nima otravovat eLGeeho.')
         	elif new_role.name in ('Core'):
-        		await after.send("OOOoooOOOOOooOOOOooOOOO\!\!\! \nTady někdo dostal promote do \"kór\". Mmmmmm... To seš frajer... Seš fakt dobrej! Fakt. Skoro jako Lesi... Ty hraješ tu hru už aspoň tak 30 let co? \nVíš co znamená v téhle guildě být core? NIC!!! VŮBEC NIC!!! Kromě toho, že budeš vědět o nějakejch pitomejch guildovních srazech, kde nám Lambáda vybere shitovou hospodu, kde je nejexkluzivnější drink tuzemák s koli kolou; kde se Zedd vožere za 2 hodiny a pak se nám bude snažit utéct; kde LG řekne po půlnoci, že nás někam dovede, a dovede nás do nějaký hipsterský prdele, kam už nikdo stejně nejde a všichni jdou domů? Jo, přesně to tady core znamená. \nMáš přístup do **\#wow-core**, což je jenom další useless channel navíc, kde se občas spamujou nějaký hovna. Jinak nemáš nic! \nUžij si to! A nezapomeň, že i tys byl/a jednou kus hovna. \nJestli někdy leavneš guildu, tak se s tebou už nikdy nikdo nebude bavit a umřou tři koťátka.")
+        		await after.send('OOOoooOOOOOooOOOOooOOOO\!\!\! \nTady někdo dostal promote do \"kór\". Mmmmmm... To seš frajer... Seš fakt dobrej\! Fakt. Skoro jako Lesi... Ty hraješ tu hru už aspoň tak 30 let co? \nVíš co znamená v téhle guildě být core? NIC\!\!\! VŮBEC NIC\!\!\! Kromě toho, že budeš vědět o nějakejch pitomejch guildovních srazech, kde nám Lambáda vybere shitovou hospodu, kde je nejexkluzivnější drink tuzemák s koli kolou; kde se Zedd vožere za 2 hodiny a pak se nám bude snažit utéct; kde LG řekne po půlnoci, že nás někam dovede, a dovede nás do nějaký hipsterský prdele, kam už nikdo stejně nejde a všichni jdou domů? Jo, přesně to tady core znamená. \nMáš přístup do **\#wow-core**, což je jenom další useless channel navíc, kde se občas spamujou nějaký hovna. Jinak nemáš nic\! \nUžij si to\! A nezapomeň, že i tys byl/a jednou kus hovna. \nJestli někdy leavneš guildu, tak se s tebou už nikdy nikdo nebude bavit a umřou tři koťátka.')
 
 @bot.event
 async def on_message(message):
@@ -168,6 +168,7 @@ async def help(ctx, *args):
     helpmsg.set_author(name='SUVBOT HELPIK')
     helpmsg.add_field(name='__**!leaveguld osoba1 osoba2**__', value='Generátor souvětí, které se Vám může hodit při opouštění guildy s uražením dvou osob které Vás štvaly nejvíc.', inline=True)
     helpmsg.add_field(name='__**!insult osoba**__', value='Urazí osobu, funguje mention. ', inline=True)
+    helpmsg.add_field(name='__**!say text**__', value='Zopakuje to co napíšete a vaši původní zprávu smaže.. ', inline=True)
     helpmsg.add_field(name='__**!iaosound vybrany-zvuk**__', value='Přehraje ve voice kanále vybraný zvuk. Pro list dostupných zvuků zadejte: !help iaosound', inline=True)
     helpmsg.add_field(name='__**!iaoimage vybrany-img**__', value='Pošle do kanálu vyberaný image. Pro list dostupných zvuků zadejte: !help iaoimage', inline=True)
     helpmsg.add_field(name='__**!iaomeme**__', value='Pošle do kanálu random meme!', inline=True)
@@ -316,6 +317,17 @@ async def insult(ctx,arg1):
 async def info_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
         await ctx.send('Je potřeba zadat jméno člověka, kterého chcete urazit.')
+
+#say command
+@bot.command(name='say')
+async def say(ctx,*args):
+    await ctx.message.delete()
+    a=" ".join(args)
+    await ctx.send(a)
+@say.error
+async def info_error(ctx, error):
+    if isinstance(error, commands.MissingRequiredArgument):
+        await ctx.send('Je potreba zadat text')
 
 #iaosound command
 @bot.command(name='iaosound')
@@ -497,7 +509,7 @@ async def shorturl(ctx, arg1: str):
             else:
                 answ=await resp.json()
                 await user.send('Zkracena URL: {}'.format(answ.get("shortUrl")))
-    
+
 #joke command
 @bot.command(name='joke')
 async def joke(ctx):
