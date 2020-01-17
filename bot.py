@@ -500,6 +500,7 @@ async def shorturl(ctx, arg1: str):
             answ=await resp.json()
             print(answ)
             print(type(answ))
+            print(answ.get("shortUrl"))
             #await user.send('Zkracena URL: {}'.format(await resp.text()["shortUrl"]))
     
 #joke command
