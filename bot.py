@@ -488,16 +488,16 @@ async def shorturl(ctx, arg1: str):
         'Accept':'application/json',
         'X-Api-Key':''+SPCKAPI+''
         }
-    url = "https://spck.cz/rest/v2/short-urls"
-    response = requests.request("POST", url, data=content, headers=headers)
-    print(response.text)
-    await user.send('Zkracena URL: {}'.format(response.json()["shortUrl"]))
-    #print(content)
-    #print(headers)
-    #async with aiohttp.ClientSession(headers=headers) as session:
-    #    async with session.post('https://spck.cz/rest/v2/short_urls', data=content, headers=headers) as resp:
-    #        print(resp.status)
-    #        print(await resp.text())
+    #url = "https://spck.cz/rest/v2/short-urls"
+    #response = requests.request("POST", url, data=content, headers=headers)
+    #print(response.text)
+    #await user.send('Zkracena URL: {}'.format(response.json()["shortUrl"]))
+    print(content)
+    print(headers)
+    async with aiohttp.ClientSession(headers=headers) as session:
+        async with session.post('https://spck.cz/rest/v2/short-urls', data=content, headers=headers) as resp:
+            print(resp.status)
+            print(await resp.text())
     
 #joke command
 @bot.command(name='joke')
