@@ -321,9 +321,10 @@ async def info_error(ctx, error):
 #say command
 @bot.command(name='say')
 async def say(ctx,*args):
-    await ctx.message.delete()
     a=" ".join(args)
     await ctx.send(a)
+    await ctx.message.delete()
+
 @say.error
 async def info_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
