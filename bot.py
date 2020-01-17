@@ -168,7 +168,7 @@ async def help(ctx, *args):
     helpmsg.set_author(name='SUVBOT HELPIK')
     helpmsg.add_field(name='__**!leaveguld osoba1 osoba2**__', value='Generátor souvětí, které se Vám může hodit při opouštění guildy s uražením dvou osob které Vás štvaly nejvíc.', inline=True)
     helpmsg.add_field(name='__**!insult osoba**__', value='Urazí osobu, funguje mention. ', inline=True)
-    helpmsg.add_field(name='__**!say text**__', value='Zopakuje to co napíšete a vaši původní zprávu smaže.. ', inline=True)
+    helpmsg.add_field(name='__**!say text**__', value='Zopakuje to co napíšete.', inline=True)
     helpmsg.add_field(name='__**!iaosound vybrany-zvuk**__', value='Přehraje ve voice kanále vybraný zvuk. Pro list dostupných zvuků zadejte: !help iaosound', inline=True)
     helpmsg.add_field(name='__**!iaoimage vybrany-img**__', value='Pošle do kanálu vyberaný image. Pro list dostupných zvuků zadejte: !help iaoimage', inline=True)
     helpmsg.add_field(name='__**!iaomeme**__', value='Pošle do kanálu random meme!', inline=True)
