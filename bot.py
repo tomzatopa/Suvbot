@@ -12,6 +12,7 @@ import json
 import urllib.parse
 import datetime
 import aiohttp
+import re
 from datetime import timedelta
 from os import path
 from dotenv import load_dotenv
@@ -169,6 +170,7 @@ async def help(ctx, *args):
     helpmsg.add_field(name='__**!leaveguld osoba1 osoba2**__', value='Generátor souvětí, které se Vám může hodit při opouštění guildy s uražením dvou osob které Vás štvaly nejvíc.', inline=True)
     helpmsg.add_field(name='__**!insult osoba**__', value='Urazí osobu, funguje mention. ', inline=True)
     helpmsg.add_field(name='__**!say text**__', value='Zopakuje to co napíšete.', inline=True)
+    helpmsg.add_field(name='__**!emojify text**__', value='Text-to-emoji konvertor.', inline=True)
     helpmsg.add_field(name='__**!iaosound vybrany-zvuk**__', value='Přehraje ve voice kanále vybraný zvuk. Pro list dostupných zvuků zadejte: !help iaosound', inline=True)
     helpmsg.add_field(name='__**!iaoimage vybrany-img**__', value='Pošle do kanálu vyberaný image. Pro list dostupných zvuků zadejte: !help iaoimage', inline=True)
     helpmsg.add_field(name='__**!iaomeme**__', value='Pošle do kanálu random meme!', inline=True)
@@ -326,6 +328,28 @@ async def say(ctx,*args):
     await ctx.message.delete()
 
 @say.error
+async def info_error(ctx, error):
+    if isinstance(error, commands.MissingRequiredArgument):
+        await ctx.send('Je potreba zadat text')
+
+#emojify command
+@bot.command(name='emojify')
+async def emojify(ctx,*args):
+    text=(" ".join(args)).lower()
+    emojified = ''
+    numwords = {0: 'zero',1: 'one', 2: 'two', 3: 'three', 4: 'four', 5: 'five', 6: 'six', 7: 'seven', 8: 'eight', 9: 'nine'}
+    alph = r'[A-Za-z]+'
+    num = r'[0-9]'
+    for i in text:
+        if re.search(alph, i):
+            emojified += ':regional_indicator_{}: '.format(i)
+        elif re.search(num, i):
+            emojified += ':{}: '.format(numwords[int(i)])
+        else:
+            emojified += '  '+i+'  '
+    await ctx.send(emojified)
+
+@emojify.error
 async def info_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
         await ctx.send('Je potreba zadat text')
