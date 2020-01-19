@@ -102,7 +102,8 @@ async def on_message(message):
         id = message.author.id
         if "www.warcraftlogs.com" not in finalmsg:
             channel = bot.get_channel(493688092075753502)
-            await channel.send("<@!"+str(id)+"> čo si kokot? Tenhle channel je na logy!")
+            await channel.send("<@!"+str(id)+"> čo si kokot? Tenhle channel je na logy!",delete_after=10)
+            await message.delete()
     else:
         await bot.process_commands(message)
 
