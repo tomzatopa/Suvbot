@@ -97,6 +97,12 @@ async def on_message(message):
             await message.delete()
             channel = bot.get_channel(634683421616111616)
             await channel.send("Použijte prosím template přihlášky nebo jednotlivou otázku z templatu ve formatu: \n **otázka**: \n odpoved", delete_after=5)
+    if (message.channel.id == 493688092075753502) and (message.author.id != 291891867703050240):
+        finalmsg = message.content
+        id = message.author.id
+        if "www.warcraftlogs.com" not in finalmsg:
+            channel = bot.get_channel(493688092075753502)
+            await channel.send("<@!"+str(id)+"> čo si kokot? Tenhle channel je na logy!")
     else:
         await bot.process_commands(message)
 
