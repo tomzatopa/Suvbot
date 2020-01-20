@@ -237,6 +237,11 @@ async def help(ctx, *args):
 #leaveguld command
 @bot.command(name='leaveguld')
 async def leaveguld(ctx, arg1, arg2):
+    for r in ctx.message.author.roles:
+        if r.id  == 467773009952899072 or r.id  == 647096577491599360 :
+            await ctx.send('Nice try, ale ty nikam nejdeš!')
+            return
+
     osoba1 = str(arg1).capitalize()
     osoba2 = sklon_5p(str(arg2)).capitalize()
     os1 = str(rand_line('osoba1.txt')).rstrip()
