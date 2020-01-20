@@ -447,6 +447,12 @@ async def slabikar(ctx):
     ins = 'https://www.youtube.com/watch?v=u1HMzYSZGIo'
     await ctx.send(ins)
 
+#reset command
+@bot.command(name='reset')
+async def reset(ctx):
+    ins = 'https://www.youtube.com/watch?v=xA111D1jQCw&feature=youtu.be'
+    await ctx.send(ins)
+
 #join channel command
 @bot.command(name='join')
 async def join(ctx):
