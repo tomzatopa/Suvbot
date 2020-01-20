@@ -189,6 +189,7 @@ async def help(ctx, *args):
     helpmsg.add_field(name='__**!gondorhelp kdo-neprisel-na-pomoc**__', value='Gondor help.... mluví za vše', inline=True)
     helpmsg.add_field(name='__**!inspire**__', value='Zobrazí náhodnou \"inspirational quote\"', inline=True)
     helpmsg.add_field(name='__**!recipe neco**__', value='Vyhledá recept', inline=True)
+    helpmsg.add_field(name='__**!yoda text**__', value='Přeloží zadaný text do Yoda mluvy.', inline=True)
     helpmsg.add_field(name='__**!fact **__', value='Zobrazí náhodný fun fact', inline=True)
     helpmsg.add_field(name='__**!funfact **__', value='Same as !fact - cos all facts are fun', inline=True)
     helpmsg.add_field(name='__**!joke**__', value='Zobrazí náhodný dad joke', inline=True)
@@ -521,6 +522,20 @@ async def recipe(ctx,*args):
         await ctx.send(res)
     else:
         await ctx.send("Žádný recept nenalezen.")
+
+#yoda command
+@bot.command(name='yoda')
+async def yoda(ctx,*args):
+    a=" ".join(args)
+    a=urllib.parse.quote_plus(a)
+    response=requests.get('https://api.funtranslations.com/translate/yoda.json?text='+a)
+    dic=response.json()
+    res=dic['contents']['translated']
+    await ctx.send(res)
+@yoda.error
+async def info_error(ctx, error):
+    if isinstance(error, commands.MissingRequiredArgument):
+        await ctx.send('Je potřeba zadat text co chcete přeložit.')
 
 #fact command
 @bot.command(name='fact')
