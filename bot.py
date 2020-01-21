@@ -345,10 +345,10 @@ async def info_error(ctx, error):
 @bot.command(name='compliment')
 async def compliment(ctx,arg1):
     id="<@!"+str(ctx.message.author.id)+">"
-    nekdo = str(arg1)
+    nekdo = str(arg1).capitalize()
     if 'Suvbot' in nekdo or 'suvbot' in nekdo or '291891867703050240' in nekdo :
         com="Thank you very much " + id + ", dělám co můžu."
-    elif id == nekdo:
+    elif id == nekdo or nekdo in ctx.message.author.display_name:
         r=random.randrange(1,4)
         if r==1:
             com="\"Bláhovec vlastní přednosti vynáší na povrch, moudrý je skrývá uvnitř - v nedohlednu.\"\n*Lucius Annaeus Seneca*"
