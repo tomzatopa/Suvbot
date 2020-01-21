@@ -179,6 +179,7 @@ async def help(ctx, *args):
     helpmsg.set_author(name='SUVBOT HELPIK')
     helpmsg.add_field(name='__**!leaveguld osoba1 osoba2**__', value='Generátor souvětí, které se Vám může hodit při opouštění guildy s uražením dvou osob které Vás štvaly nejvíc.', inline=True)
     helpmsg.add_field(name='__**!insult osoba**__', value='Urazí osobu, funguje mention. ', inline=True)
+    helpmsg.add_field(name='__**!compliment  osoba**__', value='Složí kompliment osobě. Kappa', inline=True)
     helpmsg.add_field(name='__**!say text**__', value='Zopakuje to co napíšete.', inline=True)
     helpmsg.add_field(name='__**!emojify text**__', value='Text-to-emoji konvertor.', inline=True)
     helpmsg.add_field(name='__**!iaosound vybrany-zvuk**__', value='Přehraje ve voice kanále vybraný zvuk. Pro list dostupných zvuků zadejte: !help iaosound', inline=True)
@@ -339,6 +340,21 @@ async def insult(ctx,arg1):
 async def info_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
         await ctx.send('Je potřeba zadat jméno člověka, kterého chcete urazit.')
+
+#compliment command
+@bot.command(name='compliment')
+async def compliment(ctx,arg1):
+    nekdo = str(arg1)
+    if 'Suvbot' in nekdo or 'suvbot' in nekdo or '291891867703050240' in nekdo :
+        await ctx.send("Thank you very much <@!"+str(ctx.message.author.id)+">, dělám co můžu." )
+    else:
+        await ctx.send("Nah...We don't do that here." )
+
+@compliment.error
+async def info_error(ctx, error):
+    if isinstance(error, commands.MissingRequiredArgument):
+        await ctx.send('Je potřeba zadat jméno člověka, kterému chcete složit kompliment.')
+
 
 #say command
 @bot.command(name='say')
@@ -647,6 +663,7 @@ async def cat(ctx):
     embed = discord.Embed()
     embed.set_image(url=res)
     await ctx.send(embed=embed)
+
 
 
 ###############################
