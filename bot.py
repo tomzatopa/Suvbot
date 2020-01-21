@@ -348,7 +348,7 @@ async def compliment(ctx,arg1):
     nekdo = str(arg1).capitalize()
     if 'Suvbot' in nekdo or 'suvbot' in nekdo or '291891867703050240' in nekdo :
         com="Thank you very much " + id + ", dělám co můžu."
-    elif id == nekdo or nekdo in ctx.message.author.display_name:
+    elif id == nekdo or ctx.message.author.display_name in nekdo:
         r=random.randrange(1,4)
         if r==1:
             com="\"Bláhovec vlastní přednosti vynáší na povrch, moudrý je skrývá uvnitř - v nedohlednu.\"\n*Lucius Annaeus Seneca*"
