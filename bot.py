@@ -344,11 +344,21 @@ async def info_error(ctx, error):
 #compliment command
 @bot.command(name='compliment')
 async def compliment(ctx,arg1):
+    id="<@!"+str(ctx.message.author.id)+">"
     nekdo = str(arg1)
     if 'Suvbot' in nekdo or 'suvbot' in nekdo or '291891867703050240' in nekdo :
-        await ctx.send("Thank you very much <@!"+str(ctx.message.author.id)+">, dělám co můžu." )
+        com="Thank you very much " + id + ", dělám co můžu."    
+    elif id == nekdo:
+        r=random.randrange(1,4)
+        if r==1:
+            com="\"Bláhovec vlastní přednosti vynáší na povrch, moudrý je skrývá uvnitř - v nedohlednu.\"\n*Lucius Annaeus Seneca*"
+        elif r==2:
+            com="\"Kdo sám se chválí, rychle posměch utrží.\"\n*Syrus*"
+        else:
+            com="\"Ať tě chválí cizí a ne tvá vlastní ústa, cizinec a ne tvoje rty.\"\n*Přísloví 27,2, Bible*"
     else:
-        await ctx.send("Nah...We don't do that here." )
+        com="Nah...We don't do that here."
+    await ctx.send(com)
 
 @compliment.error
 async def info_error(ctx, error):
