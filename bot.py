@@ -613,14 +613,14 @@ async def poll(ctx,type,question,*options: str):
     if type !='sc' and type !='mc':
         await ctx.send('Je třeba zadat typ pollu (sc/mc).')
         return
-    if len(options) > 10:
-        await ctx.send('Poll může mít maximálně 10 možností odpovědi.')
+    if len(options) > 26:
+        await ctx.send('Poll může mít maximálně 20 možností odpovědi.')
         return
     if len(options) == 0:
         reactions = ['✅', '❌']
         options = ['ANO', 'NE']
     else:
-        reactions = ['1️⃣', '2⃣', '3⃣', '4⃣', '5⃣', '6⃣', '7⃣', '8⃣', '9⃣', '🔟']
+        reactions = ['🇦', '🇧', '🇨', '🇩', '🇪', '🇫', '🇬', '🇭', '🇮', '🇯', '🇰', '🇱', '🇲', '🇳', '🇴', '🇵', '🇶', '🇷', '🇸', '🇹']
     description = []
     await ctx.send(":bar_chart: "+question)
     for x, option in enumerate(options):
@@ -637,6 +637,7 @@ async def poll(ctx,type,question,*options: str):
     if type =='mc':
         embed.set_footer(text='Vyber jednu nebo více možností.')
         await react_message.edit(embed=embed)
+    await ctx.message.delete()
 #cat command
 @bot.command(name='cat')
 async def cat(ctx):
