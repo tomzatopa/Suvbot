@@ -406,17 +406,15 @@ async def iaosound(ctx, arg1, *args):
     channel = ctx.author.voice.channel
     #checkuje jestli existuje file ve slozce sounds/
     if path.exists('./sounds/'+arg1+'.mp3'):
-        if args and args[0].isnumeric():
-               for x in range(int(args[0])-1):
-                   vc = await channel.connect()
-                   vc.play(discord.FFmpegPCMAudio('./sounds/'+arg1+'.mp3'), after=lambda e: print('prehravam', e))
-                   while vc.is_playing():
-                       await asyncio.sleep(1)
-                   await ctx.voice_client.disconnect()
         vc = await channel.connect()
         vc.play(discord.FFmpegPCMAudio('./sounds/'+arg1+'.mp3'), after=lambda e: print('prehravam', e))
         while vc.is_playing():
             await asyncio.sleep(1)
+        if args and args[0].isnumeric():
+               for x in range(int(args[0])-1):
+                   vc.play(discord.FFmpegPCMAudio('./sounds/'+arg1+'.mp3'), after=lambda e: print('prehravam', e))
+                   while vc.is_playing():
+                       await asyncio.sleep(1)
         await ctx.voice_client.disconnect()
 
 @iaosound.error
