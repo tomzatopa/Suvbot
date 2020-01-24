@@ -182,7 +182,7 @@ async def help(ctx, *args):
     helpmsg.add_field(name='__**!compliment  osoba**__', value='Složí kompliment osobě. Kappa', inline=True)
     helpmsg.add_field(name='__**!say text**__', value='Zopakuje to co napíšete.', inline=True)
     helpmsg.add_field(name='__**!emojify text**__', value='Text-to-emoji konvertor.', inline=True)
-    helpmsg.add_field(name='__**!iaosound vybrany-zvuk (číslo)**__', value='Přehraje ve voice kanále vybraný zvuk. Pokud za název napíšete ještě číslo, přehraje se zvuk vícekrát. Pro list dostupných zvuků zadejte: !help iaosound', inline=True)
+    helpmsg.add_field(name='__**!iaosound vybrany-zvuk (číslo)**__', value='Přehraje ve voice kanále vybraný zvuk. Pokud za název napíšete ještě číslo, přehraje se zvuk vícekrát(max 10 - vyšší číslo je bráno jako 10). Pro list dostupných zvuků zadejte: !help iaosound', inline=True)
     helpmsg.add_field(name='__**!iaoimage vybrany-img**__', value='Pošle do kanálu vyberaný image. Pro list dostupných zvuků zadejte: !help iaoimage', inline=True)
     helpmsg.add_field(name='__**!iaomeme**__', value='Pošle do kanálu random meme!', inline=True)
     helpmsg.add_field(name='__**!slovak osoba**__', value='Pro naše bratry, nebojte se užít mention a jednoho z nich označit! ', inline=True)
@@ -411,10 +411,14 @@ async def iaosound(ctx, arg1, *args):
         while vc.is_playing():
             await asyncio.sleep(1)
         if args and args[0].isnumeric():
-               for x in range(int(args[0])-1):
-                   vc.play(discord.FFmpegPCMAudio('./sounds/'+arg1+'.mp3'), after=lambda e: print('prehravam', e))
-                   while vc.is_playing():
-                       await asyncio.sleep(1)
+                if int(args[0]) < 11:
+                    r=int(args[0])-1
+                else:
+                    r=9
+                for x in range(r):
+                    vc.play(discord.FFmpegPCMAudio('./sounds/'+arg1+'.mp3'), after=lambda e: print('prehravam', e))
+                    while vc.is_playing():
+                        await asyncio.sleep(1)
         await ctx.voice_client.disconnect()
 
 @iaosound.error
