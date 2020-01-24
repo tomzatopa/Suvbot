@@ -182,7 +182,7 @@ async def help(ctx, *args):
     helpmsg.add_field(name='__**!compliment  osoba**__', value='Složí kompliment osobě. Kappa', inline=True)
     helpmsg.add_field(name='__**!say text**__', value='Zopakuje to co napíšete.', inline=True)
     helpmsg.add_field(name='__**!emojify text**__', value='Text-to-emoji konvertor.', inline=True)
-    helpmsg.add_field(name='__**!iaosound vybrany-zvuk**__', value='Přehraje ve voice kanále vybraný zvuk. Pro list dostupných zvuků zadejte: !help iaosound', inline=True)
+    helpmsg.add_field(name='__**!iaosound vybrany-zvuk (číslo)**__', value='Přehraje ve voice kanále vybraný zvuk. Pokud za název napíšete ještě číslo, přehraje se zvuk vícekrát. Pro list dostupných zvuků zadejte: !help iaosound', inline=True)
     helpmsg.add_field(name='__**!iaoimage vybrany-img**__', value='Pošle do kanálu vyberaný image. Pro list dostupných zvuků zadejte: !help iaoimage', inline=True)
     helpmsg.add_field(name='__**!iaomeme**__', value='Pošle do kanálu random meme!', inline=True)
     helpmsg.add_field(name='__**!slovak osoba**__', value='Pro naše bratry, nebojte se užít mention a jednoho z nich označit! ', inline=True)
