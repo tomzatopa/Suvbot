@@ -179,7 +179,7 @@ async def help(ctx, *args):
     helpmsg.set_author(name='SUVBOT HELPIK')
     helpmsg.add_field(name='__**!leaveguld osoba1 osoba2**__', value='Generátor souvětí, které se Vám může hodit při opouštění guildy s uražením dvou osob které Vás štvaly nejvíc.', inline=True)
     helpmsg.add_field(name='__**!insult osoba**__', value='Urazí osobu, funguje mention. ', inline=True)
-    helpmsg.add_field(name='__**!compliment  osoba**__', value='Složí kompliment osobě. Kappa', inline=True)
+    helpmsg.add_field(name='__**!compliment osoba**__', value='Složí kompliment osobě. Kappa', inline=True)
     helpmsg.add_field(name='__**!say text**__', value='Zopakuje to co napíšete.', inline=True)
     helpmsg.add_field(name='__**!emojify text**__', value='Text-to-emoji konvertor.', inline=True)
     helpmsg.add_field(name='__**!iaosound vybrany-zvuk (číslo)**__', value='Přehraje ve voice kanále vybraný zvuk. Pokud za název napíšete ještě číslo, přehraje se zvuk vícekrát(max 10 - vyšší číslo je bráno jako 10). Pro list dostupných zvuků zadejte: !help iaosound', inline=True)
