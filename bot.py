@@ -411,10 +411,10 @@ async def iaosound(ctx, arg1, *args):
         while vc.is_playing():
             await asyncio.sleep(1)
         if args and args[0].isnumeric():
-                if int(args[0]) < 11:
+                if int(args[0]) < 51:
                     r=int(args[0])-1
                 else:
-                    r=9
+                    r=49
                 for x in range(r):
                     vc.play(discord.FFmpegPCMAudio('./sounds/'+arg1+'.mp3'), after=lambda e: print('prehravam', e))
                     while vc.is_playing():
