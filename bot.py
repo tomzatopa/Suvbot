@@ -411,7 +411,7 @@ async def iaosound(ctx, arg1, *args):
         while vc.is_playing():
             await asyncio.sleep(1)
         if args and args[0].isnumeric():
-                if int(args[0]) < 51:
+                if (int(args[0]) != 420) or (int(args[0]) < 51):
                     r=int(args[0])-1
                 else:
                     r=49
