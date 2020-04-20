@@ -144,9 +144,7 @@ def sklon_5p(text):
 
 def sklon_2p(text):
     sklon=text
-    if text.endswith('er'):
-        sklon=text[:-2]+'ra'
-    elif text.endswith('an'):
+    if text.endswith('an'):
         sklon=text[:-2]+'na'
     elif text.endswith('na'):
         sklon=text[:-1]+'u'
