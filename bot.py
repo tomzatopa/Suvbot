@@ -142,6 +142,34 @@ def sklon_5p(text):
         sklon+='e'
     return sklon
 
+def sklon_2p(text):
+    sklon=text
+    if text.endswith('er'):
+        sklon=text[:-2]+'ra'
+    elif text.endswith('an'):
+        sklon=text[:-2]+'na'
+    elif text.endswith('na'):
+        sklon=text[:-1]+'u'
+    elif text.endswith('e'):
+        sklon=text[:-1]+'a'
+    elif text.endswith('dk') or text.endswith('dh'):
+        sklon+='čko'
+    else:
+        sklon+='a'
+    return sklon
+
+def sklon_7p(text):
+    sklon=text
+    if text.endswith('na'):
+        sklon=text[:-1]+'ou'
+    elif text.endswith('e'):
+        sklon+='m'
+    elif text.endswith('dk') or text.endswith('dh'):
+        sklon+='čkem'
+    else:
+        sklon+='em'
+    return sklon
+
 #sklonovani do slovenskeho osloveni
 def sklon_slovak(text):
     sklon=text
@@ -310,6 +338,43 @@ async def info_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
         await ctx.send('Je potřeba zadat jména lidí: !leaveguld osoba1 osoba2')
 
+
+#alt command
+@bot.command(name='alt')
+async def alt(ctx, arg1, arg2):
+
+    altc = str(arg1).lower()
+    alt2p = sklon_2p(altc)
+    alt7p = sklon_7p(altc)
+    mainc = str(arg2)
+    if alt2p.endswith('na'):
+        a1="tu "+alt2p
+    elif alt2p.endswith('čko'):
+        a1="to "+alt2p
+    else:
+        a1="toho "+alt2p
+
+    if alt7p.startswith('s'):
+        a2="se "+alt7p
+    else:
+        a2="s "+alt7p
+
+    alt='Mám otázku do pléna. Co si myslíte o tom, že bych zkusil nějak equipnout '+a1 \
+        + ' kvůli toolkitu? Obecně je samozřejmě ' + mainc \
+        + ' lepší a jistější, ale ' + '"NEJAKEJ TEXT"' \
+        + ' a už na Vexioně jsme měli trochu problém v tom, že ' + '"NEJAKEJ TEXT"' \
+        + '. Raden taky celkem dobře funguje ' + a2 \
+        + '. Drest je ' + altc \
+        + ' fight kvůli ' + '"NEJAKEJ TEXT"' \
+        + ', Ilgynoth  má zase ' +  '"NEJAKEJ TEXT"'
+
+    await ctx.send(alt)
+
+@alt.error
+async def info_error(ctx, error):
+    if isinstance(error, commands.MissingRequiredArgument):
+        await ctx.send('Je potřeba zadat jména class: !alt "alt class" "main class"')
+
 #insult command
 @bot.command(name='insult')
 async def insult(ctx,arg1):
@@ -411,7 +476,7 @@ async def iaosound(ctx, arg1, *args):
         while vc.is_playing():
             await asyncio.sleep(1)
         if args and args[0].isnumeric():
-                if (int(args[0]) != 420) or (int(args[0]) < 51):
+                if (int(args[0]) == 420) or (int(args[0]) < 51):
                     r=int(args[0])-1
                 else:
                     r=49
