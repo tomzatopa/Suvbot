@@ -147,6 +147,20 @@ def sklon_2p(text):
     if text.endswith('an'):
         sklon=text[:-2]+'na'
     elif text.endswith('na'):
+        sklon=text[:-1]+'y'
+    elif text.endswith('e'):
+        sklon=text[:-1]+'a'
+    elif text.endswith('dk') or text.endswith('dh'):
+        sklon+='čka'
+    else:
+        sklon+='a'
+    return sklon
+
+def sklon_4p(text):
+    sklon=text
+    if text.endswith('an'):
+        sklon=text[:-2]+'na'
+    elif text.endswith('na'):
         sklon=text[:-1]+'u'
     elif text.endswith('e'):
         sklon=text[:-1]+'a'
@@ -343,28 +357,38 @@ async def alt(ctx, arg1, arg2):
 
     altc = str(arg1).lower()
     alt2p = sklon_2p(altc)
+    alt4p = sklon_4p(altc)
     alt7p = sklon_7p(altc)
-    mainc = str(arg2)
-    if alt2p.endswith('na'):
-        a1="tu "+alt2p
+    mainc = str(arg2).lower()
+
+    if alt4p.endswith('na'):
+        a1="tu "+alt4p
     elif alt2p.endswith('čko'):
-        a1="to "+alt2p
+        a1="to "+alt4p
     else:
-        a1="toho "+alt2p
+        a1="toho "+alt4p
 
     if alt7p.startswith('s'):
         a2="se "+alt7p
     else:
         a2="s "+alt7p
 
+    id = str(rand_line('ideal.txt')).rstrip()
+    ra = str(rand_line('kvuli.txt')).rstrip()
+    dr = str(rand_line('kvuli.txt')).rstrip()
+    while ra==dr:
+        dr = str(rand_line('kvuli.txt')).rstrip()
+    il = str(rand_line('zase.txt')).rstrip()
+
     alt='Mám otázku do pléna. Co si myslíte o tom, že bych zkusil nějak equipnout '+a1 \
         + ' kvůli toolkitu? Obecně je samozřejmě ' + mainc \
-        + ' lepší a jistější, ale ' + '"NEJAKEJ TEXT"' \
-        + ' a už na Vexioně jsme měli trochu problém v tom, že ' + '"NEJAKEJ TEXT"' \
-        + '. Raden taky celkem dobře funguje ' + a2 \
-        + '. Drest je ' + altc \
-        + ' fight kvůli ' + '"NEJAKEJ TEXT"' \
-        + ', Ilgynoth  má zase ' +  '"NEJAKEJ TEXT"'
+        + ' lepší a jistější, ale utilita ' +  alt2p \
+        + ' v tomhle tieru je fakt celkem velká a už na Vexioně jsme měli trochu problém v tom, že ' + id \
+        + '. Raden taky celkem dobře funguje ' + a2 + ' kvůli ' + ra \
+        + ' (i když '+ mainc +' je tam prostě klasicky v pohodě)' \
+        + '. Drest je ' + mainc + ' fight kvůli ' + dr \
+        + ', Ilgynoth  má zase ' + il  + ' ,takže ' + altc+ ' value.'
+
 
     await ctx.send(alt)
 
