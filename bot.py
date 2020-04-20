@@ -387,7 +387,7 @@ async def alt(ctx, arg1, arg2):
         + '. Raden taky celkem dobře funguje ' + a2 + ' kvůli ' + ra \
         + ' (i když '+ mainc +' je tam prostě klasicky v pohodě)' \
         + '. Drest je ' + mainc + ' fight kvůli ' + dr \
-        + ', Ilgynoth  má zase ' + il  + ' ,takže ' + altc+ ' value.'
+        + ', Ilgynoth  má zase ' + il  + ', takže ' + altc+ ' value.'
 
 
     await ctx.send(alt)
