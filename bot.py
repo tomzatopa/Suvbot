@@ -19,6 +19,7 @@ from dotenv import load_dotenv
 from discord.ext import commands
 from urllib.request import Request, urlopen
 from bs4 import BeautifulSoup
+from collections.abc import Sequence
 
 ###############################
 ###SETTINGS + IMPORT PROMENNYCH
@@ -72,9 +73,75 @@ async def on_member_update(before,after):
         	elif new_role.name in ('Core'):
         		await after.send('OOOoooOOOOOooOOOOooOOOO\!\!\! \nTady někdo dostal promote do \"kór\". Mmmmmm... To seš frajer... Seš fakt dobrej\! Fakt. Skoro jako Lesi... Ty hraješ tu hru už aspoň tak 30 let co? \nVíš co znamená v téhle guildě být core? NIC\!\!\! VŮBEC NIC\!\!\! Kromě toho, že budeš vědět o nějakejch pitomejch guildovních srazech, kde nám Lambáda vybere shitovou hospodu, kde je nejexkluzivnější drink tuzemák s koli kolou; kde se Zedd vožere za 2 hodiny a pak se nám bude snažit utéct; kde LG řekne po půlnoci, že nás někam dovede, a dovede nás do nějaký hipsterský prdele, kam už nikdo stejně nejde a všichni jdou domů? Jo, přesně to tady core znamená. \nMáš přístup do **\#wow-core**, což je jenom další useless channel navíc, kde se občas spamujou nějaký hovna. Jinak nemáš nic\! \nUžij si to\! A nezapomeň, že i tys byl/a jednou kus hovna. \nJestli někdy leavneš guildu, tak se s tebou už nikdy nikdo nebude bavit a umřou tři koťátka.')
 
+
+#stolen shit aby fungovala prihlaska
+def make_sequence(seq):
+    if seq is None:
+        return ()
+    if isinstance(seq, Sequence) and not isinstance(seq, str):
+        return seq
+    else:
+        return (seq,)
+def message_check(channel=None, author=None, content=None, ignore_bot=True, lower=True):
+    channel = make_sequence(channel)
+    author = make_sequence(author)
+    content = make_sequence(content)
+    if lower:
+        content = tuple(c.lower() for c in content)
+    def check(message):
+        if ignore_bot and message.author.bot:
+            return False
+        if channel and message.channel not in channel:
+            return False
+        if author and message.author not in author:
+            return False
+        actual_content = message.content.lower() if lower else message.content
+        if content and actual_content not in content:
+            return False
+        return True
+    return check
+
 @bot.event
 async def on_message(message):
-    if (message.channel.id == 634683421616111616) and (message.author.id != 291891867703050240):
+    if (message.channel.id == 634683421616111616) and (message.author.id != 291891867703050240) and 'start' in message.content:
+        user = message.author
+        id = message.author.id
+        await user.send('Odpověz prosím na následující otázky. Tvé odpovědi zpracuji a přepošlu officer týmu naší guildy. \nNick a class tvojí postavy:')
+        response = await bot.wait_for('message',check=message_check(channel=user.dm_channel))
+        finalmsg = 'Nick a class tvojí postavy:\n*' + response.content + '*\n'
+        await user.send('Máš nějaké zásadní problémy s raid timem? (Třeba práce na směny, jezdíš později z práce každou středu atd.)')
+        response = await bot.wait_for('message',check=message_check(channel=user.dm_channel))
+        finalmsg+= 'Máš nějaké zásadní problémy s raid timem? (Třeba práce na směny, jezdíš později z práce každou středu atd.) \n*' + response.content + '*\n'
+        await user.send('Tvůj progress v BfA:')
+        response = await bot.wait_for('message',check=message_check(channel=user.dm_channel))
+        finalmsg+= 'Tvůj progress v BfA:\n*' + response.content + '*\n'
+        await user.send('Odkaz na raider.io popř. i logy tvého charu:')
+        response = await bot.wait_for('message',check=message_check(channel=user.dm_channel))
+        finalmsg+= 'Odkaz na raider.io popř. i logy tvého charu:\n*' + response.content + '*\n'
+        await user.send('Pokud máš použitelné offspecy a alty, tak je nějak stručně vypiš:')
+        response = await bot.wait_for('message',check=message_check(channel=user.dm_channel))
+        finalmsg+= 'Pokud máš použitelné offspecy a alty, tak je nějak stručně vypiš:\n*' + response.content + '*\n'
+        await user.send('Předchozí guilda a důvod odchodu:')
+        response = await bot.wait_for('message',check=message_check(channel=user.dm_channel))
+        finalmsg+= 'Předchozí guilda a důvod odchodu:\n*' + response.content + '*\n'
+        await user.send('Znáš a používáš raidbots a wowanalyzer?')
+        response = await bot.wait_for('message',check=message_check(channel=user.dm_channel))
+        finalmsg+= 'Znáš a používáš raidbots a wowanalyzer?\n*' + response.content + '*\n'
+        await user.send('Proč chceš k nám a co si od toho slibuješ?')
+        response = await bot.wait_for('message',check=message_check(channel=user.dm_channel))
+        finalmsg+= 'Proč chceš k nám a co si od toho slibuješ?\n*' + response.content + '*\n'
+        await user.send('Napiš nám něco o sobě (kolik ti je? kde bydlíš? číslo kreditní karty?):')
+        response = await bot.wait_for('message',check=message_check(channel=user.dm_channel))
+        finalmsg+= 'Napiš nám něco o sobě (kolik ti je? kde bydlíš? číslo kreditní karty?):\n*' + response.content + '*\n'
+        await user.send('Cokoliv dalšího, co nám chceš říct:')
+        response = await bot.wait_for('message',check=message_check(channel=user.dm_channel))
+        finalmsg+= 'Cokoliv dalšího, co nám chceš říct:\n*' + response.content + '*\n'
+        channel = bot.get_channel(634689737910648832)
+        await channel.send('<@'+str(id)+'>')
+        await channel.send(finalmsg)
+        await message.delete()
+        await user.send("Přihláška byla odeslána!")
+    if (message.channel.id == 634683421616111616) and (message.author.id != 291891867703050240) and 'start' not in message.content:
         finalmsg = message.content
         id = message.author.id
         if ("Nick a class tvojí postavy:" in finalmsg) or \
