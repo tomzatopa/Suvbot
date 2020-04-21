@@ -30,7 +30,8 @@ load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 MAINTAINER = [
     int(os.getenv('MAINTAINER1')),
-    int(os.getenv('MAINTAINER2'))
+    int(os.getenv('MAINTAINER2')),
+    int(os.getenv('MAINTAINER3'))
     ]
 SPCKAPI = os.getenv('SPCKAPI')
 ###############################
