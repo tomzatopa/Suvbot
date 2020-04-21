@@ -108,8 +108,9 @@ async def otazka(user,text):
         await user.send('Vypršel ti čas na zadání odpovědi.')
         return True,''
     else:
-        return False,'**' + text + "**" + '\n*' + response.content + '*\n'
-
+        return False,response.content
+def odpovedWrapper(text1,text2):
+    return '**' + text1 + "**" + '\n*' + text2 + '*\n'\
 async def simpleOtazka(user,text):
     await user.send(text)
     try:
@@ -145,72 +146,107 @@ async def on_message(message):
                 await user.send("Výborně! Můžeme začít s přihláškou.")
             else:
                 await user.send("Tvoje přihláška se ruší. Nemám na to, sorry.")
-                channel=bot.get_channel(702074796984500234)
+                channel=bot.get_channel(291894459119960064)
                 await channel.send("Ahoj všichni! Rád bych vám oznámil, že <@"+str(id)+"> je debil! HALÓ HALÓ!!! <@"+str(id)+"> JE HLUPÁK!!! Nemám na to s ním vyplňovat přihlášku. Nebudu to dělat...")
                 return
         else:
             await user.send("Hahaha! Napíšu botovi něco jinýho než ano/ne, protože na to beztak nikdo nemyslel? Oooooooo jak originální! Když jsi tak chytrej, tak jdeme vyplňovat přihlášku.")
 
-
-        err,response= await otazka(user,"Nick a class tvojí postavy:")
+        jedna="Nick a class tvojí postavy:"
+        err,response= await otazka(user,jedna)
         if err==True:
             return
         else:
-            jedna = response
+            jedna = odpovedWrapper(jedna,response)
 
-        err,response= await otazka(user,"Máš nějaké zásadní problémy s raid timem? (Třeba práce na směny, jezdíš později z práce každou středu atd.)")
+        dva="Máš nějaké zásadní problémy s raid timem? (Třeba práce na směny, jezdíš později z práce každou středu atd.)"
+        err,response= await otazka(user,dva)
         if err==True:
             return
         else:
-            dva = response
+            dva = odpovedWrapper(dva,response)
 
-        err,response= await otazka(user,"Odkaz na raider.io tvého charu")
+        tri="Odkaz na raider.io tvého charu"
+        err,response= await otazka(user,tri)
         if err==True:
             return
         else:
-            tri = response
+            while ('eu/drakthul' not in response and 'eu/burning-blade' not in response) or 'raider.io/characters' not in response:
+                await user.send("Ale notak. Není to tak těžký...")
+                if 'raider.io/characters' not in response:
+                    await user.send("Vůbec jsi neposlal/a odkaz na char na raider.io")
+                else:
+                    await user.send("Musíš poslat odkaz na postavu z EU Drak'thul/Burning Blade.")
+                await user.send("Zkus to znovu:")
+                err,response= await otazka(user,tri)
+                if err==True:
+                    return
+            await user.send("GOOD JOB! Tohle se povede tak jednomu člověku z deseti.")
+            tri = odpovedWrapper(tri,response)
 
-        err,response= await otazka(user,"Odkaz na logy tvého charu")
+        ctyri="Odkaz na warcraftlogs tvého charu:"
+        err,response= await otazka(user,ctyri)
         if err==True:
             return
         else:
-            ctyri = response
+            if ('eu/drakthul' not in response and 'eu/burning-blade' not in response) or 'warcraftlogs.com/character' not in response:
+                await user.send("C'mon, dal/a jsi předchozí otázku dáš i tohle")
+                if 'raider.io/characters' not in response:
+                    await user.send("Vůbec jsi neposlal/a odkaz na char na warcraftlogs")
+                else:
+                    await user.send("Musíš poslat odkaz na postavu z EU Drak'thul/Burning Blade.")
+                await user.send("Try again:")
+                err,response= await otazka(user,ctyri)
+                if err==True:
+                    return
+                if ('eu/drakthul' not in response and 'eu/burning-blade' not in response) or 'warcraftlogs.com/character' not in response:
+                    await user.send("Whatever...jdeme na další otázku")
+                else:
+                    await user.send("NICE...jdeme na další otázku")
 
-        err,response= await otazka(user,"Pokud máš použitelné offspecy a alty, tak je nějak stručně vypiš:")
+            ctyri = odpovedWrapper(ctyri,response)
+
+        pet="Pokud máš použitelné offspecy a alty, tak je nějak stručně vypiš:"
+        err,response= await otazka(user,pet)
         if err==True:
             return
         else:
-            pet = response
+            pet = odpovedWrapper(pet,response)
 
-        err,response= await otazka(user,"Předchozí guilda a důvod odchodu:")
+        sest="Předchozí guilda a důvod odchodu:"
+        err,response= await otazka(user,sest)
         if err==True:
             return
         else:
-            sest = response
+            sest = odpovedWrapper(sest,response)
 
-        err,response= await otazka(user,"Znáš a používáš raidbots a wowanalyzer?")
+        sedm="Znáš a používáš raidbots a/nebo wowanalyzer?"
+        err,response= await otazka(user,sedm)
         if err==True:
             return
         else:
-            sedm = response
+            sedm = odpovedWrapper(sedm,response)
 
-        err,response= await otazka(user,"Proč chceš k nám a co si od toho slibuješ?")
+        osm="Proč chceš k nám a co si od toho slibuješ?"
+        err,response= await otazka(user,osm)
         if err==True:
             return
         else:
-            osm = response
+            osm = odpovedWrapper(osm,response)
 
-        err,response= await otazka(user,"Napiš nám něco o sobě (kolik ti je? kde bydlíš? číslo kreditní karty?):")
+        devet="Napiš nám něco o sobě (kolik ti je? kde bydlíš? číslo kreditní karty?):"
+        err,response= await otazka(user,devet)
         if err==True:
             return
         else:
-            devet = response
+            devet = odpovedWrapper(devet,response)
 
-        err,response= await otazka(user,"Cokoliv dalšího, co nám chceš říct:")
+        deset="Cokoliv dalšího co nám chceš říct:"
+        err,response= await otazka(user,deset)
         if err==True:
             return
         else:
-            deset = response
+            deset = odpovedWrapper(deset,response)
 
         finalmsg= "1) "+jedna+"2) "+dva+"3) "+tri+"4) "+ctyri+"5) "+pet+"6) "+sest+"7) "+sedm+"8) "+osm+"9) "+devet+"10) "+deset
 
@@ -218,6 +254,8 @@ async def on_message(message):
         await user.send(finalmsg)
         await user.send("Vidíš, že jsem ty otázečky pěkně očísloval.")
         err,response= await simpleOtazka(user,"Jestli chceš něco upravit, napiš číslo otázky. Pokud nechceš nic upravovat, napiš **odeslat** a je hotovo")
+        if err==True:
+            return
         while response!='odeslat':
             if response=='1':
                 await user.send("Upravuješ:")
@@ -225,73 +263,86 @@ async def on_message(message):
                 if err==True:
                     return
                 else:
-                    jedna = response
+                    jedna = odpovedWrapper(jedna,response)
             elif response=='2':
                 await user.send("Upravuješ:")
                 err,response= await otazka(user,dva)
                 if err==True:
                     return
                 else:
-                    dva = response
+                    dva = odpovedWrapper(dva,response)
             elif response=='3':
                 await user.send("Upravuješ:")
                 err,response= await otazka(user,tri)
                 if err==True:
                     return
                 else:
-                    tri = response
+                    while ('eu/drakthul' not in response and 'eu/burning-blade' not in response) or 'raider.io/characters' not in response:
+                        await user.send("Ale notak. Jednou se ti tohle už povedlo zadat správně...")
+                        if 'raider.io/characters' not in response:
+                            await user.send("Vůbec jsi neposlal/a odkaz na char na raider.io")
+                        else:
+                            await user.send("Musíš poslat odkaz na postavu z EU Drak'thul/Burning Blade.")
+                        await user.send("Zkus to znovu:")
+                        err,response= await otazka(user,tri)
+                        if err==True:
+                            return
+                    await user.send("GOOD JOB!")
+                    tri = odpovedWrapper(tri,response)
             elif response=='4':
                 await user.send("Upravuješ:")
                 err,response= await otazka(user,ctyri)
                 if err==True:
                     return
                 else:
-                    ctyri = response
+                    ctyri = odpovedWrapper(ctyri,response)
             elif response=='5':
                 await user.send("Upravuješ:")
                 err,response= await otazka(user,pet)
                 if err==True:
                     return
                 else:
-                    pet = response
+                    pet = odpovedWrapper(pet,response)
             elif response=='6':
                 await user.send("Upravuješ:")
                 err,response= await otazka(user,sest)
                 if err==True:
                     return
                 else:
-                    sest = response
+                    sest = odpovedWrapper(sest,response)
             elif response=='7':
                 await user.send("Upravuješ:")
                 err,response= await otazka(user,sedm)
                 if err==True:
                     return
                 else:
-                    sedm = response
+                    sedm = odpovedWrapper(sedm,response)
             elif response=='8':
                 await user.send("Upravuješ:")
                 err,response= await otazka(user,osm)
                 if err==True:
                     return
                 else:
-                    osm = response
+                    osm = odpovedWrapper(osm,response)
             elif response=='9':
                 await user.send("Upravuješ:")
                 err,response= await otazka(user,devet)
                 if err==True:
                     return
                 else:
-                    devet = response
+                    devet = odpovedWrapper(devet,response)
             elif response=='10':
                 await user.send("Upravuješ:")
                 err,response= await otazka(user,deset)
                 if err==True:
                     return
                 else:
-                    deset = response
+                    deset = odpovedWrapper(deset,response)
             else:
                 await user.send("Nenapsal/a jsi platné č. otázky nebo **odeslat**")
             err,response= await simpleOtazka(user,"Jestli chceš ještě něco upravit, napiš číslo otázky. Pokud už nechceš nic upravovat, napiš **odeslat**")
+            if err==True:
+                return
 
         finalmsg=jedna+dva+tri+ctyri+pet+sest+sedm+osm+devet+deset
 
