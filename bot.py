@@ -108,7 +108,7 @@ async def otazka(user,text):
         await user.send('Vypršel ti čas na zadání odpovědi.')
         return True,''
     else:
-        return False,text + '\n*' + response.content + '*\n'
+        return False,'**' + text + "**" + '\n*' + response.content + '*\n'
 
 async def simpleOtazka(user,text):
     await user.send(text)
@@ -147,7 +147,7 @@ async def on_message(message):
                 await user.send("Tvoje přihláška se ruší. Nemám na to, sorry.")
                 channel=bot.get_channel(702074796984500234)
                 await channel.send("<@&464769766117212160> Ahoj všichni! Rád bych vám oznámil, že <@"+str(id)+"> je debil! HALÓ HALÓ!!! <@"+str(id)+"> JE HLUPÁK!!! Nemám na to s ním vyplňovat přihlášku. Nebudu to dělat...")
-                return                            
+                return
         else:
             await user.send("Hahaha! Napíšu botovi něco jinýho než ano/ne, protože na to beztak nikdo nemyslel? Oooooooo jak originální! Když jsi tak chytrej, tak jdeme vyplňovat přihlášku.")
 
