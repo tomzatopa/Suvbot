@@ -221,70 +221,70 @@ async def on_message(message):
         while response!='odeslat':
             if response=='1':
                 await user.send("Upravuješ:")
-                err,response= await otazka(user,"Nick a class tvojí postavy:")
+                err,response= await otazka(user,jedna)
                 if err==True:
                     return
                 else:
                     jedna = response
             elif response=='2':
                 await user.send("Upravuješ:")
-                err,response= await otazka(user,"Máš nějaké zásadní problémy s raid timem? (Třeba práce na směny, jezdíš později z práce každou středu atd.)")
+                err,response= await otazka(user,dva)
                 if err==True:
                     return
                 else:
                     dva = response
             elif response=='3':
                 await user.send("Upravuješ:")
-                err,response= await otazka(user,"Odkaz na raider.io tvého charu")
+                err,response= await otazka(user,tri)
                 if err==True:
                     return
                 else:
                     tri = response
             elif response=='4':
                 await user.send("Upravuješ:")
-                err,response= await otazka(user,"Odkaz na logy tvého charu")
+                err,response= await otazka(user,ctyri)
                 if err==True:
                     return
                 else:
                     ctyri = response
             elif response=='5':
                 await user.send("Upravuješ:")
-                err,response= await otazka(user,"Pokud máš použitelné offspecy a alty, tak je nějak stručně vypiš:")
+                err,response= await otazka(user,pet)
                 if err==True:
                     return
                 else:
                     pet = response
             elif response=='6':
                 await user.send("Upravuješ:")
-                err,response= await otazka(user,"Předchozí guilda a důvod odchodu:")
+                err,response= await otazka(user,sest)
                 if err==True:
                     return
                 else:
                     sest = response
             elif response=='7':
                 await user.send("Upravuješ:")
-                err,response= await otazka(user,"Znáš a používáš raidbots a wowanalyzer?")
+                err,response= await otazka(user,sedm)
                 if err==True:
                     return
                 else:
                     sedm = response
             elif response=='8':
                 await user.send("Upravuješ:")
-                err,response= await otazka(user,"Proč chceš k nám a co si od toho slibuješ?")
+                err,response= await otazka(user,osm)
                 if err==True:
                     return
                 else:
                     osm = response
             elif response=='9':
                 await user.send("Upravuješ:")
-                err,response= await otazka(user,"Napiš nám něco o sobě (kolik ti je? kde bydlíš? číslo kreditní karty?):")
+                err,response= await otazka(user,devet)
                 if err==True:
                     return
                 else:
                     devet = response
             elif response=='10':
                 await user.send("Upravuješ:")
-                err,response= await otazka(user,"Cokoliv dalšího, co nám chceš říct:")
+                err,response= await otazka(user,deset)
                 if err==True:
                     return
                 else:
