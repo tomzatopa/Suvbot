@@ -314,7 +314,7 @@ async def on_message(message):
             else:
                 await channel.send("<@!"+str(id)+"> čo si kokot? Tenhle channel je na logy!",delete_after=10)
             await message.delete()
-    if (message.channel.id == 702074796984500234) and (message.author.id != 291891867703050240)
+    if (message.channel.id == 702074796984500234) and (message.author.id != 291891867703050240):
         await message.delete()
         channel = bot.get_channel(702074796984500234)
         await channel.send("Sem můžu psát jenom já!",delete_after=5)
