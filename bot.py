@@ -146,7 +146,7 @@ async def on_message(message):
             else:
                 await user.send("Tvoje přihláška se ruší. Nemám na to, sorry.")
                 channel=bot.get_channel(702074796984500234)
-                await channel.send("<@&467773009952899072> Ahoj všichni! Rád bych vám oznámil, že <@"+str(id)+"> je debil! HALÓ HALÓ!!! <@"+str(id)+"> JE HLUPÁK!!! Nemám na to s ním vyplňovat přihlášku. Nebudu to dělat...")
+                await channel.send("Ahoj všichni! Rád bych vám oznámil, že <@"+str(id)+"> je debil! HALÓ HALÓ!!! <@"+str(id)+"> JE HLUPÁK!!! Nemám na to s ním vyplňovat přihlášku. Nebudu to dělat...")
                 return
         else:
             await user.send("Hahaha! Napíšu botovi něco jinýho než ano/ne, protože na to beztak nikdo nemyslel? Oooooooo jak originální! Když jsi tak chytrej, tak jdeme vyplňovat přihlášku.")
@@ -314,6 +314,10 @@ async def on_message(message):
             else:
                 await channel.send("<@!"+str(id)+"> čo si kokot? Tenhle channel je na logy!",delete_after=10)
             await message.delete()
+    if (message.channel.id == 702074796984500234) and (message.author.id != 291891867703050240)
+        await message.delete()
+        channel = bot.get_channel(702074796984500234)
+        await channel.send("Sem můžu psát jenom já!",delete_after=5)
     else:
         await bot.process_commands(message)
 
