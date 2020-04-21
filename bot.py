@@ -111,7 +111,7 @@ async def otazka(user,text):
     else:
         return False,response.content
 def odpovedWrapper(text1,text2):
-    return '**' + text1 + "**" + '\n*' + text2 + '*\n'\
+    return '**' + text1 + "**" + '\n*' + text2 + '*\n'
 async def simpleOtazka(user,text):
     await user.send(text)
     try:
