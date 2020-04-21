@@ -100,47 +100,206 @@ def message_check(channel=None, author=None, content=None, ignore_bot=True, lowe
             return False
         return True
     return check
+async def otazka(user,text):
+    await user.send(text)
+    try:
+        response = await bot.wait_for('message',check=message_check(channel=user.dm_channel),timeout=420.0)
+    except asyncio.TimeoutError:
+        await user.send('Vypršel ti čas na zadání odpovědi.')
+        return True,''
+    else:
+        return False,text + '\n*' + response.content + '*\n'
+
+async def simpleOtazka(user,text):
+    await user.send(text)
+    try:
+        response = await bot.wait_for('message',check=message_check(channel=user.dm_channel),timeout=420.0)
+    except asyncio.TimeoutError:
+        await user.send('Vypršel ti čas na zadání odpovědi.')
+        return True,''
+    else:
+        return False,response.content.lower().strip()
 
 @bot.event
 async def on_message(message):
     if (message.channel.id == 634683421616111616) and (message.author.id != 291891867703050240) and 'start' in message.content:
         user = message.author
         id = message.author.id
-        await user.send('Odpověz prosím na následující otázky. Tvé odpovědi zpracuji a přepošlu officer týmu naší guildy. \nNick a class tvojí postavy:')
-        response = await bot.wait_for('message',check=message_check(channel=user.dm_channel))
-        finalmsg = 'Nick a class tvojí postavy:\n*' + response.content + '*\n'
-        await user.send('Máš nějaké zásadní problémy s raid timem? (Třeba práce na směny, jezdíš později z práce každou středu atd.)')
-        response = await bot.wait_for('message',check=message_check(channel=user.dm_channel))
-        finalmsg+= 'Máš nějaké zásadní problémy s raid timem? (Třeba práce na směny, jezdíš později z práce každou středu atd.) \n*' + response.content + '*\n'
-        await user.send('Tvůj progress v BfA:')
-        response = await bot.wait_for('message',check=message_check(channel=user.dm_channel))
-        finalmsg+= 'Tvůj progress v BfA:\n*' + response.content + '*\n'
-        await user.send('Odkaz na raider.io popř. i logy tvého charu:')
-        response = await bot.wait_for('message',check=message_check(channel=user.dm_channel))
-        finalmsg+= 'Odkaz na raider.io popř. i logy tvého charu:\n*' + response.content + '*\n'
-        await user.send('Pokud máš použitelné offspecy a alty, tak je nějak stručně vypiš:')
-        response = await bot.wait_for('message',check=message_check(channel=user.dm_channel))
-        finalmsg+= 'Pokud máš použitelné offspecy a alty, tak je nějak stručně vypiš:\n*' + response.content + '*\n'
-        await user.send('Předchozí guilda a důvod odchodu:')
-        response = await bot.wait_for('message',check=message_check(channel=user.dm_channel))
-        finalmsg+= 'Předchozí guilda a důvod odchodu:\n*' + response.content + '*\n'
-        await user.send('Znáš a používáš raidbots a wowanalyzer?')
-        response = await bot.wait_for('message',check=message_check(channel=user.dm_channel))
-        finalmsg+= 'Znáš a používáš raidbots a wowanalyzer?\n*' + response.content + '*\n'
-        await user.send('Proč chceš k nám a co si od toho slibuješ?')
-        response = await bot.wait_for('message',check=message_check(channel=user.dm_channel))
-        finalmsg+= 'Proč chceš k nám a co si od toho slibuješ?\n*' + response.content + '*\n'
-        await user.send('Napiš nám něco o sobě (kolik ti je? kde bydlíš? číslo kreditní karty?):')
-        response = await bot.wait_for('message',check=message_check(channel=user.dm_channel))
-        finalmsg+= 'Napiš nám něco o sobě (kolik ti je? kde bydlíš? číslo kreditní karty?):\n*' + response.content + '*\n'
-        await user.send('Cokoliv dalšího, co nám chceš říct:')
-        response = await bot.wait_for('message',check=message_check(channel=user.dm_channel))
-        finalmsg+= 'Cokoliv dalšího, co nám chceš říct:\n*' + response.content + '*\n'
+        await message.delete()
+        finalmsg= ''
+        await user.send("Čau! Já jsem Suvbot. Narozdíl od IAO, kteří ani nezvládají vyhrát World First Alliance Drak\'thul Third First Race, já jsem s velkou pravděpodobností ten nejchytřejší guild bot široko daleko.\nBudu se tě ptát na otázky a ty mi na ně prosím odpovídej.Tvé odpovědi zpracuji a přepošlu officer týmu naší guildy.\nU každé otázky je limit 7 min(420 sec XD) na odpověď, takže kdyby ses během vyplňování přihlášky rozhodl/a, že na to sereš, tak prostě neodpovídej a proces vytváření přihlášky se po 7 min automaticky zruší." )
+
+        err,response= await simpleOtazka(user,"Chápeš všechno, co jsem ti teď napsal? Odpověz prosím **ano**. Můžeš odpovědět i **ne**, ale zatím to snad nebylo tak složitý.")
+        if err==True:
+            return
+        if response=='ano':
+            await user.send("Výborně! Můžeme začít s přihláškou.")
+        elif response=='ne':
+            embed = discord.Embed()
+            embed.set_image(url="https://media1.tenor.com/images/4b32ba323922f0fd0b73aea62ce75af1/tenor.gif?itemid=4919469")
+            await user.send(embed=embed)
+            err,response= await simpleOtazka(user," Oukej tak znovu. JÁ SE TĚ BUDU POSTUPNĚ PTÁT NA OTÁZKY. TY MI NA NĚ BUDEŠ ODPOVÍDAT.\nUž jsi mi jednou odpověděl **NE**, když jsem se tě ptal, jestli to celý chápeš...\n*JÁ SE PTÁT, TY ODPOVÍDAT. TY UŽ CHÁPAT?! - TY NAPSAT* **ANO** *DOLE!* ")
+            if err==True:
+                return
+            if response=='ano':
+                await user.send("Výborně! Můžeme začít s přihláškou.")
+            if response=='ne':
+                await user.send("Tvoje přihláška se ruší. Nemám na to, sorry.")
+                channel=bot.get_channel(702074796984500234)
+                await channel.send("<@&464769766117212160> Ahoj všichni! Rád bych vám oznámil, že <@"+str(id)+"> je debil! HALÓ HALÓ!!! <@"+str(id)+"> JE HLUPÁK!!! Nemám na to s ním vyplňovat přihlášku. Nebudu to dělat...")
+                return
+        else:
+            await user.send("Hahaha! Napíšu botovi něco jinýho než ano/ne, protože na to beztak nikdo nemyslel? Oooooooo jak originální! Když jsi tak chytrej, tak jdeme vyplňovat přihlášku.")
+
+
+        err,response= await otazka(user,"Nick a class tvojí postavy:")
+        if err==True:
+            return
+        else:
+            jedna = response
+
+        err,response= await otazka(user,"Máš nějaké zásadní problémy s raid timem? (Třeba práce na směny, jezdíš později z práce každou středu atd.)")
+        if err==True:
+            return
+        else:
+            dva = response
+
+        err,response= await otazka(user,"Odkaz na raider.io tvého charu")
+        if err==True:
+            return
+        else:
+            tri = response
+
+        err,response= await otazka(user,"Odkaz na logy tvého charu")
+        if err==True:
+            return
+        else:
+            ctyri = response
+
+        err,response= await otazka(user,"Pokud máš použitelné offspecy a alty, tak je nějak stručně vypiš:")
+        if err==True:
+            return
+        else:
+            pet = response
+
+        err,response= await otazka(user,"Předchozí guilda a důvod odchodu:")
+        if err==True:
+            return
+        else:
+            sest = response
+
+        err,response= await otazka(user,"Znáš a používáš raidbots a wowanalyzer?")
+        if err==True:
+            return
+        else:
+            sedm = response
+
+        err,response= await otazka(user,"Proč chceš k nám a co si od toho slibuješ?")
+        if err==True:
+            return
+        else:
+            osm = response
+
+        err,response= await otazka(user,"Napiš nám něco o sobě (kolik ti je? kde bydlíš? číslo kreditní karty?):")
+        if err==True:
+            return
+        else:
+            devet = response
+
+        err,response= await otazka(user,"Cokoliv dalšího, co nám chceš říct:")
+        if err==True:
+            return
+        else:
+            deset = response
+
+        finalmsg= "1) "+jedna+"2) "+dva+"3) "+tri+"4) "+ctyri+"5) "+pet+"6) "+sest+"7) "+sedm+"8) "+osm+"9) "+devet+"10) "+deset
+
+        await user.send("Wow, zvládli jsme to. Úžasný. Tady si to po sobě prosím ještě jednou přečti, tohle budu přeposílat officerům:")
+        await user.send(finalmsg)
+        await user.send("Vidíš, že jsem ty otázečky pěkně očísloval.")
+        err,response= await simpleOtazka(user,"Jestli chceš něco upravit, napiš číslo otázky. Pokud nechceš nic upravovat, napiš **odeslat** a je hotovo")
+        while response!='odeslat':
+            if response=='1':
+                await user.send("Upravuješ:")
+                err,response= await otazka(user,"Nick a class tvojí postavy:")
+                if err==True:
+                    return
+                else:
+                    jedna = response
+            elif response=='2':
+                await user.send("Upravuješ:")
+                err,response= await otazka(user,"Máš nějaké zásadní problémy s raid timem? (Třeba práce na směny, jezdíš později z práce každou středu atd.)")
+                if err==True:
+                    return
+                else:
+                    dva = response
+            elif response=='3':
+                await user.send("Upravuješ:")
+                err,response= await otazka(user,"Odkaz na raider.io tvého charu")
+                if err==True:
+                    return
+                else:
+                    tri = response
+            elif response=='4':
+                await user.send("Upravuješ:")
+                err,response= await otazka(user,"Odkaz na logy tvého charu")
+                if err==True:
+                    return
+                else:
+                    ctyri = response
+            elif response=='5':
+                await user.send("Upravuješ:")
+                err,response= await otazka(user,"Pokud máš použitelné offspecy a alty, tak je nějak stručně vypiš:")
+                if err==True:
+                    return
+                else:
+                    pet = response
+            elif response=='6':
+                await user.send("Upravuješ:")
+                err,response= await otazka(user,"Předchozí guilda a důvod odchodu:")
+                if err==True:
+                    return
+                else:
+                    sest = response
+            elif response=='7':
+                await user.send("Upravuješ:")
+                err,response= await otazka(user,"Znáš a používáš raidbots a wowanalyzer?")
+                if err==True:
+                    return
+                else:
+                    sedm = response
+            elif response=='8':
+                await user.send("Upravuješ:")
+                err,response= await otazka(user,"Proč chceš k nám a co si od toho slibuješ?")
+                if err==True:
+                    return
+                else:
+                    osm = response
+            elif response=='9':
+                await user.send("Upravuješ:")
+                err,response= await otazka(user,"Napiš nám něco o sobě (kolik ti je? kde bydlíš? číslo kreditní karty?):")
+                if err==True:
+                    return
+                else:
+                    devet = response
+            elif response=='10':
+                await user.send("Upravuješ:")
+                err,response= await otazka(user,"Cokoliv dalšího, co nám chceš říct:")
+                if err==True:
+                    return
+                else:
+                    deset = response
+            else:
+                await user.send("Nenapsal/a jsi platné č. otázky nebo **odeslat**")
+            err,response= await simpleOtazka(user,"Jestli chceš ještě něco upravit, napiš číslo otázky. Pokud už nechceš nic upravovat, napiš **odeslat**")
+
+        finalmsg=jedna+dva+tri+ctyri+pet+sest+sedm+osm+devet+deset
+
         channel = bot.get_channel(634689737910648832)
         await channel.send('<@'+str(id)+'>')
         await channel.send(finalmsg)
-        await message.delete()
         await user.send("Přihláška byla odeslána!")
+
     if (message.channel.id == 634683421616111616) and (message.author.id != 291891867703050240) and 'start' not in message.content:
         finalmsg = message.content
         id = message.author.id
