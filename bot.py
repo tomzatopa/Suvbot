@@ -147,7 +147,7 @@ async def on_message(message):
                 await user.send("Výborně! Můžeme začít s přihláškou.")
             else:
                 await user.send("Tvoje přihláška se ruší. Nemám na to, sorry.")
-                channel=bot.get_channel(291894459119960064)
+                channel=bot.get_channel(702074796984500234)
                 await channel.send("Ahoj všichni! Rád bych vám oznámil, že <@"+str(id)+"> je debil! HALÓ HALÓ!!! <@"+str(id)+"> JE HLUPÁK!!! Nemám na to s ním vyplňovat přihlášku. Nebudu to dělat...")
                 return
         else:
