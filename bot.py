@@ -301,28 +301,9 @@ async def on_message(message):
         await user.send("Přihláška byla odeslána!")
 
     if (message.channel.id == 634683421616111616) and (message.author.id != 291891867703050240) and 'start' not in message.content:
-        finalmsg = message.content
-        id = message.author.id
-        if ("Nick a class tvojí postavy:" in finalmsg) or \
-        ("Máš nějaké zásadní problémy s raid timem? (Třeba práce na směny, jezdíš později z práce každou středu atd.)" in finalmsg) or \
-        ("Tvůj progress v BfA:" in finalmsg) or \
-        ("Odkaz na logy tvého charu a na raider.io:" in finalmsg) or \
-        ("Pokud máš použitelné offspecy a alty, tak je nějak stručně vypiš:" in finalmsg) or \
-        ("Předchozí guilda a důvod odchodu:" in finalmsg) or \
-        ("Znáš a používáš raidbots a wowanalyzer?" in finalmsg) or \
-        ("Proč chceš k nám a co si od toho slibuješ?" in finalmsg) or \
-        ("Napiš nám něco o sobě (kolik ti je? kde bydlíš? číslo kreditní karty?):" in finalmsg) or \
-        ("Cokoliv dalšího, co nám chceš říct:" in finalmsg):
-            channel = bot.get_channel(634689737910648832)
-            await channel.send('<@'+str(id)+'>')
-            await channel.send(finalmsg)
-            await message.delete()
-            channel = bot.get_channel(634683421616111616)
-            await channel.send("Vaše přihláška/část přihlášky byla odeslána!", delete_after=5)
-        else:
-            await message.delete()
-            channel = bot.get_channel(634683421616111616)
-            await channel.send("Použijte prosím template přihlášky nebo jednotlivou otázku z templatu ve formatu: \n **otázka**: \n odpoved", delete_after=5)
+        await message.delete()
+        channel = bot.get_channel(634683421616111616)
+        await channel.send("Pro zahájení procesu tvorby přihlášky napiš **start**",delete_after=5)
     if (message.channel.id == 493688092075753502) and (message.author.id != 291891867703050240):
         finalmsg = message.content
         id = message.author.id
