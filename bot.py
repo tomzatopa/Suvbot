@@ -1033,6 +1033,22 @@ async def cat(ctx):
     embed.set_image(url=res)
     await ctx.send(embed=embed)
 
+#decline prihlasku command
+@bot.command(name='decline')
+async def decline(ctx, user: discord.Member):
+    sender=ctx.author
+    guild=bot.get_guild(153578963204046849)
+    member=guild.get_member(user.id)
+    sendermember=guild.get_member(sender.id)
+    if guild.get_role(467773009952899072) in sendermember.roles:
+        if guild.get_role(464769766117212160) not in member.roles:
+            await user.send("Ahoj, podívali jsme se na tvojí přihlášku a stojí úplně za hovno. Nikoho jako ty tady nepotřebujeme...Nepřijat!")
+            await member.kick()
+
+@decline.error
+async def info_error(ctx, error):
+    if isinstance(error, commands.MissingRequiredArgument):
+        await ctx.send('Je potřeba zadat @mention nějakého uživatele')
 
 
 ###############################
