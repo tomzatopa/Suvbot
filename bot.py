@@ -868,6 +868,9 @@ async def leave(ctx):
 async def gondorhelp(ctx,arg):
     autor=sklon_5p(str(ctx.message.author.name))
     kdo=str(arg).capitalize()
+    if kdo.startswith('<@') and kdo.endswith('>'):
+        id = kdo[3:-1]
+        kdo=bot.get_user(int(id)).name
     co1 = str(rand_line('gondor.txt')).rstrip()
     co2 = str(rand_line('gondor.txt')).rstrip()
     while co1==co2:
