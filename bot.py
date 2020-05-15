@@ -129,6 +129,8 @@ async def on_message(message):
         id = message.author.id
         await message.delete()
         finalmsg= ''
+        channel = bot.get_channel(634689737910648832)
+        await channel.send('<@'+str(id)+'> začal vytvářet přihlášku.')
         await user.send("Čau! Já jsem Suvbot. Narozdíl od IAO, kteří ani nezvládají vyhrát World First Alliance Drak\'thul Third First Race, já jsem s velkou pravděpodobností ten nejchytřejší guild bot široko daleko.\nBudu se tě ptát na otázky a ty mi na ně prosím odpovídej.Tvé odpovědi zpracuji a přepošlu officer týmu naší guildy.\nU každé otázky je limit 7 min(420 sec XD) na odpověď, takže kdyby ses během vyplňování přihlášky rozhodl/a, že na to sereš, tak prostě neodpovídej a proces vytváření přihlášky se po 7 min automaticky zruší." )
 
         err,response= await simpleOtazka(user,"Chápeš všechno, co jsem ti teď napsal? Odpověz prosím **ano**. Můžeš odpovědět i **ne**, ale zatím to snad nebylo tak složitý.")
