@@ -489,6 +489,7 @@ async def help(ctx, *args):
     helpmsg.add_field(name='__**!emojify text**__', value='Text-to-emoji konvertor.', inline=True)
     helpmsg.add_field(name='__**!iaosound vybrany-zvuk (číslo)**__', value='Přehraje ve voice kanále vybraný zvuk. Pokud za název napíšete ještě číslo, přehraje se zvuk vícekrát(max 50 - vyšší číslo je bráno jako 50). Pro list dostupných zvuků zadejte: !help iaosound', inline=True)
     helpmsg.add_field(name='__**!iaoimage vybrany-img**__', value='Pošle do kanálu vyberaný image. Pro list dostupných zvuků zadejte: !help iaoimage', inline=True)
+    helpmsg.add_field(name='__**!tts text**__', value='Přehraje text-to-speech ze zadaného textu', inline=True)
     helpmsg.add_field(name='__**!iaomeme**__', value='Pošle do kanálu random meme!', inline=True)
     helpmsg.add_field(name='__**!slovak osoba**__', value='Pro naše bratry, nebojte se užít mention a jednoho z nich označit! ', inline=True)
     helpmsg.add_field(name='__**!slabikar**__', value='Bův ví co to je... :shrug:', inline=True)
@@ -777,6 +778,23 @@ async def iaosound(ctx, arg1, *args):
 async def info_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
         await ctx.send('Je potřeba zadat zvuk k přehrání')
+
+#tts command
+@bot.command(name='tts')
+async def iaosound(ctx,*args):
+    a=" ".join(args)
+    a=urllib.parse.quote_plus(a)
+    url = 'https://api.streamelements.com/kappa/v2/speech?voice=Brian&text="'+a+'"'
+    urllib.request.urlretrieve(url,'./sounds/tts.mp3')
+    channel = ctx.author.voice.channel
+    if path.exists('./sounds/tts.mp3'):
+        vc = await channel.connect()
+        vc.play(discord.FFmpegPCMAudio('./sounds/tts.mp3'))
+        while vc.is_playing():
+            await asyncio.sleep(1)
+        await ctx.voice_client.disconnect()
+
+
 
 #iaoimage command
 @bot.command(name='iaoimage')
