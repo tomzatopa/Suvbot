@@ -781,7 +781,7 @@ async def info_error(ctx, error):
 
 #tts command
 @bot.command(name='tts')
-async def iaosound(ctx,*args):
+async def tts(ctx,*args):
     a=" ".join(args)
     a=urllib.parse.quote_plus(a)
     url = 'https://api.streamelements.com/kappa/v2/speech?voice=Brian&text="'+a+'"'
@@ -793,8 +793,10 @@ async def iaosound(ctx,*args):
         while vc.is_playing():
             await asyncio.sleep(1)
         await ctx.voice_client.disconnect()
-
-
+@tts.error
+async def info_error(ctx, error):
+    if isinstance(error, commands.MissingRequiredArgument):
+        await ctx.send('Je potřeba zadat text k přehrání')
 
 #iaoimage command
 @bot.command(name='iaoimage')
