@@ -122,15 +122,10 @@ async def simpleOtazka(user,text):
     else:
         return False,response.content.lower().strip()
 
-#dlouhytextuser
-async def sayUserLongLine(user, text, wrap_at=1000):
+#dlouhytext
+async def sayLongLine(cil, text, wrap_at=1000):
     for line in textwrap.wrap(text, wrap_at):
-        await user.send(line)
-
-#dlouhytextchannel
-async def sayChannelLongLine(channel, text, wrap_at=1000):
-    for line in textwrap.wrap(text, wrap_at):
-        await channel.send(line)
+        await cil.send(line)
 
 @bot.event
 async def on_message(message):
@@ -261,10 +256,10 @@ async def on_message(message):
         else:
             deset = odpovedWrapper(deset,response)
 
-        finalmsg= "1) "+jedna+"2) "+dva+"3) "+tri+"4) "+ctyri+"5) "+pet+"6) "+sest+"7) "+sedm+"8) "+osm+"9) "+devet+"10) "+deset
+        finalmsg= "1) "+jedna+"\n2) "+dva+"\n3) "+tri+"\n4) "+ctyri+"\n5) "+pet+"\n6) "+sest+"\n7) "+sedm+"\n8) "+osm+"\n9) "+devet+"\n10) "+deset
 
         await user.send("Wow, zvládli jsme to. Úžasný. Tady si to po sobě prosím ještě jednou přečti, tohle budu přeposílat officerům:")
-        await sayUserLongLine(user, finalmsg, 1000)
+        await sayLongLine(user, finalmsg, 1000)
         await user.send("Vidíš, že jsem ty otázečky pěkně očísloval.")
         err,response= await simpleOtazka(user,"Jestli chceš něco upravit, napiš číslo otázky. Pokud nechceš nic upravovat, napiš **odeslat** a je hotovo")
         if err==True:
@@ -361,7 +356,7 @@ async def on_message(message):
 
         channel = bot.get_channel(634689737910648832)
         await channel.send('<@'+str(id)+'>')
-        await sayChannelLongLine(channel, finalmsg, 1000)
+        await sayLongLine(channel, finalmsg, 1000)
         await user.send("Přihláška byla odeslána!")
 
     if (message.channel.id == 634683421616111616) and (message.author.id != 291891867703050240) and 'start' not in message.content:
