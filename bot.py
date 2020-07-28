@@ -2,7 +2,6 @@
 ############IMPORTY############
 ###############################
 import os
-import os.path
 import subprocess
 import random
 import discord
@@ -13,6 +12,7 @@ import urllib.parse
 import datetime
 import aiohttp
 import re
+import textwrap
 from datetime import timedelta
 from os import path
 from dotenv import load_dotenv
@@ -121,6 +121,16 @@ async def simpleOtazka(user,text):
         return True,''
     else:
         return False,response.content.lower().strip()
+
+#dlouhytextuser
+async def sayUserLongLine(ctx, text, wrap_at):
+    for line in textwrap.wrap(text, wrap_at):
+        await user.send(line)
+
+#dlouhytextchannel
+async def sayChannelLongLine(ctx, text, wrap_at):
+    for line in textwrap.wrap(text, wrap_at):
+        await channel.send(line)
 
 @bot.event
 async def on_message(message):
@@ -254,7 +264,7 @@ async def on_message(message):
         finalmsg= "1) "+jedna+"2) "+dva+"3) "+tri+"4) "+ctyri+"5) "+pet+"6) "+sest+"7) "+sedm+"8) "+osm+"9) "+devet+"10) "+deset
 
         await user.send("Wow, zvládli jsme to. Úžasný. Tady si to po sobě prosím ještě jednou přečti, tohle budu přeposílat officerům:")
-        await user.send(finalmsg)
+        await sayUserLongLine(finalmsg, 2000)
         await user.send("Vidíš, že jsem ty otázečky pěkně očísloval.")
         err,response= await simpleOtazka(user,"Jestli chceš něco upravit, napiš číslo otázky. Pokud nechceš nic upravovat, napiš **odeslat** a je hotovo")
         if err==True:
@@ -351,7 +361,7 @@ async def on_message(message):
 
         channel = bot.get_channel(634689737910648832)
         await channel.send('<@'+str(id)+'>')
-        await channel.send(finalmsg)
+        await sayChannelLongLine(finalmsg, 2000)
         await user.send("Přihláška byla odeslána!")
 
     if (message.channel.id == 634683421616111616) and (message.author.id != 291891867703050240) and 'start' not in message.content:
