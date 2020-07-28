@@ -123,12 +123,12 @@ async def simpleOtazka(user,text):
         return False,response.content.lower().strip()
 
 #dlouhytextuser
-async def sayUserLongLine(text, wrap_at=1000):
+async def sayUserLongLine(ctx, text, wrap_at=1000):
     for line in textwrap.wrap(text, wrap_at):
         await user.send(line)
 
 #dlouhytextchannel
-async def sayChannelLongLine(text, wrap_at=1000):
+async def sayChannelLongLine(ctx, text, wrap_at=1000):
     for line in textwrap.wrap(text, wrap_at):
         await channel.send(line)
 
