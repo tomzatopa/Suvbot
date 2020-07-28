@@ -264,7 +264,7 @@ async def on_message(message):
         finalmsg= "1) "+jedna+"2) "+dva+"3) "+tri+"4) "+ctyri+"5) "+pet+"6) "+sest+"7) "+sedm+"8) "+osm+"9) "+devet+"10) "+deset
 
         await user.send("Wow, zvládli jsme to. Úžasný. Tady si to po sobě prosím ještě jednou přečti, tohle budu přeposílat officerům:")
-        await sayUserLongLine(finalmsg, 1000)
+        await sayUserLongLine(ctx, finalmsg, 1000)
         await user.send("Vidíš, že jsem ty otázečky pěkně očísloval.")
         err,response= await simpleOtazka(user,"Jestli chceš něco upravit, napiš číslo otázky. Pokud nechceš nic upravovat, napiš **odeslat** a je hotovo")
         if err==True:
@@ -361,7 +361,7 @@ async def on_message(message):
 
         channel = bot.get_channel(634689737910648832)
         await channel.send('<@'+str(id)+'>')
-        await sayChannelLongLine(finalmsg, 1000)
+        await sayChannelLongLine(ctx, finalmsg, 1000)
         await user.send("Přihláška byla odeslána!")
 
     if (message.channel.id == 634683421616111616) and (message.author.id != 291891867703050240) and 'start' not in message.content:
