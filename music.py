@@ -8,11 +8,13 @@ import traceback
 from async_timeout import timeout
 from functools import partial
 from youtube_dl import YoutubeDL
+import os
 
 
 ytdlopts = {
     'format': 'bestaudio/best',
-    'outtmpl': 'downloads/%(extractor)s-%(id)s-%(title)s.%(ext)s',
+    #'outtmpl': 'yt/%(extractor)s-%(id)s-%(title)s.%(ext)s',
+    'outtmpl': 'yt/%(title)s.%(ext)s',
     'restrictfilenames': True,
     'noplaylist': True,
     'nocheckcertificate': True,
@@ -128,8 +130,11 @@ class MusicPlayer:
             source.cleanup()
             self.current = None
 
-            try:
+            oldest_file = sorted([ "yt/"+f for f in os.listdir("yt")], key=os.path.getctime)[0]
+            os.remove(oldest_file)
+            print ("{0} has been deleted".format(oldest_file))
 
+            try:
                 await self.np.delete()
             except discord.HTTPException:
                 pass
@@ -152,7 +157,11 @@ class Music(commands.Cog):
             pass
 
         try:
-            del self.players[guild.id]
+            for entry in self.players[guild.id].queue._queue:
+                if isinstance(entry,YTDLSource):
+                    entry.cleanup()
+            self.players[guild.id].queue._queue.clear()
+            #del self.players[guild.id]
         except KeyError:
             pass
 
@@ -218,7 +227,7 @@ class Music(commands.Cog):
 
         player = self.get_player(ctx)
 
-        source = await YTDLSource.create_source(ctx, search, loop=self.bot.loop, download=False)
+        source = await YTDLSource.create_source(ctx, search, loop=self.bot.loop, download=True)
 
         await player.queue.put(source)
 
