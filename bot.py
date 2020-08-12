@@ -38,6 +38,7 @@ SPCKAPI = os.getenv('SPCKAPI')
 ###########EXTENSIONS##########
 ###############################
 bot.load_extension('gamble')
+bot.load_extension('music')
 
 ###############################
 ##########BOT EVENTS###########
