@@ -106,7 +106,7 @@ class MusicPlayer:
             self.next.clear()
 
             try:
-                async with timeout(300):
+                async with timeout(5):
                     source = await self.queue.get()
             except asyncio.TimeoutError:
                 return self.destroy(self._guild)
