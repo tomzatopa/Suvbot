@@ -182,12 +182,9 @@ async def on_message(message):
         if err==True:
             return
         else:
-            while ('eu/drakthul' not in response and 'eu/burning-blade' not in response) or 'raider.io/characters' not in response:
+            while 'raider.io/characters' not in response:
                 await user.send("Ale notak. Není to tak těžký...")
-                if 'raider.io/characters' not in response:
-                    await user.send("Vůbec jsi neposlal/a odkaz na char na raider.io")
-                else:
-                    await user.send("Musíš poslat odkaz na postavu z EU Drak'thul/Burning Blade.")
+                await user.send("Vůbec jsi neposlal/a odkaz na char na raider.io")
                 await user.send("Zkus to znovu:")
                 err,response= await otazka(user,tri)
                 if err==True:
@@ -200,17 +197,14 @@ async def on_message(message):
         if err==True:
             return
         else:
-            if ('eu/drakthul' not in response and 'eu/burning-blade' not in response) or 'warcraftlogs.com/character' not in response:
+            if 'warcraftlogs.com/character' not in response:
                 await user.send("C'mon, dal/a jsi předchozí otázku dáš i tohle")
-                if 'raider.io/characters' not in response:
-                    await user.send("Vůbec jsi neposlal/a odkaz na char na warcraftlogs")
-                else:
-                    await user.send("Musíš poslat odkaz na postavu z EU Drak'thul/Burning Blade.")
+                await user.send("Vůbec jsi neposlal/a odkaz na char na warcraftlogs")
                 await user.send("Try again:")
                 err,response= await otazka(user,ctyri)
                 if err==True:
                     return
-                if ('eu/drakthul' not in response and 'eu/burning-blade' not in response) or 'warcraftlogs.com/character' not in response:
+                if 'warcraftlogs.com/character' not in response:
                     await user.send("Whatever...jdeme na další otázku")
                 else:
                     await user.send("NICE...jdeme na další otázku")
@@ -288,12 +282,9 @@ async def on_message(message):
                 if err==True:
                     return
                 else:
-                    while ('eu/drakthul' not in response and 'eu/burning-blade' not in response) or 'raider.io/characters' not in response:
+                    while  'raider.io/characters' not in response:
                         await user.send("Ale notak. Jednou se ti tohle už povedlo zadat správně...")
-                        if 'raider.io/characters' not in response:
-                            await user.send("Vůbec jsi neposlal/a odkaz na char na raider.io")
-                        else:
-                            await user.send("Musíš poslat odkaz na postavu z EU Drak'thul/Burning Blade.")
+                        await user.send("Vůbec jsi neposlal/a odkaz na char na raider.io")
                         await user.send("Zkus to znovu:")
                         err,response= await otazka(user,tri)
                         if err==True:
