@@ -221,7 +221,7 @@ class Music(commands.Cog):
 
         await ctx.send(f'Připojeno do: **{channel}**', delete_after=20)
 
-    @commands.command(name='play')
+    @commands.command(name='play',aliases=['p'])
     async def play_(self, ctx, *, search: str):
         await ctx.trigger_typing()
 
@@ -298,7 +298,7 @@ class Music(commands.Cog):
 
         await ctx.send(embed=embed)
 
-    @commands.command(name='np')
+    @commands.command(name='np',aliases=['cs'])
     async def now_playing_(self, ctx):
 
         vc = ctx.voice_client
