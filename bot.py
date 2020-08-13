@@ -125,8 +125,10 @@ async def simpleOtazka(user,text):
 
 #dlouhytext
 async def sayLongLine(cil, text, wrap_at=1000):
-    for line in textwrap.wrap(text, wrap_at):
-        await cil.send(line)
+    #for line in textwrap.wrap(text, wrap_at):
+    #    await cil.send(line)
+    for y in range(wrap_at,len(text)+wrap_at,wrap_at):
+        await cil.send(text[y-wrap_at:y])
 
 @bot.event
 async def on_message(message):

@@ -24,7 +24,7 @@ ytdlopts = {
     'no_warnings': True,
     'default_search': 'auto',
     'source_address': '0.0.0.0'
-}
+    }
 
 ffmpegopts = {
     'before_options': '-nostdin',
@@ -34,10 +34,11 @@ ffmpegopts = {
 
 ytdl = YoutubeDL(ytdlopts)
 
-#class VoiceConnectionError(commands.CommandError):
+class VoiceConnectionError(commands.CommandError):
+    """"""
 
-#class InvalidVoiceChannel(VoiceConnectionError):
-
+class InvalidVoiceChannel(VoiceConnectionError):
+    """"""
 
 class YTDLSource(discord.PCMVolumeTransformer):
     def __init__(self, source, *, data, requester):
@@ -109,7 +110,9 @@ class MusicPlayer:
                 async with timeout(5):
                     source = await self.queue.get()
             except asyncio.TimeoutError:
-                return self.destroy(self._guild)
+                if self in self._cog.players.values():
+                    return self.destroy(self._guild)
+                return
 
             if not isinstance(source, YTDLSource):
                 try:
@@ -129,10 +132,12 @@ class MusicPlayer:
 
             source.cleanup()
             self.current = None
-
-            oldest_file = sorted([ "yt/"+f for f in os.listdir("yt")], key=os.path.getctime)[0]
-            os.remove(oldest_file)
-            print ("{0} has been deleted".format(oldest_file))
+            try:
+                oldest_file = sorted([ "yt/"+f for f in os.listdir("yt")], key=os.path.getctime)[0]
+                os.remove(oldest_file)
+                print ("{0} has been deleted".format(oldest_file))
+            except:
+                pass
 
             try:
                 await self.np.delete()
@@ -231,6 +236,116 @@ class Music(commands.Cog):
 
         await player.queue.put(source)
 
+
+    @commands.command(name='pause')
+    async def pause_(self, ctx):
+
+        vc = ctx.voice_client
+
+        if not vc or not vc.is_playing():
+            return await ctx.send('Aktuálně nic nehraje!', delete_after=20)
+        elif vc.is_paused():
+            return
+
+        vc.pause()
+        await ctx.send(f'Paused!')
+
+    @commands.command(name='resume')
+    async def resume_(self, ctx):
+
+        vc = ctx.voice_client
+
+        if not vc or not vc.is_connected():
+            return await ctx.send('I am not currently playing anything!', delete_after=20)
+        elif not vc.is_paused():
+            return
+
+        vc.resume()
+        await ctx.send(f'Resumed!')
+
+    @commands.command(name='skip')
+    async def skip_(self, ctx):
+
+        vc = ctx.voice_client
+
+        if not vc or not vc.is_connected():
+            return await ctx.send('Aktuálně nic nehraje!', delete_after=20)
+
+        if vc.is_paused():
+            pass
+        elif not vc.is_playing():
+            return
+
+        vc.stop()
+        await ctx.send(f'**`{ctx.author}`** přeskočil song!')
+
+    @commands.command(name='queue', aliases=['q'])
+    async def queue_info(self, ctx):
+
+        vc = ctx.voice_client
+
+        if not vc or not vc.is_connected():
+            return await ctx.send('Nejsem připojen do žádného voice kanálu!', delete_after=20)
+
+        player = self.get_player(ctx)
+        if player.queue.empty():
+            return await ctx.send('Ve frontě nic není.')
+
+        upcoming = list(itertools.islice(player.queue._queue, 0, 100))
+
+        fmt = '\n'.join(f'**`{_["title"]}`**' for _ in upcoming)
+        embed = discord.Embed(title=f'Počet songů ve frontě: {len(upcoming)}\nFronta:', description=fmt)
+
+        await ctx.send(embed=embed)
+
+    @commands.command(name='np')
+    async def now_playing_(self, ctx):
+
+        vc = ctx.voice_client
+
+        if not vc or not vc.is_connected():
+            return await ctx.send('Nejsem připojen do žádného voice kanálu!', delete_after=20)
+
+        player = self.get_player(ctx)
+        if not player.current:
+            return await ctx.send('Aktuálně nic nehraje!')
+
+        try:
+            await player.np.delete()
+        except discord.HTTPException:
+            pass
+
+        player.np = await ctx.send(f'**Právě hraje:** `{vc.source.title}` '
+                                   f'- přidáno uživatelem `{vc.source.requester}`')
+
+    @commands.command(name='volume')
+    async def change_volume(self, ctx, *, vol: float):
+
+        vc = ctx.voice_client
+
+        if not vc or not vc.is_connected():
+            return await ctx.send('Nejsem připojen do žádného voice kanálu!', delete_after=20)
+
+        if not 0 < vol < 101:
+            return await ctx.send('Zadej číslo mezi 1 a 100 !')
+
+        player = self.get_player(ctx)
+
+        if vc.source:
+            vc.source.volume = vol / 100
+
+        player.volume = vol / 100
+        await ctx.send(f'**`{ctx.author}`** nastavil volume na **{vol}%**')
+
+    @commands.command(name='stop')
+    async def stop_(self, ctx):
+
+        vc = ctx.voice_client
+
+        if not vc or not vc.is_connected():
+            return await ctx.send('Aktuálně nic nehraje!', delete_after=20)
+
+        await self.cleanup(ctx.guild)
 
 
 
