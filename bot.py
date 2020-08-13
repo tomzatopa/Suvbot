@@ -1094,5 +1094,16 @@ async def info_error(ctx, error):
 #    userid = str(ctx.message.author.id)
 #    await ctx.send(userid, delete_after=5)
 
+async def background_loop():
+    await bot.wait_until_ready()
+    while True:
+        channel = bot.get_channel(649182917112889345)
+        messages = ["Something", "like", "this?"]
+        time = [5, 10,15]
+        await channel.send(random.choice(messages))
+        await asyncio.sleep(random.choice(time))
+
+bot.loop.create_task(background_loop())
+
 ###BOT RUN
 bot.run(TOKEN)
