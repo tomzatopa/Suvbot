@@ -380,8 +380,8 @@ async def on_message(message):
         await message.delete()
         channel = bot.get_channel(702074796984500234)
         await channel.send("Sem můžu psát jenom já!",delete_after=5)
-    else:
-        await bot.process_commands(message)
+    #else:
+    #    await bot.process_commands(message)
     await bot.process_commands(message)
 
 ###############################
