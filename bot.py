@@ -245,7 +245,7 @@ async def on_message(message):
         else:
             osm = odpovedWrapper(osm,response)
 
-        devet="Napiš nám něco o sobě (kolik ti je? kde bydlíš? číslo kreditní karty?):"
+        devet="Napiš nám něco o sobě (kolik ti je? kde bydlíš? číslo kreditní karty?)\n(Tohle opravdu není nepodstatná otázka. V případě, že jsi žena, tak si ten věk klidně nech pro sebe pokud se stydíš, ale kromě raidů nám opravdu jde i o komunitu a chceme alespoň trochu vědět, co tady máme za lidi.):"
         err,response= await otazka(user,devet)
         if err==True:
             return
@@ -382,6 +382,7 @@ async def on_message(message):
         await channel.send("Sem můžu psát jenom já!",delete_after=5)
     else:
         await bot.process_commands(message)
+    await bot.process_commands(message)
 
 ###############################
 ########OBECNE FUNKCE##########
