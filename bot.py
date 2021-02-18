@@ -389,7 +389,7 @@ async def on_message(message):
             if err==True:
                 return
 
-        finalmsg=dva+tri+ctyri+pet+sest+sedm+osm+devet+deset+jedenact+dvanact
+        finalmsg=jedna+dva+tri+ctyri+pet+sest+sedm+osm+devet+deset+jedenact+dvanact
 
         channel = bot.get_channel(634689737910648832)
         await channel.send('<@'+str(id)+'>')
