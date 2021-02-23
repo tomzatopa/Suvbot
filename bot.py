@@ -119,7 +119,7 @@ async def otazkaImage(user,text):
         await user.send('Vypršel ti čas na zadání odpovědi.')
         return True,''
     else:
-        return False,response.attachments
+        return False,response
 def odpovedWrapper(text1,text2):
     return '**' + text1 + "**" + '\n*' + text2 + '*\n'
 async def simpleOtazka(user,text):
@@ -270,13 +270,13 @@ async def on_message(message):
         else:
             jedenact = odpovedWrapper(jedenact,response)
 
-        dvanact="Pošli nám screenshot tvého UI (ideálně v raidu):"
+        dvanact="Pošli nám screenshot tvého UI (ideálně v raidu)(pokud teď nejsi u WoWka, napiš to a obrázek pak pošli na <@!153578593677475840>):"
         err,response= await otazkaImage(user,dvanact)
         if err==True:
             return
         else:
-            dvanactImg = response
-            dvanact='**' + dvanact + "**"
+            dvanactImg = response.attachments
+            dvanact= odpovedWrapper(jedenact,response.content)
 
         finalmsg= "1) "+jedna+"\n2) "+dva+"\n3) "+tri+"\n4) "+ctyri+"\n5) "+pet+"\n6) "+sest+"\n7) "+sedm+"\n8) "+osm+"\n9) "+devet+"\n10) "+deset+"\n11) "+jedenact+"\n12) "+dvanact
         embed = discord.Embed(colour=0xD5A6BD)
@@ -380,8 +380,8 @@ async def on_message(message):
                 if err==True:
                     return
                 else:
-                    dvanactImg = response
-                    dvanact='**' + dvanact + "**"
+                    dvanactImg = response.attachments
+                    dvanact= odpovedWrapper(jedenact,response.content)
 
             else:
                 await user.send("Nenapsal/a jsi platné č. otázky nebo **odeslat**")
