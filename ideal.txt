@@ -3,3 +3,4 @@ ideálně to měl tankovat nějaký mitigation tank
 ideálně to mělo dmgovat nějaké melee
 ideálně to měl dmgovat nějaký ranged
 se tam rangedka dost špatne pohybujou
+meleečka tam mají malý uptime na bossovi
