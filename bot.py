@@ -381,7 +381,7 @@ async def on_message(message):
                     return
                 else:
                     dvanactImg = response.attachments
-                    dvanact= odpovedWrapper(jedenact,response.content)
+                    dvanact= odpovedWrapper(dvanact,response.content)
 
             else:
                 await user.send("Nenapsal/a jsi platné č. otázky nebo **odeslat**")
