@@ -19,7 +19,6 @@ from os import path
 from dotenv import load_dotenv
 from discord.ext import commands
 from urllib.request import Request, urlopen
-from bs4 import BeautifulSoup
 from collections.abc import Sequence
 
 ###############################
@@ -1006,10 +1005,9 @@ async def inspire(ctx):
     site= "https://inspirobot.me/api?generate=true"
     hdr = {'User-Agent': 'Mozilla/5.0'}
     req = Request(site,headers=hdr)
-    page = urlopen(req).read()
-    soup = BeautifulSoup(page,features="html.parser")
+    page = urlopen(req).read().decode('UTF-8')
     embed = discord.Embed()
-    embed.set_image(url=soup)
+    embed.set_image(url=page)
     await ctx.send(embed=embed)
 
 #recipe command
