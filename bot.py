@@ -85,7 +85,7 @@ file = open("wclQuery.txt", "r")
 wclQuery = file.read()
 file.close()
 
-#POST header setup 
+#POST header setup
 headers = {
     "Authorization": "Bearer " + WCL_TOKEN,
     "Accept": "application/json",
@@ -94,8 +94,8 @@ headers = {
 
 ### WCL API CALL
 async def checkWcl():
-    while True: 
-        time.sleep(10) #interval (10s)
+    while True:
+        await asyncio.sleep(10) #interval (10s)
 
         #Samotnej API call
         r = requests.post("https://www.warcraftlogs.com/api/v2/client", headers=headers, json={"query": wclQuery})
@@ -113,7 +113,7 @@ async def checkWcl():
             temp["startTime"] = i["startTime"]
             temp["code"] = i["code"]
             temp["tag"] = i["guildTag"]["name"]
-        
+
         #Check jestli neni na wcl novej report za posledních 10 sekund
         for i in reportList:
             if((time.time()*1000 - i["startTime"]) < 10000):
