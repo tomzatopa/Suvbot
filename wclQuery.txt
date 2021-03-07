@@ -1,0 +1,17 @@
+{
+  reportData{
+    reports(guildName:"Improvise Adapt Overcome", guildServerSlug:"drakthul", guildServerRegion:"eu", limit:5){
+      data{
+        owner{
+          name
+        }
+        title
+        startTime
+        code
+        guildTag{
+          name
+        }
+      }
+    }
+  }
+}
