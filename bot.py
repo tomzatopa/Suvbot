@@ -276,7 +276,7 @@ async def on_message(message):
             return
         else:
             dvanactImg = response.attachments
-            dvanact= odpovedWrapper(jedenact,response.content)
+            dvanact= odpovedWrapper(dvanact,response.content)
 
         finalmsg= "1) "+jedna+"\n2) "+dva+"\n3) "+tri+"\n4) "+ctyri+"\n5) "+pet+"\n6) "+sest+"\n7) "+sedm+"\n8) "+osm+"\n9) "+devet+"\n10) "+deset+"\n11) "+jedenact+"\n12) "+dvanact
         embed = discord.Embed(colour=0xD5A6BD)
