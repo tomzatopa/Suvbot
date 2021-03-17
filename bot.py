@@ -93,37 +93,47 @@ headers = {
 
 ### WCL API CALL
 async def checkWcl():
+
     while True:
         await asyncio.sleep(10) #interval (10s)
 
         #Samotnej API call
         r = requests.post("https://www.warcraftlogs.com/api/v2/client", headers=headers, json={"query": wclQuery})
+        try:
+            #Data processing
+            data = json.loads(r.text)
+            reportList = []
+        except:
+            print("Data chyba: typ promenne-{},obsah-{}".format(type(data),str(data)))
+            print("Status-code requestu byl: {}".format(r.status_code))
+            print("Odpoved requestu byla: {}".format(str(r.content)))
 
-        #Data processing
-        data = json.loads(r.text)
-        reportList = []
+        try:
+            #Překopání shit JSONu na Python List
+            for i in data["data"]["reportData"]["reports"]["data"]:
+                temp = {}
+                reportList.append(temp)
+                temp["author"] = i["owner"]["name"]
+                temp["name"] = i["title"]
+                temp["startTime"] = i["startTime"]
+                temp["code"] = i["code"]
+                temp["tag"] = i["guildTag"]["name"]
+        except: 
+            print("Selhal append do reportlistu.")
 
-        #Překopání shit JSONu na Python List
-        for i in data["data"]["reportData"]["reports"]["data"]:
-            temp = {}
-            reportList.append(temp)
-            temp["author"] = i["owner"]["name"]
-            temp["name"] = i["title"]
-            temp["startTime"] = i["startTime"]
-            temp["code"] = i["code"]
-            temp["tag"] = i["guildTag"]["name"]
-
-        #Check jestli neni na wcl novej report za posledních 10 sekund
-        for i in reportList:
-            if((time.time()*1000 - i["startTime"]) < 10000):
-                messageText = i["author"] + " postnul novej log (" + i["name"] + "). Link: https://www.warcraftlogs.com/reports/" + i["code"]
-                if i["tag"] == "POG Raid":
-                    await bot.get_channel(779393920131923999).send(messageText)
-                elif i["tag"] == "OMG Raid":
-                    await bot.get_channel(779394948843700224).send(messageText)
-                else:
-                    await bot.get_channel(493688092075753502).send(messageText)
-
+        try:
+            #Check jestli neni na wcl novej report za posledních 10 sekund
+            for i in reportList:
+                if((time.time()*1000 - i["startTime"]) < 10000):
+                    messageText = i["author"] + " postnul novej log (" + i["name"] + "). Link: https://www.warcraftlogs.com/reports/" + i["code"]
+                    if i["tag"] == "POG Raid":
+                        await bot.get_channel(779393920131923999).send(messageText)
+                    elif i["tag"] == "OMG Raid":
+                        await bot.get_channel(779394948843700224).send(messageText)
+                    else:
+                        await bot.get_channel(493688092075753502).send(messageText)
+        except:
+            print("Selhal check na novy report.")
 
 #stolen shit aby fungovala prihlaska
 def make_sequence(seq):
