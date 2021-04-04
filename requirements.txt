@@ -1,7 +1,6 @@
-requests==2.22.0
-async_timeout==3.0.1
-youtube_dl==2021.2.10
-discord.py==1.5.0
-aiohttp==3.7.0
-discord==1.0.1
-python-dotenv==0.15.0
+requests
+async_timeout
+youtube_dl
+discord.py
+discord
+python-dotenv
