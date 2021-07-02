@@ -14,6 +14,7 @@ import time
 import aiohttp
 import re
 import textwrap
+import pymongo
 from datetime import timedelta
 from os import path
 from dotenv import load_dotenv
@@ -35,6 +36,19 @@ MAINTAINER = [
     int(os.getenv('MAINTAINER3'))
     ]
 SPCKAPI = os.getenv('SPCKAPI')
+OTAZKY = {
+    "jednaPog": "(POG) MVP - v originále Most Valuable Player. Tohle je člověk, který jde příkladem - točí, poslouchá, rozumí věcem a bez něj by byla celá raid group slabší.",
+    "dvaPog": "(POG) Kamarád - náš oblíbený guild rank se vrací v podobě této ceny. Kamarád je ten, bez koho by ty raidy nebyly ono. Tenhle člověk prostě výrazně zlepšuje atmosféru v raidu.",
+    "triPog": "(POG) Tryhard - člověk zaměřený na 120% výkon. Nehodí se do fightu jeho trinket? Dá si jiný trinket, který si pro tenhle fight vyfarmil. Nehodí se do fightu jeho class? Switchne na jeho 220 skoro-bis alta, kterého kvůli tomuhle fightu vyexpil. PvP trinket BiS? Čas na grind arén!",
+    "ctyriPog": "(POG) Pepega - vidí louži? Jde jí soaknout. (Ne)Vidí beam? Jde ho soaknout. Kliknout na gate? \"Sorry, zrovna mi to nešlo.\" I tak ale máme tohodle člověka rádi.",
+    "jednaOmg": "(OMG) MVP - v originále Most Valuable Player. Tohle je člověk, který jde příkladem - točí, poslouchá, rozumí věcem a bez něj by byla celá raid group slabší.",
+    "dvaOmg": "(OMG) Kamarád - náš oblíbený guild rank se vrací v podobě této ceny. Kamarád je ten, bez koho by ty raidy nebyly ono. Tenhle člověk prostě výrazně zlepšuje atmosféru v raidu.",
+    "triOmg": "(OMG) Tryhard - člověk zaměřený na 120% výkon. Nehodí se do fightu jeho trinket? Dá si jiný trinket, který si pro tenhle fight vyfarmil. Nehodí se do fightu jeho class? Switchne na jeho 220 skoro-bis alta, kterého kvůli tomuhle fightu vyexpil. PvP trinket BiS? Čas na grind arén!",
+    "ctyriOmg": "(OMG) Pepega - vidí louži? Jde jí soaknout. (Ne)Vidí beam? Jde ho soaknout. Kliknout na gate? \"Sorry, zrovna mi to nešlo.\" I tak ale máme tohodle člověka rádi.",
+    "jednaGen": "MDI wannabe - dungy, dungy, DUNGY!!! 15ka? Jde. 18ka? Jde. 20ka? Jde. Je mu jedno s kým. Je mu jedno kdy.",
+    "dvaGen": "Celebrita - tohoto člověka vidíte na DC a máte nutkání za ním přijít a pokecat. Baví se a vychází v pohodě se všemi."
+}
+MAINDB = pymongo.MongoClient(os.getenv('MONGODBSTRING')).mainDB
 ###############################
 ###########EXTENSIONS##########
 ###############################
@@ -197,6 +211,22 @@ async def sayLongLine(cil, text, wrap_at=1000):
     #    await cil.send(line)
     for y in range(wrap_at,len(text)+wrap_at,wrap_at):
         await cil.send(text[y-wrap_at:y])
+
+#voting
+def finalMsgWrapper(POG, OMG, odpovedi):
+    basemsg = "Ještě jednou si zkontroluj, jestli máš všechno správně.\n\n"
+    if POG and not OMG:
+        return basemsg + "1) " + odpovedWrapper(OTAZKY["jednaPog"], odpovedi["POGMVP"]) + "\n2) " + odpovedWrapper(OTAZKY["dvaPog"], odpovedi["POGKamarad"]) + "\n3) " + odpovedWrapper(OTAZKY["triPog"], odpovedi["POGTryhard"]) + "\n4) " + odpovedWrapper(OTAZKY["ctyriPog"], odpovedi["POGPepega"]) + "\n5) " + odpovedWrapper(OTAZKY["jednaGen"], odpovedi["GeneralMDIWannabe"]) + "\n6) " + odpovedWrapper(OTAZKY["dvaGen"], odpovedi["GeneralCelebrita"])
+    elif not POG and OMG:
+        return basemsg + "1) " + odpovedWrapper(OTAZKY["jednaOmg"], odpovedi["OMGMVP"]) + "\n2) " + odpovedWrapper(OTAZKY["dvaOmg"], odpovedi["OMGKamarad"]) + "\n3) " + odpovedWrapper(OTAZKY["triOmg"], odpovedi["OMGTryhard"]) + "\n4) " + odpovedWrapper(OTAZKY["ctyriOmg"], odpovedi["OMGPepega"]) + "\n5) " + odpovedWrapper(OTAZKY["jednaGen"], odpovedi["GeneralMDIWannabe"]) + "\n6) " + odpovedWrapper(OTAZKY["dvaGen"], odpovedi["GeneralCelebrita"])
+    elif POG and OMG:
+        return basemsg + "1) " + odpovedWrapper(OTAZKY["jednaPog"], odpovedi["POGMVP"]) + "\n2) " + odpovedWrapper(OTAZKY["dvaPog"], odpovedi["POGKamarad"]) + "\n3) " + odpovedWrapper(OTAZKY["triPog"], odpovedi["POGTryhard"]) + "\n4) " + odpovedWrapper(OTAZKY["ctyriPog"], odpovedi["POGPepega"]) + "\n5) " + odpovedWrapper(OTAZKY["jednaOmg"], odpovedi["OMGMVP"]) + "\n6) " + odpovedWrapper(OTAZKY["dvaOmg"], odpovedi["OMGKamarad"]) + "\n7) " + odpovedWrapper(OTAZKY["triOmg"], odpovedi["OMGTryhard"]) + "\n8) " + odpovedWrapper(OTAZKY["ctyriOmg"], odpovedi["OMGPepega"]) + "\n9) " + odpovedWrapper(OTAZKY["jednaGen"], odpovedi["GeneralMDIWannabe"]) + "\n10) " + odpovedWrapper(OTAZKY["dvaGen"], odpovedi["GeneralCelebrita"])
+def setVotedToTrue(userid):
+    MAINDB.voted.update_one({str(userid): False}, {"$set": {str(userid): True}})
+    return
+def checkIfVoted(userid):
+    return MAINDB.voted.find_one()[str(userid)]
+
 
 @bot.event
 async def on_message(message):
@@ -1178,6 +1208,323 @@ async def decline(ctx, user: discord.Member):
 async def info_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
         await ctx.send('Je potřeba zadat @mention nějakého uživatele')
+
+#vote command - je to mess ale funguje to a nejebte do toho
+@bot.command(name="vote")
+async def vote(ctx):
+    author = ctx.author
+    id = author.id
+    await ctx.message.delete()
+
+    odpovedi = {}
+    POG = False
+    OMG = False
+
+    for x in ctx.author.roles:
+        if x.name == "POG":
+            POG = True
+        if x.name == "OMG":
+            OMG = True
+
+    if not POG and not OMG:
+        await author.send("Nejsi členem POG ani OMG. Nemáš právo se zůčastnit.")
+        return
+    if checkIfVoted(author.id):
+        await author.send("Už jsi jednou hlasoval.")
+        return    
+    
+    await author.send("Čau. Já jsem Suvbot, nejspíš mě znáš, protože v IAO už nějakou chvíli jseš. \n\nBudu ti po jednom posílat otázky (ocenění) a ty mi na ně budeš odpovídat. Dej si pozor, abys napsal/a jméno člověka tak, aby se dalo snadno rozeznat. \nOtázky se dělí do dvou (tří) sekcí. První (první dvě, pokud raiduješ v POG i v OMG) sekce se týká ocenění specificky pro tvojí skupinu a hlasy se sčítají pro každou skupinu zvlášť. \nV poslední sekci jsou otázky týkající se členů celé guildy a hlasy se sčítají společně. \n\nVšechny odpovědi jsou anonymní.")
+    err, response = await simpleOtazka(author, "Pochopil jsi, co máš dělat? Pokud jsi to pochopil, odepiš mi **ano**. Můžeš odepsat i **ne**, ale zatím to snad nebylo tak těžký.")
+    if err:
+        return
+    if response == "ano":
+        await author.send("Výborně, můžeme začít.")
+    elif response == "ne":
+        embed = discord.Embed()
+        embed.set_image(url="https://media1.tenor.com/images/4b32ba323922f0fd0b73aea62ce75af1/tenor.gif?itemid=4919469")
+        await author.send(embed=embed)
+        err,response = await simpleOtazka(author, "Oukej tak znovu. JÁ SE TĚ BUDU POSTUPNĚ PTÁT NA OTÁZKY. TY MI NA NĚ BUDEŠ ODPOVÍDAT.\nUž jsi mi jednou odpověděl **NE**, když jsem se tě ptal, jestli to celý chápeš...\n*JÁ SE PTÁT, TY ODPOVÍDAT. TY UŽ CHÁPAT?! - TY NAPSAT* **ANO** *DOLE!* ")
+        if err:
+            return
+        if response == "ano":
+            author.send("KONEČNĚ! Můžeme začít.")
+        elif response == "ne":
+            await author.send("Tvoje hlasování se ruší. Nemám na to, sorry.")
+            await bot.get_channel(859358412273614859).send("Ahoj všichni! Rád bych vám oznámil, že <@"+str(id)+"> je debil! HALÓ HALÓ!!! <@"+str(id)+"> JE HLUPÁK!!! Nemám na to s ním odhlasovat. Nebudu to dělat...")
+            return
+    else:
+        await author.send("Hahaha! Napíšu botovi něco jinýho než ano/ne, protože na to beztak nikdo nemyslel? Oooooooo jak originální! Když jsi tak chytrej, tak jdeme hlasovat.")
+    
+
+    if POG:
+        err,response = await otazka(author, OTAZKY["jednaPog"])
+        if err:
+            return
+        else:
+            odpovedi["POGMVP"] = response
+            jednaPog = odpovedWrapper(OTAZKY["jednaPog"], response)
+        
+        err,response = await otazka(author,OTAZKY["dvaPog"])
+        if err:
+            return
+        else:
+            odpovedi["POGKamarad"] = response
+            dvaPog = odpovedWrapper(OTAZKY["dvaPog"], response)
+
+        err,response = await otazka(author,OTAZKY["triPog"])
+        if err:
+            return
+        else:
+            odpovedi["POGTryhard"] = response
+            triPog = odpovedWrapper(OTAZKY["triPog"], response)
+        
+        err,response = await otazka(author, OTAZKY["ctyriPog"])
+        if err:
+            return
+        else:
+            odpovedi["POGPepega"] = response
+            ctyriPog = odpovedWrapper(OTAZKY["ctyriPog"], response)
+    
+    if OMG:
+        err,response = await otazka(author, OTAZKY["jednaOmg"])
+        if err:
+            return
+        else:
+            odpovedi["OMGMVP"] = response
+            jednaOmg = odpovedWrapper(OTAZKY["jednaOmg"], response)
+        
+        err,response = await otazka(author,OTAZKY["dvaOmg"])
+        if err:
+            return
+        else:
+            odpovedi["OMGKamarad"] = response
+            dvaOmg = odpovedWrapper(OTAZKY["dvaOmg"], response)
+
+        err,response = await otazka(author,OTAZKY["triOmg"])
+        if err:
+            return
+        else:
+            odpovedi["OMGTryhard"] = response
+            triOmg = odpovedWrapper(OTAZKY["triOmg"], response)
+        
+        err,response = await otazka(author, OTAZKY["ctyriOmg"])
+        if err:
+            return
+        else:
+            odpovedi["OMGPepega"] = response
+            ctyriOmg = odpovedWrapper(OTAZKY["ctyriOmg"], response)
+    
+    err, response = await otazka(author, OTAZKY["jednaGen"])
+    if err:
+        return
+    else:
+        odpovedi["GeneralMDIWannabe"] = response
+        jednaGen = odpovedWrapper(OTAZKY["jednaGen"], response)
+    
+    err, response = await otazka(author, OTAZKY["dvaGen"])
+    if err:
+        return
+    else:
+        odpovedi["GeneralCelebrita"] = response
+        dvaGen = odpovedWrapper(OTAZKY["dvaGen"], response)
+
+    await author.send(finalMsgWrapper(POG, OMG, odpovedi))
+    print(odpovedi)
+
+    err, response = await simpleOtazka(author, "Pokud budeš chtít něco upravit, napiš číslo otázky. Pokud budeš chtít hlasy odeslat, napiš **odeslat** a máš hotovo.")
+    if err:
+        return
+    while response != "odeslat":
+        if POG and not OMG:
+            if response == "1":
+                err, response = await otazka(author, "Upravuješ: " + jednaPog)
+                if err:
+                    return
+                else:
+                    odpovedi["POGMVP"] = response
+                    jednaPog = odpovedWrapper(OTAZKY["jednaPog"], response)
+            elif response == "2":
+                err, response = await otazka(author, "Upravuješ: " + dvaPog)
+                if err:
+                    return
+                else:
+                    odpovedi["POGKamarad"] = response
+                    dvaPog = odpovedWrapper(OTAZKY["dvaPog"], response)
+            elif response == "3":
+                err, response = await otazka(author, "Upravuješ: " + triPog)
+                if err:
+                    return
+                else:
+                    odpovedi["POGTryhard"] = response
+                    triPog = odpovedWrapper(OTAZKY["triPog"], response)
+            elif response == "4":
+                err, response = await otazka(author, "Upravuješ: " + ctyriPog)
+                if err:
+                    return
+                else:
+                    odpovedi["POGPepega"] = response
+                    ctyriPog = odpovedWrapper(OTAZKY["ctyriPog"], response)
+            elif response == "5":
+                err, response = await otazka(author, "Upravuješ: " + jednaGen)
+                if err:
+                    return
+                else:
+                    odpovedi["GeneralMDIWannabe"] = response
+                    jednaGen = odpovedWrapper(OTAZKY["jednaGen"], response)
+            elif response == "6":
+                err, response = await otazka(author, "Upravuješ: " + dvaGen)
+                if err:
+                    return
+                else:
+                    odpovedi["GeneralCelebrita"] = response
+                    dvaGen = odpovedWrapper(OTAZKY["jednaGen"], response)
+        elif not POG and OMG:
+            if response == "1":
+                err, response = await otazka(author, "Upravuješ: " + jednaOmg)
+                if err:
+                    return
+                else:
+                    odpovedi["OMGMVP"] = response
+                    jednaOmg = odpovedWrapper(OTAZKY["jednaOmg"], response)
+            elif response == "2":
+                err, response = await otazka(author, "Upravuješ: " + dvaOmg)
+                if err:
+                    return
+                else:
+                    odpovedi["OMGKamarad"] = response
+                    dvaOmg = odpovedWrapper(OTAZKY["dvaOmg"], response)
+            elif response == "3":
+                err, response = await otazka(author, "Upravuješ: " + triOmg)
+                if err:
+                    return
+                else:
+                    odpovedi["OMGTryhard"] = response
+                    triOmg = odpovedWrapper(OTAZKY["triOmg"], response)
+            elif response == "4":
+                err, response = await otazka(author, "Upravuješ: " + ctyriOmg)
+                if err:
+                    return
+                else:
+                    odpovedi["OMGPepega"] = response
+                    ctyriOmg = odpovedWrapper(OTAZKY["ctyriOmg"], response)
+            elif response == "5":
+                err, response = await otazka(author, "Upravuješ: " + jednaGen)
+                if err:
+                    return
+                else:
+                    odpovedi["GeneralMDIWannabe"] = response
+                    jednaGen = odpovedWrapper(OTAZKY["jednaGen"], response)
+            elif response == "6":
+                err, response = await otazka(author, "Upravuješ: " + dvaGen)
+                if err:
+                    return
+                else:
+                    odpovedi["GeneralCelebrita"] = response
+                    dvaGen = odpovedWrapper(OTAZKY["dvaGen"], response)
+        elif POG and OMG:
+            if response == "1":
+                err, response = await otazka(author, "Upravuješ: " + jednaPog)
+                if err:
+                    return
+                else:
+                    odpovedi["POGMVP"] = response
+                    jednaPog = odpovedWrapper(OTAZKY["jednaPog"], response)
+            elif response == "2":
+                err, response = await otazka(author, "Upravuješ: " + dvaPog)
+                if err:
+                    return
+                else:
+                    odpovedi["POGKamarad"] = response
+                    dvaPog = odpovedWrapper(OTAZKY["dvaPog"], response)
+            elif response == "3":
+                err, response = await otazka(author, "Upravuješ: " + triPog)
+                if err:
+                    return
+                else:
+                    odpovedi["POGTryhard"] = response
+                    triPog = odpovedWrapper(OTAZKY["triPog"], response)
+            elif response == "4":
+                err, response = await otazka(author, "Upravuješ: " + ctyriPog)
+                if err:
+                    return
+                else:
+                    odpovedi["POGPepega"] = response
+                    ctyriPog = odpovedWrapper(OTAZKY["ctyriPog"], response)
+            elif response == "5":
+                err, response = await otazka(author, "Upravuješ: " + jednaOmg)
+                if err:
+                    return
+                else:
+                    odpovedi["OMGMVP"] = response
+                    jednaOmg = odpovedWrapper(OTAZKY["jednaOmg"], response)
+            elif response == "6":
+                err, response = await otazka(author, "Upravuješ: " + dvaOmg)
+                if err:
+                    return
+                else:
+                    odpovedi["OMGKamarad"] = response
+                    dvaOmg = odpovedWrapper(OTAZKY["dvaOmg"], response)
+            elif response == "7":
+                err, response = await otazka(author, "Upravuješ: " + triOmg)
+                if err:
+                    return
+                else:
+                    odpovedi["OMGTryhard"] = response
+                    triOmg = odpovedWrapper(OTAZKY["triOmg"], response)
+            elif response == "8":
+                err, response = await otazka(author, "Upravuješ: " + ctyriOmg)
+                if err:
+                    return
+                else:
+                    odpovedi["OMGPepega"] = response
+                    ctyriOmg = odpovedWrapper(OTAZKY["ctyriOmg"], response)
+            elif response == "9":
+                err, response = await otazka(author, "Upravuješ: " + jednaGen)
+                if err:
+                    return
+                else:
+                    odpovedi["GeneralMDIWannabe"] = response
+                    jednaGen = odpovedWrapper(OTAZKY["jednaGen"], response)
+            elif response == "10":
+                err, response = await otazka(author, "Upravuješ: " + dvaGen)
+                if err:
+                    return
+                else:
+                    odpovedi["GeneralCelebrita"] = response
+                    dvaGen = odpovedWrapper(OTAZKY["dvaGen"], response)
+        else:
+            await author.send("Nenapsal/a jsi platné č. otázky nebo **odeslat**")
+        await sayLongLine(author, finalMsgWrapper(POG, OMG, odpovedi))
+        err, response = await otazka(author, "Pokud budeš chtít ještě něco upravit, napiš číslo otázky. Pokud budeš chtít hlasy odeslat, napiš **odeslat** a máš hotovo.")
+
+    #err, response = await sayLongLine(author, finalMsgWrapper(POG, OMG, odpovedi) + "\nPokud budeš chtít ještě něco upravit, napiš číslo otázky. Pokud budeš chtít hlasy odeslat, napiš **odeslat** a máš hotovo.")
+    setVotedToTrue(author.id)
+    MAINDB.votes.insert_one(odpovedi)
+    await author.send("Výborně! Tvoje hlasy byly zaznamenány a odeslány!")
+    #await bot.get_channel(859358349471383612).send(odpovedi)
+
+@bot.command(name="checkVotes")
+async def checkVotes(ctx):
+    await ctx.message.delete()
+    VOTES = MAINDB.voted.find_one()
+    finalmsg = ""
+    votedTrue = []
+    votedFalse = []
+    for x in VOTES:
+        if x == "_id":
+            continue
+        if(VOTES[x]):
+            votedTrue.append(x)
+        else:
+            votedFalse.append(x)
+    finalmsg += "**HLASOVALI**\n\n"
+    for x in votedTrue:
+        finalmsg += "<@" + x + ">\n"
+    finalmsg += "\n**NEHLASOVALI**\n\n"
+    for x in votedFalse:
+        finalmsg += "<@" + x + ">\n"
+    await ctx.author.send(finalmsg)
+    return
 
 
 ###############################
