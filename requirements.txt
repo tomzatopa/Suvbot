@@ -4,3 +4,4 @@ youtube_dl
 discord.py
 discord
 python-dotenv
+pymongo
