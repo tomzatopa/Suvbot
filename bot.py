@@ -1217,6 +1217,8 @@ async def vote(ctx):
     await ctx.message.delete()
 
     odpovedi = {}
+
+    CNVotes = False
     POG = False
     OMG = False
 
@@ -1225,9 +1227,11 @@ async def vote(ctx):
             POG = True
         if x.name == "OMG":
             OMG = True
-
-    if not POG and not OMG:
-        await author.send("Nejsi členem POG ani OMG. Nemáš právo se zůčastnit.")
+        if x.name == "HlasovaniCastleNathria":
+            CNVotes = True
+    
+    if not CNVotes:
+        await author.send("Nehrál jsi během Castle Nathria, nemáš právo se zúčastnit.")
         return
     if checkIfVoted(author.id):
         await author.send("Už jsi jednou hlasoval.")
