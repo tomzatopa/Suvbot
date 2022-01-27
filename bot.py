@@ -48,18 +48,31 @@ OTAZKY = {
     "jednaGen": "MDI wannabe - dungy, dungy, DUNGY!!! 15ka? Jde. 18ka? Jde. 20ka? Jde. Je mu jedno s kým. Je mu jedno kdy.",
     "dvaGen": "Celebrita - tohoto člověka vidíte na DC a máte nutkání za ním přijít a pokecat. Baví se a vychází v pohodě se všemi."
 }
-PRIHLASKA = {
-    "jedna": "Nick a class tvojí postavy:",
-    "dva": "Máš nějaké zásadní problémy s raid timem? (Třeba práce na směny, jezdíš později z práce každou středu atd.):",
-    "tri": "Odkaz na raider.io tvého charu:",
-    "ctyri": "Odkaz na warcraftlogs tvého charu:",
-    "pet": "Pokud máš použitelné offspecy a alty, tak je nějak stručně vypiš:",
-    "sest": "Předchozí guilda a důvod odchodu:",
-    "sedm": "Znáš a používáš raidbots a/nebo wowanalyzer?",
-    "osm": "Proč chceš k nám a co si od toho slibuješ?",
-    "devet": "Napiš nám něco o sobě (kolik ti je? kde bydlíš? číslo kreditní karty?)\n(Fakt se nestyď. Podle tohodle si vybíráme docela často.)",
-    "deset": "Pošli nám screenshot tvého UI (ideálně v raidu)(pokud teď nejsi u WoWka, napiš to a obrázek pak pošli na <@!270147622973603848>):" #NOLIFE DC ID
-}
+
+class PRIHLASKA:
+    jedna = "Nick a class tvojí postavy:"
+    dva = "Máš nějaké zásadní problémy s raid timem? (Třeba práce na směny, jezdíš později z práce každou středu atd.):"
+    tri = "Odkaz na raider.io tvého charu:"
+    ctyri = "Odkaz na warcraftlogs tvého charu:"
+    pet = "Pokud máš použitelné offspecy a alty, tak je nějak stručně vypiš:"
+    sest = "Předchozí guilda a důvod odchodu:"
+    sedm = "Znáš a používáš raidbots a/nebo wowanalyzer?"
+    osm = "Proč chceš k nám a co si od toho slibuješ?"
+    devet = "Napiš nám něco o sobě (kolik ti je? kde bydlíš? číslo kreditní karty?)\n(Fakt se nestyď. Podle tohodle si vybíráme docela často.)"
+    deset = "Pošli nám screenshot tvého UI (ideálně v raidu)(pokud teď nejsi u WoWka, napiš to a obrázek pak pošli na <@!270147622973603848>):" #NOLIFE DC ID
+
+#PRIHLASKA = {
+#    "jedna": "Nick a class tvojí postavy:",
+#    "dva": "Máš nějaké zásadní problémy s raid timem? (Třeba práce na směny, jezdíš později z práce každou středu atd.):",
+#    "tri": "Odkaz na raider.io tvého charu:",
+#    "ctyri": "Odkaz na warcraftlogs tvého charu:",
+#    "pet": "Pokud máš použitelné offspecy a alty, tak je nějak stručně vypiš:",
+#    "sest": "Předchozí guilda a důvod odchodu:",
+#    "sedm": "Znáš a používáš raidbots a/nebo wowanalyzer?",
+#    "osm": "Proč chceš k nám a co si od toho slibuješ?",
+#    "devet": "Napiš nám něco o sobě (kolik ti je? kde bydlíš? číslo kreditní karty?)\n(Fakt se nestyď. Podle tohodle si vybíráme docela často.)",
+#    "deset": "Pošli nám screenshot tvého UI (ideálně v raidu)(pokud teď nejsi u WoWka, napiš to a obrázek pak pošli na <@!270147622973603848>):" #NOLIFE DC ID
+#}
 MAINDB = pymongo.MongoClient(os.getenv('MONGODBSTRING')).mainDB
 ###############################
 ###########EXTENSIONS##########
