@@ -255,12 +255,15 @@ def checkIfVoted(userid):
 
 @bot.event
 async def on_message(message):
-    if (message.channel.id == 634683421616111616) and (message.author.id != 291891867703050240) and 'start' in message.content:
+    PRIHLASKA_CHANNEL = discord.utils.get(message.guild.text_channels, name="přihláška")
+    OFFI_PRIHLASKY_CHANNEL = discord.utils.get(message.guild.text_channels, name="offi-přihlášky")
+
+    if (message.channel.id == PRIHLASKA_CHANNEL.id) and (message.author.id != 291891867703050240) and 'start' in message.content:
         user = message.author
         id = message.author.id
         await message.delete()
         finalmsg= ''
-        channel = bot.get_channel(634689737910648832)
+        channel = bot.get_channel(OFFI_PRIHLASKY_CHANNEL.id)
         await channel.send('<@'+str(id)+'> začal vytvářet přihlášku.')
         await user.send("Čau! Já jsem Suvbot. Narozdíl od IAO, kteří ani nezvládají vyhrát World First Alliance Drak\'thul Third First Race, já jsem s velkou pravděpodobností ten nejchytřejší guild bot široko daleko.\nBudu se tě ptát na otázky a ty mi na ně prosím odpovídej.Tvé odpovědi zpracuji a přepošlu officer týmu naší guildy.\nU každé otázky je limit 7 min(420 sec XD) na odpověď, takže kdyby ses během vyplňování přihlášky rozhodl/a, že na to sereš, tak prostě neodpovídej a proces vytváření přihlášky se po 7 min automaticky zruší." )
 
@@ -467,7 +470,7 @@ async def on_message(message):
 
         finalmsg=jedna+dva+tri+ctyri+pet+sest+sedm+osm+devet+deset
 
-        channel = bot.get_channel(634689737910648832)
+        channel = bot.get_channel(OFFI_PRIHLASKY_CHANNEL.id)
         await channel.send('<@'+str(id)+'>')
         await sayLongLine(channel, finalmsg, 1000)
         if desetImg :
