@@ -268,30 +268,15 @@ async def on_message(message):
         else:
             jedna = odpovedWrapper(jedna,response)
 
-        dva="Chceš raidovat s POG (R1) nebo s OMG (R2)?"
+        dva="Máš nějaké zásadní problémy s raid timem? (Třeba práce na směny, jezdíš později z práce každou středu atd.)"
         err,response= await otazka(user,dva)
         if err==True:
             return
         else:
-            dva = odpovedWrapper(dva,response)
+            ctyri = odpovedWrapper(dva,response)
 
-        tri="Pokud se nedostaneš do raid groupy, kterou preferuješ, jsi ochotný/á raidovat s tou druhou?"
+        tri="Odkaz na raider.io tvého charu"
         err,response= await otazka(user,tri)
-        if err==True:
-            return
-        else:
-            tri = odpovedWrapper(tri,response)
-
-
-        ctyri="Máš nějaké zásadní problémy s raid timem? (Třeba práce na směny, jezdíš později z práce každou středu atd.)"
-        err,response= await otazka(user,ctyri)
-        if err==True:
-            return
-        else:
-            ctyri = odpovedWrapper(ctyri,response)
-
-        pet="Odkaz na raider.io tvého charu"
-        err,response= await otazka(user,pet)
         if err==True:
             return
         else:
@@ -299,14 +284,14 @@ async def on_message(message):
                 await user.send("Ale notak. Není to tak těžký...")
                 await user.send("Vůbec jsi neposlal/a odkaz na char na raider.io")
                 await user.send("Zkus to znovu:")
-                err,response= await otazka(user,pet)
+                err,response= await otazka(user,tri)
                 if err==True:
                     return
             await user.send("GOOD JOB! Tohle se povede tak jednomu člověku z deseti.")
-            pet = odpovedWrapper(pet,response)
+            tri = odpovedWrapper(tri,response)
 
-        sest="Odkaz na warcraftlogs tvého charu:"
-        err,response= await otazka(user,sest)
+        ctyri="Odkaz na warcraftlogs tvého charu:"
+        err,response= await otazka(user,ctyri)
         if err==True:
             return
         else:
@@ -314,7 +299,7 @@ async def on_message(message):
                 await user.send("C'mon, dal/a jsi předchozí otázku dáš i tohle")
                 await user.send("Vůbec jsi neposlal/a odkaz na char na warcraftlogs")
                 await user.send("Try again:")
-                err,response= await otazka(user,sest)
+                err,response= await otazka(user,ctyri)
                 if err==True:
                     return
                 if 'warcraftlogs.com/character' not in response:
@@ -322,55 +307,55 @@ async def on_message(message):
                 else:
                     await user.send("NICE...jdeme na další otázku")
 
+            ctyri = odpovedWrapper(ctyri,response)
+
+        pet="Pokud máš použitelné offspecy a alty, tak je nějak stručně vypiš:"
+        err,response= await otazka(user,pet)
+        if err==True:
+            return
+        else:
+            pet = odpovedWrapper(pet,response)
+
+        sest="Předchozí guilda a důvod odchodu:"
+        err,response= await otazka(user,sest)
+        if err==True:
+            return
+        else:
             sest = odpovedWrapper(sest,response)
 
-        sedm="Pokud máš použitelné offspecy a alty, tak je nějak stručně vypiš:"
+        sedm="Znáš a používáš raidbots a/nebo wowanalyzer?"
         err,response= await otazka(user,sedm)
         if err==True:
             return
         else:
             sedm = odpovedWrapper(sedm,response)
 
-        osm="Předchozí guilda a důvod odchodu:"
+        osm="Proč chceš k nám a co si od toho slibuješ?"
         err,response= await otazka(user,osm)
         if err==True:
             return
         else:
             osm = odpovedWrapper(osm,response)
 
-        devet="Znáš a používáš raidbots a/nebo wowanalyzer?"
+        devet="Napiš nám něco o sobě (kolik ti je? kde bydlíš? číslo kreditní karty?)\n(Fakt se nestyď. Podle tohodle si vybíráme docela často.)"
         err,response= await otazka(user,devet)
         if err==True:
             return
         else:
             devet = odpovedWrapper(devet,response)
 
-        deset="Proč chceš k nám a co si od toho slibuješ?"
-        err,response= await otazka(user,deset)
+        deset="Pošli nám screenshot tvého UI (ideálně v raidu)(pokud teď nejsi u WoWka, napiš to a obrázek pak pošli na <@!270147622973603848>):" #elgee -> nolife dc id
+        err,response= await otazkaImage(user,deset)
         if err==True:
             return
         else:
-            deset = odpovedWrapper(deset,response)
+            desetImg = response.attachments
+            deset= odpovedWrapper(deset,response.content)
 
-        jedenact="Napiš nám něco o sobě (kolik ti je? kde bydlíš? číslo kreditní karty?)\n(Fakt se nestyď. Podle tohodle si vybíráme docela často.)"
-        err,response= await otazka(user,jedenact)
-        if err==True:
-            return
-        else:
-            jedenact = odpovedWrapper(jedenact,response)
-
-        dvanact="Pošli nám screenshot tvého UI (ideálně v raidu)(pokud teď nejsi u WoWka, napiš to a obrázek pak pošli na <@!270147622973603848>):" #elgee -> nolife dc id
-        err,response= await otazkaImage(user,dvanact)
-        if err==True:
-            return
-        else:
-            dvanactImg = response.attachments
-            dvanact= odpovedWrapper(dvanact,response.content)
-
-        finalmsg= "1) "+jedna+"\n2) "+dva+"\n3) "+tri+"\n4) "+ctyri+"\n5) "+pet+"\n6) "+sest+"\n7) "+sedm+"\n8) "+osm+"\n9) "+devet+"\n10) "+deset+"\n11) "+jedenact+"\n12) "+dvanact
+        finalmsg= "1) "+jedna+"\n2) "+dva+"\n3) "+tri+"\n4) "+ctyri+"\n5) "+pet+"\n6) "+sest+"\n7) "+sedm+"\n8) "+osm+"\n9) "+devet+"\n10) "+deset
         embed = discord.Embed(colour=0xD5A6BD)
-        if dvanactImg :
-            embed.set_image(url=dvanactImg[0].url)
+        if desetImg :
+            embed.set_image(url=desetImg[0].url)
         await user.send("Wow, zvládli jsme to. Úžasný. Tady si to po sobě prosím ještě jednou přečti, tohle budu přeposílat officerům:")
         await sayLongLine(user, finalmsg, 1000)
         await user.send("Vidíš, že jsem ty otázečky pěkně očísloval.")
@@ -398,6 +383,14 @@ async def on_message(message):
                 if err==True:
                     return
                 else:
+                    while 'raider.io/characters' not in response:
+                        await user.send("Ale notak. Jednou se ti tohle už povedlo zadat správně...")
+                        await user.send("Vůbec jsi neposlal/a odkaz na char na raider.io")
+                        await user.send("Zkus to znovu:")
+                        err,response= await otazka(user,tri)
+                        if err==True:
+                            return
+                    await user.send("GOOD JOB!")
                     tri = odpovedWrapper(tri,response)
             elif response=='4':
                 await user.send("Upravuješ:")
@@ -412,14 +405,6 @@ async def on_message(message):
                 if err==True:
                     return
                 else:
-                    while  'raider.io/characters' not in response:
-                        await user.send("Ale notak. Jednou se ti tohle už povedlo zadat správně...")
-                        await user.send("Vůbec jsi neposlal/a odkaz na char na raider.io")
-                        await user.send("Zkus to znovu:")
-                        err,response= await otazka(user,pet)
-                        if err==True:
-                            return
-                    await user.send("GOOD JOB!")
                     pet = odpovedWrapper(pet,response)
             elif response=='6':
                 await user.send("Upravuješ:")
@@ -451,26 +436,12 @@ async def on_message(message):
                     devet = odpovedWrapper(devet,response)
             elif response=='10':
                 await user.send("Upravuješ:")
-                err,response= await otazka(user,deset)
+                err,response= await otazkaImage(user,deset)
                 if err==True:
                     return
                 else:
-                    deset = odpovedWrapper(deset,response)
-            elif response=='11':
-                await user.send("Upravuješ:")
-                err,response= await otazka(user,jedenact)
-                if err==True:
-                    return
-                else:
-                    jedenact = odpovedWrapper(jedenact,response)
-            elif response=='12':
-                await user.send("Upravuješ:")
-                err,response= await otazkaImage(user,dvanact)
-                if err==True:
-                    return
-                else:
-                    dvanactImg = response.attachments
-                    dvanact= odpovedWrapper(dvanact,response.content)
+                    desetImg = response.attachments
+                    deset= odpovedWrapper(deset,response.content)
 
             else:
                 await user.send("Nenapsal/a jsi platné č. otázky nebo **odeslat**")
@@ -478,13 +449,13 @@ async def on_message(message):
             if err==True:
                 return
 
-        finalmsg=jedna+dva+tri+ctyri+pet+sest+sedm+osm+devet+deset+jedenact+dvanact
+        finalmsg=jedna+dva+tri+ctyri+pet+sest+sedm+osm+devet+deset
 
         channel = bot.get_channel(634689737910648832)
         await channel.send('<@'+str(id)+'>')
         await sayLongLine(channel, finalmsg, 1000)
-        if dvanactImg :
-            embed.set_image(url=dvanactImg[0].url)
+        if desetImg :
+            embed.set_image(url=desetImg[0].url)
         await channel.send(embed=embed)
         await user.send("Přihláška byla odeslána!")
 
