@@ -359,7 +359,7 @@ async def on_message(message):
         else:
             jedenact = odpovedWrapper(jedenact,response)
 
-        dvanact="Pošli nám screenshot tvého UI (ideálně v raidu)(pokud teď nejsi u WoWka, napiš to a obrázek pak pošli na <@!153578593677475840>):"
+        dvanact="Pošli nám screenshot tvého UI (ideálně v raidu)(pokud teď nejsi u WoWka, napiš to a obrázek pak pošli na <@!270147622973603848>):" #elgee -> nolife dc id
         err,response= await otazkaImage(user,dvanact)
         if err==True:
             return
