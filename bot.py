@@ -27,6 +27,7 @@ from collections.abc import Sequence
 ###############################
 intents = discord.Intents.default()
 intents.members = True
+intents.messages = True
 bot = commands.Bot(command_prefix='!', intents = intents)
 bot.remove_command('help')
 load_dotenv()
