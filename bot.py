@@ -1168,9 +1168,9 @@ async def wolfram(ctx,*args):
 #office command
 @bot.command(name='office')
 async def office(ctx):
-    response=requests.get('https://michael-scott-quotes.herokuapp.com/quote')
+    response=requests.get('https://officeapi.dev/api/quotes/random')
     dic=response.json()
-    res=dic['quote']
+    res=dic['content']
     await ctx.send('\"'+res+'\"')
 
 #poll command
