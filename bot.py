@@ -811,7 +811,7 @@ async def sorry(ctx,arg1,arg2):
         + ' v době, kdy se hraje ' +  s2 \
         + ' a chvíli trvá, než se to naučím optimalizovat. Do toho jsem bohužel ' +  coHraju \
         + ' tuhle expanzi moc nehrál, protože ' +  s3 \
-        + ' , v m+ ' +  s4 \
+        + ', v m+ ' +  s4 \
         + ' a ta specka ' +  s5 \
         + ' Všechno to jsou ale jenom hloupé výmluvy a ve výsledku je to prostě jenom skill issue a git gud. \n\nNa druhou stranu ' +  s6 \
         + ' Tak díky za trpělivost a ještě jednou se omlouvám.'
@@ -840,7 +840,7 @@ async def sorrysk(ctx,arg1,arg2):
         + ' v čase, kedy se hrá ' +  s2 \
         + ' a chvílu trvá, než sa to naučím optimalizovať. Do toho som bohužial ' +  coHraju \
         + ' túto expanziu veľa nehrál, lebo ' +  s3 \
-        + ' , v m+ ' +  s4 \
+        + ', v m+ ' +  s4 \
         + ' a ta specka ' +  s5 \
         + ' Všetko to sú ale len hlúpé výhovorky a vo výsledku je to len skill issue a git gud. \n\nNa druhú stranu ' +  s6 \
         + ' Tak ďakujem za trpezlivosť a ešte raz sa ospravedlňujem.'
