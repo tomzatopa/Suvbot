@@ -825,7 +825,7 @@ async def info_error(ctx, error):
 #sorrysk command 
 @bot.command(name='sorrysk')
 async def sorrysk(ctx,arg1,arg2):
-    kdoZacal = str(arg1)
+    kdoZacal = sklon_slovak(str(arg1))
     coHraju = str(arg2)
     
     s1 = str(rand_line('sorry1sk.txt')).rstrip()
