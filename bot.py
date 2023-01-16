@@ -820,7 +820,7 @@ async def sorry(ctx,arg1,arg2):
 @sorry.error
 async def info_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
-        await ctx.send('Je potřeba zadat kdo začal a co hraješ: !sorry "kdo zacal" "classa co hrajes"')
+        await ctx.send('Je potřeba zadat kdo začal a co hraješ: !sorry "kdo zacal" "co hrajes"')
 
 #sorrysk command 
 @bot.command(name='sorrysk')
@@ -849,7 +849,7 @@ async def sorrysk(ctx,arg1,arg2):
 @sorrysk.error
 async def info_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
-        await ctx.send('Je potřeba zadat kdo začal a co hraješ: !sorrysk "kdo zacal" "classa co hrajes"')
+        await ctx.send('Je potřeba zadat kdo začal a co hraješ: !sorrysk "kdo zacal" "co hrajes"')
 
 #insult command
 @bot.command(name='insult')
