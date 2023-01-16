@@ -798,7 +798,7 @@ async def info_error(ctx, error):
 async def sorry(ctx,arg1,arg2):
     kdoZacal = str(arg1)
     coHraju = str(arg2)
-    
+
     s1 = str(rand_line('sorry1.txt')).rstrip()
     s2 = str(rand_line('sorry2.txt')).rstrip()
     s3 = str(rand_line('sorry3.txt')).rstrip()
@@ -811,10 +811,10 @@ async def sorry(ctx,arg1,arg2):
         + ' v době, kdy se hraje ' +  s2 \
         + ' a chvíli trvá, než se to naučím optimalizovat. Do toho jsem bohužel ' +  coHraju \
         + ' tuhle expanzi moc nehrál, protože ' +  s3 \
-        + ' , v m+ ' +  s4 \
-        + ' , a ta specka ' +  s5 \
+        + ' ,v m+ ' +  s4 \
+        + ' a ta specka ' +  s5 \
         + ' Všechno to jsou ale jenom hloupé výmluvy a ve výsledku je to prostě jenom skill issue a git gud. \n\nNa druhou stranu ' +  s6 \
-        + ' Tak díky za trpělivost a ještě jednou se omlouvám. '
+        + ' Tak díky za trpělivost a ještě jednou se omlouvám.'
 
     await ctx.send(sorry)
 @sorry.error
@@ -822,6 +822,34 @@ async def info_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
         await ctx.send('Je potřeba zadat kdo začal a co hraješ: !sorry "kdo zacal" "classa co hrajes"')
 
+#sorrysk command 
+@bot.command(name='sorrysk')
+async def sorrysk(ctx,arg1,arg2):
+    kdoZacal = slovak(str(arg1))
+    coHraju = str(arg2)
+    
+    s1 = str(rand_line('sorry1sk.txt')).rstrip()
+    s2 = str(rand_line('sorry2.txt')).rstrip()
+    s3 = str(rand_line('sorry3sk.txt')).rstrip()
+    s4 = str(rand_line('sorry4sk.txt')).rstrip() 
+    s5 = str(rand_line('sorry5sk.txt')).rstrip() 
+    s6 = str(rand_line('sorry6sk.txt')).rstrip()   
+
+    sorrysk='Keď to tu '+ kdoZacal \
+        + ' načal, tak sa tiež vyjádrím 🙂 \n\nTiež sa ospravedlňujem za veľké množstvo personal smrtí na kokotné veci. ' + s1 \
+        + ' v čase, kedy se hrá ' +  s2 \
+        + ' a chvílu trvá, než sa to naučím optimalizovať. Do toho som bohužial ' +  coHraju \
+        + ' túto expanziu veľa nehrál, lebo ' +  s3 \
+        + ' ,v m+ ' +  s4 \
+        + ' a ta specka ' +  s5 \
+        + ' Všetko to sú ale len hlúpé výhovorky a vo výsledku je to len skill issue a git gud. \n\nNa druhú stranu ' +  s6 \
+        + ' Tak ďakujem za trpezlivosť a ešte raz sa ospravedlňujem.'
+
+    await ctx.send(sorrysk)
+@sorrysk.error
+async def info_error(ctx, error):
+    if isinstance(error, commands.MissingRequiredArgument):
+        await ctx.send('Je potřeba zadat kdo začal a co hraješ: !sorry "kdo zacal" "classa co hrajes"')
 
 #insult command
 @bot.command(name='insult')
