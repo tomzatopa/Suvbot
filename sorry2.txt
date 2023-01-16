@@ -1,0 +1,5 @@
+
+soak 
+dodge 
+stack
+spread

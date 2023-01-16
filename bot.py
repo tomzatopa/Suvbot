@@ -741,7 +741,6 @@ async def leaveguld(ctx, arg1, arg2):
         + ' ty ' + nadLast+ '!'
 
     await ctx.send(leave)
-
 @leaveguld.error
 async def info_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
@@ -788,11 +787,41 @@ async def alt(ctx, arg1, arg2):
 
 
     await ctx.send(alt)
-
 @alt.error
 async def info_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
         await ctx.send('Je potřeba zadat jména class: !alt "alt class" "main class"')
+
+
+#sorry command 
+@bot.command(name='sorry')
+async def sorry(ctx,arg1,arg2):
+    kdoZacal = str(arg1)
+    coHraju = str(arg2)
+    
+    s1 = str(rand_line('sorry1.txt')).rstrip()
+    s2 = str(rand_line('sorry2.txt')).rstrip()
+    s3 = str(rand_line('sorry3.txt')).rstrip()
+    s4 = str(rand_line('sorry4.txt')).rstrip() 
+    s5 = str(rand_line('sorry5.txt')).rstrip() 
+    s6 = str(rand_line('sorry6.txt')).rstrip()   
+
+    sorry='Když to tady '+ kdoZacal \
+        + ' načal, tak se taky vyjádřím 🙂 \n\nRovněž se omlouvám za velké množství personal smrtí na hloupé věci. ' + s1 \
+        + ' v době, kdy se hraje ' +  s2 \
+        + ' a chvíli trvá, než se to naučím optimalizovat. Do toho jsem bohužel ' +  coHraju \
+        + ' tuhle expanzi moc nehrál, protože ' +  s3 \
+        + ' , v m+ ' +  s4 \
+        + ' , a ta specka ' +  s5 \
+        + ' Všechno to jsou ale jenom hloupé výmluvy a ve výsledku je to prostě jenom skill issue a git gud. \n\nNa druhou stranu ' +  s6 \
+        + ' Tak díky za trpělivost a ještě jednou se omlouvám. '
+
+    await ctx.send(sorry)
+@sorry.error
+async def info_error(ctx, error):
+    if isinstance(error, commands.MissingRequiredArgument):
+        await ctx.send('Je potřeba zadat kdo začal a co hraješ: !sorry "kdo zacal" "classa co hrajes"')
+
 
 #insult command
 @bot.command(name='insult')
@@ -819,7 +848,6 @@ async def insult(ctx,arg1):
         nad = sklon_5p(str(rand_line('nadavky.txt')).rstrip())
     ins= nekdo + ', ty '+ pridJm1 +' '+ pridJm2 +' '+ nad+'!'
     await ctx.send(ins)
-
 @insult.error
 async def info_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
@@ -843,7 +871,6 @@ async def compliment(ctx,arg1):
     else:
         com="Nah...We don't do that here."
     await ctx.send(com)
-
 @compliment.error
 async def info_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
@@ -856,7 +883,6 @@ async def say(ctx,*args):
     a=" ".join(args)
     await ctx.send(a)
     await ctx.message.delete()
-
 @say.error
 async def info_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
@@ -1199,7 +1225,6 @@ async def decline(ctx, user: discord.Member):
         if guild.get_role(464769766117212160) not in member.roles:
             await user.send("Ahoj, podívali jsme se na tvojí přihlášku a stojí úplně za hovno. Nikoho jako ty tady nepotřebujeme...Nepřijat!")
             await member.kick()
-
 @decline.error
 async def info_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
