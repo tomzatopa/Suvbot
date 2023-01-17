@@ -799,11 +799,13 @@ async def sorry(ctx,arg1,arg2):
     coHraju = str(arg2)
 
     s1 = str(rand_line('sorry1.txt')).rstrip()
-    s2 = str(rand_line('sorry2.txt')).rstrip().strip()
+    s2 = str(rand_line('sorry2.txt')).rstrip()
     s3 = str(rand_line('sorry3.txt')).rstrip()
     s4 = str(rand_line('sorry4.txt')).rstrip()
     s5 = str(rand_line('sorry5.txt')).rstrip()
     s6 = str(rand_line('sorry6.txt')).rstrip()
+    if s2.isspace():
+        s2=''
 
     sorry='Když to tady '+ kdoZacal \
         + ' načal, tak se taky vyjádřím 🙂 \n\nRovněž se omlouvám za velké množství personal smrtí na hloupé věci. ' + s1 \
@@ -828,11 +830,13 @@ async def sorrysk(ctx,arg1,arg2):
     coHraju = str(arg2)
     
     s1 = str(rand_line('sorry1sk.txt')).rstrip()
-    s2 = str(rand_line('sorry2.txt')).rstrip().strip()
+    s2 = str(rand_line('sorry2.txt')).rstrip()
     s3 = str(rand_line('sorry3sk.txt')).rstrip()
-    s4 = str(rand_line('sorry4sk.txt')).rstrip() 
-    s5 = str(rand_line('sorry5sk.txt')).rstrip() 
-    s6 = str(rand_line('sorry6sk.txt')).rstrip()   
+    s4 = str(rand_line('sorry4sk.txt')).rstrip()
+    s5 = str(rand_line('sorry5sk.txt')).rstrip()
+    s6 = str(rand_line('sorry6sk.txt')).rstrip()
+    if s2.isspace():
+        s2=''
 
     sorrysk='Keď to tu '+ kdoZacal \
         + ' načal, tak sa tiež vyjádrím 🙂 \n\nTiež sa ospravedlňujem za veľké množstvo personal smrtí na kokotné veci. ' + s1 \
