@@ -815,6 +815,8 @@ async def sorry(ctx,arg1,arg2):
         + ' Všechno to jsou ale jenom hloupé výmluvy a ve výsledku je to prostě jenom skill issue a git gud. \n\nNa druhou stranu ' +  s6 \
         + ' Tak díky za trpělivost a ještě jednou se omlouvám.'
 
+    sorry = re.sub(r'\s\s',' ',sorry)   
+
     await ctx.send(sorry)
 @sorry.error
 async def info_error(ctx, error):
