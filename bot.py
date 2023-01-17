@@ -836,8 +836,6 @@ async def sorrysk(ctx,arg1,arg2):
     s5 = str(rand_line('sorry5sk.txt')).rstrip()
     s6 = str(rand_line('sorry6sk.txt')).rstrip()
 
-    sorrysk = re.sub(r'(\S)\s\s(\S)',r'\1 \2',sorrysk)
-
     sorrysk='Keď to tu '+ kdoZacal \
         + ' načal, tak sa tiež vyjádrím 🙂 \n\nTiež sa ospravedlňujem za veľké množstvo personal smrtí na kokotné veci. ' + s1 \
         + ' v čase, kedy se hrá ' +  s2 \
@@ -847,6 +845,8 @@ async def sorrysk(ctx,arg1,arg2):
         + ' a ta specka ' +  s5 \
         + ' Všetko to sú ale len hlúpé výhovorky a vo výsledku je to len skill issue a git gud. \n\nNa druhú stranu ' +  s6 \
         + ' Tak ďakujem za trpezlivosť a ešte raz sa ospravedlňujem.'
+
+    sorrysk = re.sub(r'(\S)\s\s(\S)',r'\1 \2',sorrysk)
 
     await ctx.send(sorrysk)
 @sorrysk.error
