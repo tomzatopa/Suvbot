@@ -110,12 +110,12 @@ async def on_reaction_add(reaction, user):
 
 @bot.event
 async def on_member_update(before,after):
-        if len(before.roles) < len(after.roles):
-            new_role = next(role for role in after.roles if role not in before.roles)
-            if new_role.name in ('Guild'):
-                await after.send(read_file("guildWelcomeMessage.txt"))
-            elif new_role.name in ('Core'):
-                await after.send(read_file("coreWelcomeMessage.txt"))
+    if len(before.roles) < len(after.roles):
+        new_role = next(role for role in after.roles if role not in before.roles)
+        if new_role.name in ('Guild'):
+            await after.send(read_file("guildWelcomeMessage.txt"))
+        elif new_role.name in ('Core'):
+            await after.send(read_file("coreWelcomeMessage.txt"))
 
 ### shit aby fungoval WCL API Call
 
@@ -158,13 +158,13 @@ async def checkWcl():
                 temp["startTime"] = i["startTime"]
                 temp["code"] = i["code"]
                 temp["tag"] = i["guildTag"]["name"]
-        except: 
+        except:
             print("Selhal append do reportlistu.")
 
         try:
             #Check jestli neni na wcl novej report za posledních 10 sekund
             for i in reportList:
-                if((time.time()*1000 - i["startTime"]) < 10000):
+                if(time.time()*1000 - i["startTime"]) < 10000:
                     messageText = i["author"] + " postnul novej log (" + i["name"] + "). Link: https://www.warcraftlogs.com/reports/" + i["code"]
                     if i["tag"] == "POG Raid":
                         await bot.get_channel(779393920131923999).send(messageText)
@@ -602,7 +602,7 @@ def strip_extensions(seznam):
         soubor = os.path.splitext(soubor)[0]
         soubory.append(soubor)
     souboryfinal='\n'.join(soubory)
-    return(souboryfinal)
+    return souboryfinal
 
 ###############################
 #########BOT COMMANDS##########
@@ -792,19 +792,18 @@ async def info_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
         await ctx.send('Je potřeba zadat jména class: !alt "alt class" "main class"')
 
-
-#sorry command 
+#sorry command
 @bot.command(name='sorry')
 async def sorry(ctx,arg1,arg2):
     kdoZacal = str(arg1)
     coHraju = str(arg2)
 
     s1 = str(rand_line('sorry1.txt')).rstrip()
-    s2 = str(rand_line('sorry2.txt')).rstrip()
+    s2 = str(rand_line('sorry2.txt')).rstrip().strip()
     s3 = str(rand_line('sorry3.txt')).rstrip()
-    s4 = str(rand_line('sorry4.txt')).rstrip() 
-    s5 = str(rand_line('sorry5.txt')).rstrip() 
-    s6 = str(rand_line('sorry6.txt')).rstrip()   
+    s4 = str(rand_line('sorry4.txt')).rstrip()
+    s5 = str(rand_line('sorry5.txt')).rstrip()
+    s6 = str(rand_line('sorry6.txt')).rstrip()
 
     sorry='Když to tady '+ kdoZacal \
         + ' načal, tak se taky vyjádřím 🙂 \n\nRovněž se omlouvám za velké množství personal smrtí na hloupé věci. ' + s1 \
@@ -822,14 +821,14 @@ async def info_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
         await ctx.send('Je potřeba zadat kdo začal a co hraješ: !sorry "kdo zacal" "co hrajes"')
 
-#sorrysk command 
+#sorrysk command
 @bot.command(name='sorrysk')
 async def sorrysk(ctx,arg1,arg2):
     kdoZacal = sklon_slovak(str(arg1))
     coHraju = str(arg2)
     
     s1 = str(rand_line('sorry1sk.txt')).rstrip()
-    s2 = str(rand_line('sorry2.txt')).rstrip()
+    s2 = str(rand_line('sorry2.txt')).rstrip().strip()
     s3 = str(rand_line('sorry3sk.txt')).rstrip()
     s4 = str(rand_line('sorry4sk.txt')).rstrip() 
     s5 = str(rand_line('sorry5sk.txt')).rstrip() 
@@ -932,7 +931,6 @@ async def emojify(ctx,*args):
         else:
             emojified += '  '+i+'  '
     await ctx.send(emojified)
-
 @emojify.error
 async def info_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
@@ -949,16 +947,15 @@ async def iaosound(ctx, arg1, *args):
         while vc.is_playing():
             await asyncio.sleep(1)
         if args and args[0].isnumeric():
-                if (int(args[0]) == 420) or (int(args[0]) < 51):
-                    r=int(args[0])-1
-                else:
-                    r=49
-                for x in range(r):
-                    vc.play(discord.FFmpegPCMAudio('./sounds/'+arg1+'.mp3'), after=lambda e: print('prehravam', e))
-                    while vc.is_playing():
-                        await asyncio.sleep(1)
+            if (int(args[0]) == 420) or (int(args[0]) < 51):
+                r=int(args[0])-1
+            else:
+                r=49
+            for x in range(r):
+                vc.play(discord.FFmpegPCMAudio('./sounds/'+arg1+'.mp3'), after=lambda e: print('prehravam', e))
+                while vc.is_playing():
+                    await asyncio.sleep(1)
         await ctx.voice_client.disconnect()
-
 @iaosound.error
 async def info_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
@@ -992,7 +989,6 @@ async def iaoimage(ctx, arg1):
         await ctx.send(file=discord.File('./images/'+arg1+'.jpg'))
     elif path.exists('./images/'+arg1+'.jpeg'):
         await ctx.send(file=discord.File('./images/'+arg1+'.jpeg'))
-
 @iaoimage.error
 async def info_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
