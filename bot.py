@@ -253,12 +253,13 @@ def setVotedToTrue(userid):
 def checkIfVoted(userid):
     return MAINDB.voted.find_one()[str(userid)]
 
-
+"""
 @bot.event
 async def on_message(message):
+    
     PRIHLASKA_CHANNEL = discord.utils.get(message.guild.text_channels, name="přihláška")
     OFFI_PRIHLASKY_CHANNEL = discord.utils.get(message.guild.text_channels, name="offi-přihlášky")
-
+    
     if (message.channel.id == PRIHLASKA_CHANNEL.id) and (message.author.id != 291891867703050240) and 'start' in message.content:
         user = message.author
         id = message.author.id
@@ -478,7 +479,7 @@ async def on_message(message):
             embed.set_image(url=desetImg[0].url)
         await channel.send(embed=embed)
         await user.send("Přihláška byla odeslána!")
-
+    
     if (message.channel.id == 634683421616111616) and (message.author.id != 291891867703050240) and 'start' not in message.content:
         await message.delete()
         channel = bot.get_channel(634683421616111616)
@@ -497,10 +498,11 @@ async def on_message(message):
         await message.delete()
         channel = bot.get_channel(702074796984500234)
         await channel.send("Sem můžu psát jenom já!",delete_after=5)
+    
     #else:
     #    await bot.process_commands(message)
     await bot.process_commands(message)
-
+"""
 ###############################
 ########OBECNE FUNKCE##########
 ###############################
