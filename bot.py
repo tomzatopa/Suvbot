@@ -25,6 +25,7 @@ from collections.abc import Sequence
 ###############################
 ###SETTINGS + IMPORT PROMENNYCH
 ###############################
+pocet_her_remaining = 12
 intents = discord.Intents.all()
 bot = commands.Bot(command_prefix='!', intents = intents)
 bot.remove_command('help')
@@ -253,6 +254,14 @@ def setVotedToTrue(userid):
 def checkIfVoted(userid):
     return MAINDB.voted.find_one()[str(userid)]
 
+@bot.event
+async def on_messge(message:discord.message):
+    if not message.author.id == 982247835829424179:
+        return
+    if message.interaction:
+        return
+    await message.reply(f"^ tohle je třetí free hra na epicu z vánoční sezóny, narozdíl od běžného stavu, kdy to tam visí týden, bude následujících cca {pocet_her_remaining} her nebo kolik rotovat daily, takže to claimujte rychle, pokud nechcete, aby vám něco uteklo")
+    pocet_her_remaining = pocet_her_remaining - 1
 """
 @bot.event
 async def on_message(message):
