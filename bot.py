@@ -50,6 +50,21 @@ OTAZKY = {
     "dvaGen": "Celebrita - tohoto člověka vidíte na DC a máte nutkání za ním přijít a pokecat. Baví se a vychází v pohodě se všemi."
 }
 
+HRY_COUNT = [
+    "patnáctá", # 1
+    "čtrnáctá", # 2
+    "třináctá", # 3
+    "dvanáctá", # 4
+    "jedenáctá", # 5
+    "desátá", # 6
+    "devátá", # 7
+    "osmá", # 8
+    "sedmá", # 9
+    "šestá", # 1O
+    "pátá", # 11
+    "čtvrtá" # 12
+]
+
 class PRIHLASKA:
     jedna = "Nick a class tvojí postavy:"
     dva = "Máš nějaké zásadní problémy s raid timem? (Třeba práce na směny, jezdíš později z práce každou středu atd.):"
@@ -253,6 +268,18 @@ def setVotedToTrue(userid):
 def checkIfVoted(userid):
     return MAINDB.voted.find_one()[str(userid)]
 
+@bot.event
+async def on_message(message:discord.message.Message):
+    if not message.author.id == 982247835829424179:
+        return
+    if message.interaction:
+        return
+    req = requests.get("http://130.61.245.173:6969/") # server co počítá
+    day_num = int(req.text)
+    if day_num < 1:
+        await message.reply("<@287350140904407041><@270147622973603848> už to vypněte, už to není aktuální")
+        return
+    await message.reply(f"^ tohle je {HRY_COUNT[day_num-1]} free hra na epicu z vánoční sezóny, narozdíl od běžného stavu, kdy to tam visí týden, bude následujících cca {day_num} her nebo kolik rotovat **__daily__**, takže to claimujte rychle, pokud nechcete, aby vám něco uteklo")
 """
 @bot.event
 async def on_message(message):
