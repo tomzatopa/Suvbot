@@ -270,16 +270,15 @@ def checkIfVoted(userid):
 
 @bot.event
 async def on_message(message:discord.message.Message):
-    if not message.author.id == 982247835829424179:
+    if message.author.id == 982247835829424179 and not message.interaction:
+        req = requests.get("http://130.61.245.173:6969/") # server co počítá
+        day_num = int(req.text)
+        if day_num < 1:
+            await message.reply("<@287350140904407041><@270147622973603848> už to vypněte, už to není aktuální")
+            return
+        await message.reply(f"^ tohle je {HRY_COUNT[day_num-1]} free hra na epicu z vánoční sezóny, narozdíl od běžného stavu, kdy to tam visí týden, bude následujících cca {day_num} her nebo kolik rotovat **__daily__**, takže to claimujte rychle, pokud nechcete, aby vám něco uteklo")
         return
-    if message.interaction:
-        return
-    req = requests.get("http://130.61.245.173:6969/") # server co počítá
-    day_num = int(req.text)
-    if day_num < 1:
-        await message.reply("<@287350140904407041><@270147622973603848> už to vypněte, už to není aktuální")
-        return
-    await message.reply(f"^ tohle je {HRY_COUNT[day_num-1]} free hra na epicu z vánoční sezóny, narozdíl od běžného stavu, kdy to tam visí týden, bude následujících cca {day_num} her nebo kolik rotovat **__daily__**, takže to claimujte rychle, pokud nechcete, aby vám něco uteklo")
+    await bot.process_commands (message)
 """
 @bot.event
 async def on_message(message):
