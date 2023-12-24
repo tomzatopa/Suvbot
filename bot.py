@@ -111,7 +111,7 @@ async def on_ready():
         await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.listening,name='tvojí mámu sténat'))
     else:
         await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.playing,name='si s tvojí mámou'))
-    await checkWcl()
+    #await checkWcl()
 
 @bot.event
 async def on_reaction_add(reaction, user):
@@ -270,9 +270,17 @@ def checkIfVoted(userid):
 
 @bot.event
 async def on_message(message:discord.message.Message):
+    log = f"Zaznamenal jsem zpravu: {message.content} v serveru {message.guild.name} ({message.guild.id}) v channelu {message.channel.name} ({message.channel.id}) od {message.author.name} ({message.author.id}). Message je interaction - {message.interaction}."
+    with open("suvbot_zpravy_log.txt", "a") as logfile:
+        logfile.write(f"{str(datetime.timestamp(datetime.now()))} - {log}\n")
+        logfile.close()
+
     if message.author.id == 982247835829424179 and not message.interaction:
         req = requests.get("http://130.61.245.173:6969/") # server co počítá
         day_num = int(req.text)
+        with open("suvbot_zpravy_log.txt", "a") as logfile:
+            logfile.write(f"Tahle zprava byla prej od bota - day_num={day_num}\n")
+            logfile.close()
         if day_num < 1:
             await message.reply("<@287350140904407041><@270147622973603848> už to vypněte, už to není aktuální")
             return
