@@ -270,7 +270,10 @@ def checkIfVoted(userid):
 
 @bot.event
 async def on_message(message:discord.message.Message):
-    log = f"Zaznamenal jsem zpravu: {message.content} v serveru {message.guild.name} ({message.guild.id}) v channelu {message.channel.name} ({message.channel.id}) od {message.author.name} ({message.author.id}). Message je interaction - {message.interaction}."
+    if not message.guild.id == 153578963204046849 or not message.guild.id == 270148082811797504:
+        log = "Zaznamenal jsem zpravu mimo guild/test server, nepisu."
+    else:
+        log = f"Zaznamenal jsem zpravu: {message.content} v serveru {message.guild.name} ({message.guild.id}) v channelu {message.channel.name} ({message.channel.id}) od {message.author.name} ({message.author.id}). Message je interaction - {message.interaction}."
     with open("suvbot_zpravy_log.txt", "a") as logfile:
         logfile.write(f"{str(datetime.now())} - {log}\n")
         logfile.close()
