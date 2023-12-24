@@ -287,9 +287,9 @@ async def on_message(message:discord.message.Message):
         if day_num < 1:
             await message.reply("<@287350140904407041><@270147622973603848> už to vypněte, už to není aktuální")
             return
-        await message.reply(f"^ tohle je {HRY_COUNT[day_num-1]} free hra na epicu z vánoční sezóny, narozdíl od běžného stavu, kdy to tam visí týden, bude následujících cca {day_num} her nebo kolik rotovat **__daily__**, takže to claimujte rychle, pokud nechcete, aby vám něco uteklo")
+        #await message.reply(f"^ tohle je {HRY_COUNT[day_num-1]} free hra na epicu z vánoční sezóny, narozdíl od běžného stavu, kdy to tam visí týden, bude následujících cca {day_num} her nebo kolik rotovat **__daily__**, takže to claimujte rychle, pokud nechcete, aby vám něco uteklo")
         return
-    await bot.process_commands (message)
+    #await bot.process_commands (message)
 """
 @bot.event
 async def on_message(message):
