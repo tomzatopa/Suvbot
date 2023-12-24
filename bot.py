@@ -272,7 +272,7 @@ def checkIfVoted(userid):
 async def on_message(message:discord.message.Message):
     log = f"Zaznamenal jsem zpravu: {message.content} v serveru {message.guild.name} ({message.guild.id}) v channelu {message.channel.name} ({message.channel.id}) od {message.author.name} ({message.author.id}). Message je interaction - {message.interaction}."
     with open("suvbot_zpravy_log.txt", "a") as logfile:
-        logfile.write(f"{str(datetime.timestamp(datetime.now()))} - {log}\n")
+        logfile.write(f"{str(datetimedatetime.now())} - {log}\n")
         logfile.close()
 
     if message.author.id == 982247835829424179 and not message.interaction:
