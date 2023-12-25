@@ -279,7 +279,7 @@ async def on_message(message:discord.message.Message):
         logfile.close()
 
     if message.author.id == 982247835829424179 and not message.interaction:
-        req = requests.get("http://130.61.245.173:6969/") # server co počítá
+        req = requests.get("http://130.61.245.173:6969/nejakejkokotnamscanujeserver") # server co počítá
         day_num = int(req.text)
         with open("suvbot_zpravy_log.txt", "a") as logfile:
             logfile.write(f"Tahle zprava byla prej od bota - day_num={day_num}\n")
