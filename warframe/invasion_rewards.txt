@@ -1,4 +1,3 @@
-Detonite Injector
 Karak Wraith Blueprint
 Karak Wraith Barrel
 Karak Wraith Receiver
@@ -23,7 +22,6 @@ Orokin Catalyst Blueprint
 Orokin Reactor Blueprint
 Forma Blueprint
 Exilus Adapter Blueprint
-Fieldron
 Dera Vandal Blueprint
 Dera Vandal Barrel
 Dera Vandal Receiver

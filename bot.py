@@ -22,7 +22,7 @@ from discord.ext import commands
 from urllib.request import Request, urlopen
 from collections.abc import Sequence
 
-from warframe import add_tracked_reward, AddTrackedRewardReturns, remove_tracked_reward, update_tracked_invasions
+from warframe import add_tracked_reward, AddTrackedRewardReturns, remove_tracked_reward, update_tracked_invasions, get_tracked_rewards, INVASION_REWARD_LIST
 
 ###############################
 ###SETTINGS + IMPORT PROMENNYCH
@@ -1303,13 +1303,23 @@ async def info_error(ctx, error):
 
 @bot.command(name="wftrack")
 async def wftrack(ctx:commands.Context, reward):
-    print(reward)
+    if reward == "list":
+        tracked_rewards = await get_tracked_rewards()
+        sendstr = ""
+        for x in tracked_rewards:
+            sendstr += f"{x}\n"
+        await ctx.send(f"Aktuálně trackované rewardy:\n\n`{sendstr}`")
+        return
+    
     retcode = await add_tracked_reward(reward)
     if retcode == AddTrackedRewardReturns.ALREADY_PRESENT:
         await ctx.send("Tenhle reward se už trackuje")
         return
     elif retcode == AddTrackedRewardReturns.INVALID:
-        await ctx.send("Napsal jsi píčovinu")
+        sendstr = ""
+        for x in INVASION_REWARD_LIST:
+            sendstr += f"{x}\n"
+        await ctx.send(f"Tenhle item neznám. Možnosti co jdou trackovat:\n\n`{sendstr}`")
         return
     else:
         await ctx.send("OK")
@@ -1318,7 +1328,7 @@ async def wftrack(ctx:commands.Context, reward):
 @wftrack.error
 async def wftrack_error(ctx:commands.Context, error):
     if isinstance(error, commands.MissingRequiredArgument):
-        await ctx.send("Je potřeba zadat co trackovat")
+        await ctx.send("Je potřeba zadat co trackovat. Usage:\n\n`!wftrack \"item\"`")
 
 @bot.command(name="wfuntrack")
 async def wfuntrack(ctx:commands.Context, reward):
@@ -1328,7 +1338,11 @@ async def wfuntrack(ctx:commands.Context, reward):
 @wfuntrack.error
 async def wfuntrack_error(ctx:commands.Context, error):
     if isinstance(error, commands.MissingRequiredArgument):
-        await ctx.send("Je potřeba zadat co netrackovat")
+        tracked_rewards = await get_tracked_rewards()
+        sendstr = ""
+        for x in tracked_rewards:
+            sendstr += f"{x}\n"
+        await ctx.send(f"Je potřeba zadat co netrackovat. Aktuálně trackované rewardy:\n\n`{sendstr}`")
 
 
 """
