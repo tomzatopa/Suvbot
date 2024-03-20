@@ -15,7 +15,7 @@ import aiohttp
 import re
 import textwrap
 import pymongo
-from datetime import timedelta
+from datetime import timedelta, datetime
 from os import path
 from dotenv import load_dotenv
 from discord.ext import commands
@@ -49,6 +49,21 @@ OTAZKY = {
     "jednaGen": "MDI wannabe - dungy, dungy, DUNGY!!! 15ka? Jde. 18ka? Jde. 20ka? Jde. Je mu jedno s kým. Je mu jedno kdy.",
     "dvaGen": "Celebrita - tohoto člověka vidíte na DC a máte nutkání za ním přijít a pokecat. Baví se a vychází v pohodě se všemi."
 }
+
+HRY_COUNT = [
+    "patnáctá", # 1
+    "čtrnáctá", # 2
+    "třináctá", # 3
+    "dvanáctá", # 4
+    "jedenáctá", # 5
+    "desátá", # 6
+    "devátá", # 7
+    "osmá", # 8
+    "sedmá", # 9
+    "šestá", # 1O
+    "pátá", # 11
+    "čtvrtá" # 12
+]
 
 class PRIHLASKA:
     jedna = "Nick a class tvojí postavy:"
@@ -96,7 +111,7 @@ async def on_ready():
         await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.listening,name='tvojí mámu sténat'))
     else:
         await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.playing,name='si s tvojí mámou'))
-    await checkWcl()
+    #await checkWcl()
 
 @bot.event
 async def on_reaction_add(reaction, user):
@@ -253,6 +268,28 @@ def setVotedToTrue(userid):
 def checkIfVoted(userid):
     return MAINDB.voted.find_one()[str(userid)]
 
+@bot.event
+async def on_message(message:discord.message.Message):
+    if (message.guild.id != 153578963204046849) and (message.guild.id != 270148082811797504):
+        log = "Zaznamenal jsem zpravu mimo guild/test server, nepisu."
+    else:
+        log = f"Zaznamenal jsem zpravu: {message.content} v serveru {message.guild.name} ({message.guild.id}) v channelu {message.channel.name} ({message.channel.id}) od {message.author.name} ({message.author.id}). Message je interaction - {message.interaction}."
+    with open("suvbot_zpravy_log.txt", "a") as logfile:
+        logfile.write(f"{str(datetime.now())} - {log}\n")
+        logfile.close()
+
+    if message.author.id == 982247835829424179 and not message.interaction:
+        req = requests.get("http://130.61.245.173:6969/nejakejkokotnamscanujeserver") # server co počítá
+        day_num = int(req.text)
+        with open("suvbot_zpravy_log.txt", "a") as logfile:
+            logfile.write(f"Tahle zprava byla prej od bota - day_num={day_num}\n")
+            logfile.close()
+        if day_num < 1:
+            await message.reply("<@287350140904407041><@270147622973603848> už to vypněte, už to není aktuální")
+            return
+        await message.reply(f"^ tohle je {HRY_COUNT[day_num-1]} free hra na epicu z vánoční sezóny, narozdíl od běžného stavu, kdy to tam visí týden, bude následujících cca {day_num} her nebo kolik rotovat **__daily__**, takže to claimujte rychle, pokud nechcete, aby vám něco uteklo")
+        return
+    #await bot.process_commands (message)
 """
 @bot.event
 async def on_message(message):
