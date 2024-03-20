@@ -127,7 +127,7 @@ async def on_reaction_add(reaction, user):
 async def on_member_update(before,after):
     if len(before.roles) < len(after.roles):
         new_role = next(role for role in after.roles if role not in before.roles)
-        if new_role.name in ('Guild'):
+        if new_role.name in ('Public'):
             await after.send(read_file("guildWelcomeMessage.txt"))
         elif new_role.name in ('Core'):
             await after.send(read_file("coreWelcomeMessage.txt"))
