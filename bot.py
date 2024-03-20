@@ -199,7 +199,10 @@ async def check_warframe_worldstate():
         await asyncio.sleep(10) #interval (10s)
 
         async def update_callback(reward1:str, reward2:str):
-            channel:discord.TextChannel = bot.get_guild(270148082811797504).get_channel(687308188986769448) # test server
+            if os.getenv("DISCORD_BOT_NAME") == "test":
+                channel:discord.TextChannel = bot.get_guild(270148082811797504).get_channel(687308188986769448) # test server
+            elif os.getenv("DISCORD_BOT_NAME") == "suvbot":
+                channel:discord.TextChannel = bot.get_guild(153578963204046849).get_channel(755021473126547496) # iao warframe channel
             if reward2 == "":
                 await channel.send(f"Přibyla invaze na **{reward1}**!")
             else:
