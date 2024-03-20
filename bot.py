@@ -15,12 +15,14 @@ import aiohttp
 import re
 import textwrap
 import pymongo
-from datetime import timedelta
+from datetime import timedelta, datetime
 from os import path
 from dotenv import load_dotenv
 from discord.ext import commands
 from urllib.request import Request, urlopen
 from collections.abc import Sequence
+
+from warframe import add_tracked_reward, AddTrackedRewardReturns, remove_tracked_reward, update_tracked_invasions, get_tracked_rewards, INVASION_REWARD_LIST
 
 ###############################
 ###SETTINGS + IMPORT PROMENNYCH
@@ -37,6 +39,7 @@ MAINTAINER = [
     int(os.getenv('MAINTAINER3'))
     ]
 SPCKAPI = os.getenv('SPCKAPI')
+
 OTAZKY = {
     "jednaPog": "(POG) MVP - v originále Most Valuable Player. Tohle je člověk, který jde příkladem - točí, poslouchá, rozumí věcem a bez něj by byla celá raid group slabší.",
     "dvaPog": "(POG) Kamarád - náš oblíbený guild rank se vrací v podobě této ceny. Kamarád je ten, bez koho by ty raidy nebyly ono. Tenhle člověk prostě výrazně zlepšuje atmosféru v raidu.",
@@ -89,7 +92,7 @@ class PRIHLASKA:
 #    "devet": "Napiš nám něco o sobě (kolik ti je? kde bydlíš? číslo kreditní karty?)\n(Fakt se nestyď. Podle tohodle si vybíráme docela často.)",
 #    "deset": "Pošli nám screenshot tvého UI (ideálně v raidu)(pokud teď nejsi u WoWka, napiš to a obrázek pak pošli na <@!270147622973603848>):" #NOLIFE DC ID
 #}
-MAINDB = pymongo.MongoClient(os.getenv('MONGODBSTRING')).mainDB
+#MAINDB = pymongo.MongoClient(os.getenv('MONGODBSTRING')).mainDB
 ###############################
 ###########EXTENSIONS##########
 ###############################
@@ -111,7 +114,8 @@ async def on_ready():
         await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.listening,name='tvojí mámu sténat'))
     else:
         await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.playing,name='si s tvojí mámou'))
-    await checkWcl()
+    #await checkWcl()
+    await check_warframe_worldstate()
 
 @bot.event
 async def on_reaction_add(reaction, user):
@@ -127,7 +131,7 @@ async def on_reaction_add(reaction, user):
 async def on_member_update(before,after):
     if len(before.roles) < len(after.roles):
         new_role = next(role for role in after.roles if role not in before.roles)
-        if new_role.name in ('Guild'):
+        if new_role.name in ('Public'):
             await after.send(read_file("guildWelcomeMessage.txt"))
         elif new_role.name in ('Core'):
             await after.send(read_file("coreWelcomeMessage.txt"))
@@ -189,6 +193,26 @@ async def checkWcl():
                         await bot.get_channel(493688092075753502).send(messageText)
         except:
             print("Selhal check na novy report.")
+
+async def check_warframe_worldstate():
+    while True:
+        await asyncio.sleep(10) #interval (10s)
+
+        async def update_callback(reward1:str, reward2:str):
+            if os.getenv("DISCORD_BOT_NAME") == "test":
+                channel:discord.TextChannel = bot.get_guild(270148082811797504).get_channel(687308188986769448) # test server
+            elif os.getenv("DISCORD_BOT_NAME") == "suvbot":
+                channel:discord.TextChannel = bot.get_guild(153578963204046849).get_channel(755021473126547496) # iao warframe channel
+            if reward2 == "":
+                await channel.send(f"Přibyla invaze na **{reward1}**!")
+            else:
+                await channel.send(f"Přibyla invaze na **{reward1}** a **{reward2}**!")
+
+        
+
+        await update_tracked_invasions(update_callback)
+
+
 
 #stolen shit aby fungovala prihlaska
 def make_sequence(seq):
@@ -262,23 +286,14 @@ def finalMsgWrapper(POG, OMG, odpovedi):
         return basemsg + "1) " + odpovedWrapper(OTAZKY["jednaOmg"], odpovedi["OMGMVP"]) + "\n2) " + odpovedWrapper(OTAZKY["dvaOmg"], odpovedi["OMGKamarad"]) + "\n3) " + odpovedWrapper(OTAZKY["triOmg"], odpovedi["OMGTryhard"]) + "\n4) " + odpovedWrapper(OTAZKY["ctyriOmg"], odpovedi["OMGPepega"]) + "\n5) " + odpovedWrapper(OTAZKY["jednaGen"], odpovedi["GeneralMDIWannabe"]) + "\n6) " + odpovedWrapper(OTAZKY["dvaGen"], odpovedi["GeneralCelebrita"])
     elif POG and OMG:
         return basemsg + "1) " + odpovedWrapper(OTAZKY["jednaPog"], odpovedi["POGMVP"]) + "\n2) " + odpovedWrapper(OTAZKY["dvaPog"], odpovedi["POGKamarad"]) + "\n3) " + odpovedWrapper(OTAZKY["triPog"], odpovedi["POGTryhard"]) + "\n4) " + odpovedWrapper(OTAZKY["ctyriPog"], odpovedi["POGPepega"]) + "\n5) " + odpovedWrapper(OTAZKY["jednaOmg"], odpovedi["OMGMVP"]) + "\n6) " + odpovedWrapper(OTAZKY["dvaOmg"], odpovedi["OMGKamarad"]) + "\n7) " + odpovedWrapper(OTAZKY["triOmg"], odpovedi["OMGTryhard"]) + "\n8) " + odpovedWrapper(OTAZKY["ctyriOmg"], odpovedi["OMGPepega"]) + "\n9) " + odpovedWrapper(OTAZKY["jednaGen"], odpovedi["GeneralMDIWannabe"]) + "\n10) " + odpovedWrapper(OTAZKY["dvaGen"], odpovedi["GeneralCelebrita"])
+"""
 def setVotedToTrue(userid):
     MAINDB.voted.update_one({str(userid): False}, {"$set": {str(userid): True}})
     return
 def checkIfVoted(userid):
     return MAINDB.voted.find_one()[str(userid)]
+"""
 
-@bot.event
-async def on_message(message:discord.message.Message):
-    if message.author.id == 982247835829424179 and not message.interaction:
-        req = requests.get("http://130.61.245.173:6969/") # server co počítá
-        day_num = int(req.text)
-        if day_num < 1:
-            await message.reply("<@287350140904407041><@270147622973603848> už to vypněte, už to není aktuální")
-            return
-        await message.reply(f"^ tohle je {HRY_COUNT[day_num-1]} free hra na epicu z vánoční sezóny, narozdíl od běžného stavu, kdy to tam visí týden, bude následujících cca {day_num} her nebo kolik rotovat **__daily__**, takže to claimujte rychle, pokud nechcete, aby vám něco uteklo")
-        return
-    await bot.process_commands (message)
 """
 @bot.event
 async def on_message(message):
@@ -1286,6 +1301,51 @@ async def info_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
         await ctx.send('Je potřeba zadat @mention nějakého uživatele')
 
+@bot.command(name="wftrack")
+async def wftrack(ctx:commands.Context, reward):
+    if reward == "list":
+        tracked_rewards = await get_tracked_rewards()
+        sendstr = ""
+        for x in tracked_rewards:
+            sendstr += f"{x}\n"
+        await ctx.send(f"Aktuálně trackované rewardy:\n\n`{sendstr}`")
+        return
+    
+    retcode = await add_tracked_reward(reward)
+    if retcode == AddTrackedRewardReturns.ALREADY_PRESENT:
+        await ctx.send("Tenhle reward se už trackuje")
+        return
+    elif retcode == AddTrackedRewardReturns.INVALID:
+        sendstr = ""
+        for x in INVASION_REWARD_LIST:
+            sendstr += f"{x}\n"
+        await ctx.send(f"Tenhle item neznám. Možnosti co jdou trackovat:\n\n`{sendstr}`")
+        return
+    else:
+        await ctx.send("OK")
+        return
+    
+@wftrack.error
+async def wftrack_error(ctx:commands.Context, error):
+    if isinstance(error, commands.MissingRequiredArgument):
+        await ctx.send("Je potřeba zadat co trackovat. Usage:\n\n`!wftrack \"item\"`")
+
+@bot.command(name="wfuntrack")
+async def wfuntrack(ctx:commands.Context, reward):
+    await remove_tracked_reward(reward)
+    await ctx.send("Nevim jestli se to trackovalo, ale už se to určitě netrackuje")
+
+@wfuntrack.error
+async def wfuntrack_error(ctx:commands.Context, error):
+    if isinstance(error, commands.MissingRequiredArgument):
+        tracked_rewards = await get_tracked_rewards()
+        sendstr = ""
+        for x in tracked_rewards:
+            sendstr += f"{x}\n"
+        await ctx.send(f"Je potřeba zadat co netrackovat. Aktuálně trackované rewardy:\n\n`{sendstr}`")
+
+
+"""
 #vote command - je to mess ale funguje to a nejebte do toho
 @bot.command(name="vote")
 async def vote(ctx):
@@ -1584,6 +1644,7 @@ async def vote(ctx):
     await author.send("Výborně! Tvoje hlasy byly zaznamenány a odeslány!")
     #await bot.get_channel(859358349471383612).send(odpovedi)
 
+
 @bot.command(name="checkVotes")
 async def checkVotes(ctx):
     await ctx.message.delete()
@@ -1606,7 +1667,7 @@ async def checkVotes(ctx):
         finalmsg += "<@" + x + ">\n"
     await ctx.author.send(finalmsg)
     return
-
+"""
 
 ###############################
 ########IN CASE OF NEED########

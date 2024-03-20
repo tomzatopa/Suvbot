@@ -2,3 +2,6 @@
 sounds/*
 images/*
 memes/*
+__pycache__
+suvbot_zpravy_log.txt
+suvbot.db
