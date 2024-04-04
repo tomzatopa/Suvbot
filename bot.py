@@ -196,7 +196,7 @@ async def checkWcl():
 
 async def check_warframe_worldstate():
     while True:
-        await asyncio.sleep(10) #interval (10s)
+        await asyncio.sleep(60) #interval (60s)
 
         async def update_callback(reward1:str, reward2:str):
             if os.getenv("DISCORD_BOT_NAME") == "test":
