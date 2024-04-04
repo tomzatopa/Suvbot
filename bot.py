@@ -36,7 +36,8 @@ WCL_TOKEN = os.getenv('WCL_TOKEN')
 MAINTAINER = [
     int(os.getenv('MAINTAINER1')),
     int(os.getenv('MAINTAINER2')),
-    int(os.getenv('MAINTAINER3'))
+    int(os.getenv('MAINTAINER3')),
+    int(os.getenv('MAINTAINER4'))
     ]
 SPCKAPI = os.getenv('SPCKAPI')
 
