@@ -789,11 +789,7 @@ async def info_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
         await ctx.send('Je potřeba zadat jména lidí: !leaveguld osoba1 osoba2')
 
-#proctonejde command
-@bot.command(name="proctonejde")
-async def proctonejde(ctx):
-    neco="proctonejde"
-    await ctx.send(neco)
+
 
 
 #alt command
@@ -1307,6 +1303,15 @@ async def info_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
         await ctx.send('Je potřeba zadat @mention nějakého uživatele')
 
+#factdva command
+@bot.command(name='factdva')
+async def factdva(ctx):
+    response=requests.get('https://uselessfacts.jsph.pl/random.json?language=en')
+    dic=response.json()
+    res=dic['text']
+    await ctx.send(res)
+
+"""
 @bot.command(name="wftrack")
 async def wftrack(ctx:commands.Context, reward):
     if reward == "list":
@@ -1352,7 +1357,7 @@ async def wfuntrack_error(ctx:commands.Context, error):
 
 
 
-"""
+
 #vote command - je to mess ale funguje to a nejebte do toho
 @bot.command(name="vote")
 async def vote(ctx):
