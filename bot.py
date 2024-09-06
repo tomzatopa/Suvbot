@@ -1133,9 +1133,9 @@ async def info_error(ctx, error):
         await ctx.send('Je potřeba zadat kdo neprisel na pomoc.')
 
 #luraquote command
-@bot.command(name='luraquote')
-async def luraquote(ctx):
-    quote= 'test' 
+@bot.command(name='lura')
+async def lura(ctx):
+    quote= 'test'
     await ctx.send(quote)
 
 #inspire command - inspirobot
