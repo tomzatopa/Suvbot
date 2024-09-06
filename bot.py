@@ -1132,11 +1132,6 @@ async def info_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
         await ctx.send('Je potřeba zadat kdo neprisel na pomoc.')
 
-#luraquote command
-@bot.command(name='luraquote')
-async def luraquote(ctx):
-    await ctx.send('test')
-
 #inspire command - inspirobot
 @bot.command(name='inspire')
 async def inspire(ctx):
@@ -1349,6 +1344,9 @@ async def wfuntrack_error(ctx:commands.Context, error):
             sendstr += f"{x}\n"
         await ctx.send(f"Je potřeba zadat co netrackovat. Aktuálně trackované rewardy:\n\n`{sendstr}`")
 
+@bot.command(name="proctonejde")
+async def proctonejde(ctx):
+    await ctx.send("proctonejde")
 
 """
 #vote command - je to mess ale funguje to a nejebte do toho
