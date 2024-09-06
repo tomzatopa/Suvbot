@@ -1134,7 +1134,7 @@ async def info_error(ctx, error):
 
 #luraquote command
 @bot.command(name='luraquote')
-async def luraquote(ctx,arg):
+async def luraquote(ctx):
     quote= str(rand_line('luraquotes.txt')).rstrip()
     await ctx.send(quote)
 
