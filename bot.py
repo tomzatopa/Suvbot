@@ -1135,8 +1135,7 @@ async def info_error(ctx, error):
 #luraquote command
 @bot.command(name='luraquote')
 async def luraquote(ctx):
-    lura= 'test'
-    await ctx.send(lura)
+    await ctx.send('test')
 
 #inspire command - inspirobot
 @bot.command(name='inspire')
