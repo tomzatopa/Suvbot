@@ -1132,6 +1132,12 @@ async def info_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
         await ctx.send('Je potřeba zadat kdo neprisel na pomoc.')
 
+#luraquote command
+@bot.command(name='luraquote')
+async def luraquote(ctx,arg):
+    quote= str(rand_line(('luraquotes.txt'))).rstrip()
+    await ctx.send(quote)
+
 #inspire command - inspirobot
 @bot.command(name='inspire')
 async def inspire(ctx):
