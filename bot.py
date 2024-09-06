@@ -1135,7 +1135,7 @@ async def info_error(ctx, error):
 #luraquote command
 @bot.command(name='luraquote')
 async def luraquote(ctx,arg):
-    quote= str(rand_line(('luraquotes.txt'))).rstrip()
+    quote= str(rand_line('luraquotes.txt')).rstrip()
     await ctx.send(quote)
 
 #inspire command - inspirobot
