@@ -789,6 +789,12 @@ async def info_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
         await ctx.send('Je potřeba zadat jména lidí: !leaveguld osoba1 osoba2')
 
+#proctonejde command
+@bot.command(name="proctonejde")
+async def proctonejde(ctx):
+    neco="proctonejde"
+    await ctx.send(neco)
+
 
 #alt command
 @bot.command(name='alt')
@@ -1344,9 +1350,7 @@ async def wfuntrack_error(ctx:commands.Context, error):
             sendstr += f"{x}\n"
         await ctx.send(f"Je potřeba zadat co netrackovat. Aktuálně trackované rewardy:\n\n`{sendstr}`")
 
-@bot.command(name="proctonejde")
-async def proctonejde(ctx):
-    await ctx.send("proctonejde")
+
 
 """
 #vote command - je to mess ale funguje to a nejebte do toho
