@@ -27,7 +27,9 @@ from warframe import add_tracked_reward, AddTrackedRewardReturns, remove_tracked
 ###############################
 ###SETTINGS + IMPORT PROMENNYCH
 ###############################
-intents = discord.Intents.all()
+#intents = discord.Intents.all()
+intents = discord.Intents.default() 
+intents.message_content = True
 bot = commands.Bot(command_prefix='!', intents = intents)
 bot.remove_command('help')
 load_dotenv()
@@ -790,11 +792,10 @@ async def info_error(ctx, error):
         await ctx.send('Je potřeba zadat jména lidí: !leaveguld osoba1 osoba2')
 
 
-@commands.command()
+@bot.command(name='test')
 async def test(ctx):
     await ctx.send('test')
-    
-bot.add_command(test)
+
 
 #alt command
 @bot.command(name='alt')
