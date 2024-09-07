@@ -790,11 +790,6 @@ async def info_error(ctx, error):
         await ctx.send('Je potřeba zadat jména lidí: !leaveguld osoba1 osoba2')
 
 
-@bot.command(name='test')
-async def test(ctx):
-    await ctx.send('test')
-
-
 #alt command
 @bot.command(name='alt')
 async def alt(ctx, arg1, arg2):
