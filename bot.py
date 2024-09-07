@@ -1078,7 +1078,7 @@ async def updatebot(ctx):
         await ctx.send(proc.communicate()[0], delete_after=5)
         await asyncio.sleep(2)
         await ctx.send('jdu se zabit a znovu povstat', delete_after=5)
-        cmd = '/bin/systemctl restart suvbot'
+        cmd = '/usr/bin/sudo /bin/systemctl restart suvbot'
         proc = subprocess.Popen(cmd, shell=True,stdout=subprocess.PIPE)
     else:
         await ctx.send('nope', delete_after=5)
