@@ -27,9 +27,7 @@ from warframe import add_tracked_reward, AddTrackedRewardReturns, remove_tracked
 ###############################
 ###SETTINGS + IMPORT PROMENNYCH
 ###############################
-#intents = discord.Intents.all()
-intents = discord.Intents.default() 
-intents.message_content = True
+intents = discord.Intents.all()
 bot = commands.Bot(command_prefix='!', intents = intents)
 bot.remove_command('help')
 load_dotenv()
