@@ -18,10 +18,6 @@ class Gamble(commands.Cog):
 
 
     @commands.command()
-    async def neco(self,ctx):
-        await ctx.send('test')
-
-    @commands.command()
     async def gamblereg(self, ctx):
         if self.beh == True :
             """registruje hrace do gamble poolu"""

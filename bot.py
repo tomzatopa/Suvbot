@@ -790,6 +790,12 @@ async def info_error(ctx, error):
         await ctx.send('Je potřeba zadat jména lidí: !leaveguld osoba1 osoba2')
 
 
+#luraquote command
+@bot.command(name='luraquote')
+async def luraquote(ctx, arg1, arg2):
+    lura=str(rand_line('luraquotes.txt')).rstrip()
+    await ctx.send(lura)
+
 #alt command
 @bot.command(name='alt')
 async def alt(ctx, arg1, arg2):
