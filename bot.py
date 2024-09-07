@@ -712,7 +712,6 @@ async def help(ctx, *args):
             helpmsg.add_field(name='!gamblelist', value='vrátí seznam uživatelů zapsaných do gamblu', inline=False)
             await user.send(embed=helpmsg)
     else:
-        await user.send("TEST")
         await user.send("Help, který by pochopil snad každý!")
         await user.send(embed=helpmsg)
 
@@ -793,7 +792,7 @@ async def info_error(ctx, error):
 
 #luraquote command
 @bot.command(name='luraquote')
-async def luraquote(ctx, arg1, arg2):
+async def luraquote(ctx):
     lura=str(rand_line('luraquotes.txt')).rstrip()
     await ctx.send(lura)
 
