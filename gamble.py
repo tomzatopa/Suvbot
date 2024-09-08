@@ -16,6 +16,7 @@ class Gamble(commands.Cog):
             roll = random.randrange(1,101)
             dictionary.update({x:roll})
 
+
     @commands.command()
     async def gamblereg(self, ctx):
         if self.beh == True :

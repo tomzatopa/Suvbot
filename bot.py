@@ -791,6 +791,12 @@ async def info_error(ctx, error):
         await ctx.send('Je potřeba zadat jména lidí: !leaveguld osoba1 osoba2')
 
 
+#luraquote command
+@bot.command(name='luraquote')
+async def luraquote(ctx):
+    lura=str(rand_line('luraquotes.txt')).rstrip()
+    await ctx.send(lura)
+
 #alt command
 @bot.command(name='alt')
 async def alt(ctx, arg1, arg2):
@@ -1073,7 +1079,7 @@ async def updatebot(ctx):
         await ctx.send(proc.communicate()[0], delete_after=5)
         await asyncio.sleep(2)
         await ctx.send('jdu se zabit a znovu povstat', delete_after=5)
-        cmd = '/bin/systemctl restart suvbot'
+        cmd = '/usr/bin/sudo /bin/systemctl restart suvbot'
         proc = subprocess.Popen(cmd, shell=True,stdout=subprocess.PIPE)
     else:
         await ctx.send('nope', delete_after=5)
@@ -1302,6 +1308,7 @@ async def info_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
         await ctx.send('Je potřeba zadat @mention nějakého uživatele')
 
+
 @bot.command(name="wftrack")
 async def wftrack(ctx:commands.Context, reward):
     if reward == "list":
@@ -1344,6 +1351,7 @@ async def wfuntrack_error(ctx:commands.Context, error):
         for x in tracked_rewards:
             sendstr += f"{x}\n"
         await ctx.send(f"Je potřeba zadat co netrackovat. Aktuálně trackované rewardy:\n\n`{sendstr}`")
+
 
 
 """
