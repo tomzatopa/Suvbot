@@ -6,3 +6,5 @@ __pycache__
 suvbot_zpravy_log.txt
 suvbot.db
 Suvbot.code-workspace
+config.ini
+venv
