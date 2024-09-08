@@ -23,6 +23,8 @@ from urllib.request import Request, urlopen
 from collections.abc import Sequence
 
 from warframe import add_tracked_reward, AddTrackedRewardReturns, remove_tracked_reward, update_tracked_invasions, get_tracked_rewards, INVASION_REWARD_LIST
+import config
+
 
 ###############################
 ###SETTINGS + IMPORT PROMENNYCH
@@ -30,16 +32,16 @@ from warframe import add_tracked_reward, AddTrackedRewardReturns, remove_tracked
 intents = discord.Intents.all()
 bot = commands.Bot(command_prefix='!', intents = intents)
 bot.remove_command('help')
-load_dotenv()
-TOKEN = os.getenv('DISCORD_TOKEN')
-WCL_TOKEN = os.getenv('WCL_TOKEN')
+CONFIG = config.load_config()
+TOKEN = CONFIG["discord_token"]
+WCL_TOKEN = CONFIG["wcl_token"]
 MAINTAINER = [
-    int(os.getenv('MAINTAINER1')),
-    int(os.getenv('MAINTAINER2')),
-    int(os.getenv('MAINTAINER3')),
-    int(os.getenv('MAINTAINER4'))
+    int(CONFIG["maintainer1"]),
+    int(CONFIG["maintainer2"]),
+    int(CONFIG["maintainer3"]),
+    int(CONFIG["maintainer4"])
     ]
-SPCKAPI = os.getenv('SPCKAPI')
+SPCKAPI = CONFIG["spckapi"]
 
 OTAZKY = {
     "jednaPog": "(POG) MVP - v originále Most Valuable Player. Tohle je člověk, který jde příkladem - točí, poslouchá, rozumí věcem a bez něj by byla celá raid group slabší.",
@@ -200,9 +202,9 @@ async def check_warframe_worldstate():
         await asyncio.sleep(60) #interval (60s)
 
         async def update_callback(reward1:str, reward2:str):
-            if os.getenv("DISCORD_BOT_NAME") == "test":
+            if CONFIG["discord_bot_name"] == "test":
                 channel:discord.TextChannel = bot.get_guild(270148082811797504).get_channel(687308188986769448) # test server
-            elif os.getenv("DISCORD_BOT_NAME") == "suvbot":
+            elif CONFIG["discord_bot_name"] == "suvbot":
                 channel:discord.TextChannel = bot.get_guild(153578963204046849).get_channel(755021473126547496) # iao warframe channel
             if reward2 == "":
                 await channel.send(f"Přibyla invaze na **{reward1}**!")

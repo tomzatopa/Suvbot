@@ -1,6 +1,6 @@
 from configparser import ConfigParser
 
-def load_config(filename='config.ini', section='bot'):
+def load_config(filename='config.ini', section='Bot'):
     parser = ConfigParser()
     parser.read(filename)
 
