@@ -7,12 +7,16 @@ import requests
 db_connection = sqlite3.connect("suvbot.db")
 db_cursor = db_connection.cursor()
 
-try: db_cursor.execute("CREATE TABLE active_invasions(reward1, reward2)")
-except: pass
-try: db_cursor.execute("CREATE TABLE tracked_rewards(reward)")
-except: pass
-try: db_cursor.execute("CREATE TABLE saved_quotes(guild_id, channel_id, message_id UNIQUE, message_content, locked)")
-except: pass
+def create():
+    try: db_cursor.execute("CREATE TABLE active_invasions(reward1, reward2)")
+    except: pass
+    try: db_cursor.execute("CREATE TABLE tracked_rewards(reward)")
+    except: pass
+    try: db_cursor.execute("CREATE TABLE saved_quotes(guild_id, channel_id, message_id UNIQUE, message_content, locked)")
+    except: pass
+
+if __name__ == "__main__":
+    create()
 
 #db_cursor.execute("INSERT INTO active_invasions (reward1, reward2, planet, mission_type) VALUES ('testval1', 'testval2', 'hirukovamama', 'speedrun');")
 #db_connection.commit()

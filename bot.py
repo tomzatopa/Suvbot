@@ -24,6 +24,7 @@ from collections.abc import Sequence
 
 from warframe import add_tracked_reward, AddTrackedRewardReturns, remove_tracked_reward, update_tracked_invasions, get_tracked_rewards, INVASION_REWARD_LIST, DB_CURSOR, DB_CONNECTION
 import config
+import create_db
 
 
 ###############################
@@ -1132,6 +1133,16 @@ async def updatebot(ctx):
         await ctx.send('jdu se zabit a znovu povstat', delete_after=5)
         cmd = '/usr/bin/sudo /bin/systemctl restart suvbot'
         proc = subprocess.Popen(cmd, shell=True,stdout=subprocess.PIPE)
+    else:
+        await ctx.send('nope', delete_after=5)
+
+#init databaze skrz discord
+@bot.command(name='initdb')
+async def initdb(ctx):
+    sendinguserid = ctx.message.author.id
+    if sendinguserid in MAINTAINER:
+        create_db.create()
+        await ctx.send('db vytvorena/aktualizovana', delete_after=5)
     else:
         await ctx.send('nope', delete_after=5)
 
