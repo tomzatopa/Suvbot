@@ -22,8 +22,9 @@ from discord.ext import commands
 from urllib.request import Request, urlopen
 from collections.abc import Sequence
 
-from warframe import add_tracked_reward, AddTrackedRewardReturns, remove_tracked_reward, update_tracked_invasions, get_tracked_rewards, INVASION_REWARD_LIST
+from warframe import add_tracked_reward, AddTrackedRewardReturns, remove_tracked_reward, update_tracked_invasions, get_tracked_rewards, INVASION_REWARD_LIST, DB_CURSOR, DB_CONNECTION
 import config
+import create_db
 
 
 ###############################
@@ -121,6 +122,55 @@ async def on_ready():
     await check_warframe_worldstate()
 
 @bot.event
+async def on_raw_reaction_add(payload:discord.RawReactionActionEvent):
+    channel = bot.get_channel(payload.channel_id)
+
+    if channel.name != "quotes":
+        return
+
+    res = DB_CURSOR.execute(f"SELECT * FROM saved_quotes WHERE message_id = {payload.message_id}").fetchall()
+
+    if payload.emoji.name == '🔒':
+        guild = bot.get_guild(payload.guild_id)
+        user_roles = guild.get_member(payload.user_id).roles
+
+
+        is_offi = False
+        for role in user_roles:
+            if role.name == "Officer": 
+                is_offi = True
+                break
+
+        if not is_offi: return
+
+        if res == []:
+            try:
+                DB_CURSOR.execute("INSERT INTO saved_quotes (guild_id, channel_id, message_id, message_content, locked) values (?, ?, ?, ?, ?)", (payload.guild_id, payload.channel_id, payload.message_id, "", True))
+                DB_CONNECTION.commit()
+            except: pass
+            return
+        else:
+            DB_CURSOR.execute(f"UPDATE saved_quotes SET locked = 1 WHERE message_id = {payload.message_id}")
+            DB_CONNECTION.commit()
+            return
+
+    
+
+    # if the message is already saved in the db
+    if not res == []:
+        return
+
+    message = await channel.get_partial_message(payload.message_id).fetch()
+
+    for react in message.reactions:
+        if react.count >= 5 or react.burst_count >= 5:
+            try:
+                DB_CURSOR.execute("INSERT INTO saved_quotes (guild_id, channel_id, message_id, message_content, locked) values (?, ?, ?, ?, ?)", (payload.guild_id, payload.channel_id, payload.message_id, message.content, False))
+                DB_CONNECTION.commit()
+            except: pass
+
+
+@bot.event
 async def on_reaction_add(reaction, user):
     channel=reaction.message.channel
     for e in reaction.message.embeds:
@@ -199,7 +249,7 @@ async def checkWcl():
 
 async def check_warframe_worldstate():
     while True:
-        await asyncio.sleep(60) #interval (60s)
+        await asyncio.sleep(10) #interval (60s)
 
         async def update_callback(reward1:str, reward2:str):
             if CONFIG["discord_bot_name"] == "test":
@@ -1086,6 +1136,16 @@ async def updatebot(ctx):
     else:
         await ctx.send('nope', delete_after=5)
 
+#init databaze skrz discord
+@bot.command(name='initdb')
+async def initdb(ctx):
+    sendinguserid = ctx.message.author.id
+    if sendinguserid in MAINTAINER:
+        create_db.create()
+        await ctx.send('db vytvorena/aktualizovana', delete_after=5)
+    else:
+        await ctx.send('nope', delete_after=5)
+
 #slabikar command
 @bot.command(name='slabikar')
 async def slabikar(ctx):
@@ -1354,6 +1414,13 @@ async def wfuntrack_error(ctx:commands.Context, error):
             sendstr += f"{x}\n"
         await ctx.send(f"Je potřeba zadat co netrackovat. Aktuálně trackované rewardy:\n\n`{sendstr}`")
 
+@bot.command(name="iaoquote")
+async def iaoquote(ctx:commands.Context):
+    res = DB_CURSOR.execute(f"SELECT * FROM saved_quotes WHERE guild_id = {ctx.guild.id} AND locked = 0").fetchall()
+    chosen_quote = random.choice(res)
+    await ctx.send(f"{chosen_quote[3]}\nhttps://discord.com/channels/{chosen_quote[0]}/{chosen_quote[1]}/{chosen_quote[2]}")
+
+    pass
 
 
 """
