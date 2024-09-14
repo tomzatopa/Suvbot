@@ -163,7 +163,7 @@ async def on_raw_reaction_add(payload:discord.RawReactionActionEvent):
     message = await channel.get_partial_message(payload.message_id).fetch()
 
     for react in message.reactions:
-        if react.count >= 5 or react.burst_count >= 5:
+        if react.count >= 5:
             try:
                 DB_CURSOR.execute("INSERT INTO saved_quotes (guild_id, channel_id, message_id, message_content, locked) values (?, ?, ?, ?, ?)", (payload.guild_id, payload.channel_id, payload.message_id, message.content, False))
                 DB_CONNECTION.commit()
