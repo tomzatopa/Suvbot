@@ -1187,10 +1187,10 @@ async def leave(ctx):
 async def limit(ctx,arg):
     ch=ctx.channel    
     if isinstance(ch,discord.VoiceChannel) and ctx.author.voice.channel==ch:  
-        lim = str(arg)   
-        if lim=="":
+        if not arg:
             lim=0
         else:
+            lim = str(arg)  
             try:
                 lim = int(lim)
             except ValueError:
