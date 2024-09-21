@@ -1182,6 +1182,15 @@ async def leave(ctx):
     else:
         await ctx.send('nope', delete_after=5)
 
+#limit channel command
+@bot.command(name='limit')
+async def limit(ctx,arg):
+    ch=ctx.channel
+    lim=int(arg)
+    if isinstance(ch, discord.VoiceChannel):        
+        ch.edit(user_limit=lim)
+
+
 #gondorhelp command - na prani mistru lesiho a dapha
 @bot.command(name='gondorhelp')
 async def gondorhelp(ctx,arg):
