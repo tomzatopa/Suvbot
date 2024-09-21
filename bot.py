@@ -1207,7 +1207,7 @@ async def limit(ctx,*args):
             else:
                 await ch.send("Je potřeba zadat číslo od 0 do 99")  
         else:
-            await ch.send("Limit voice channelu lze upravovat pouze pokud si do něj připojený")                       
+            await ch.send("Limit voice channelu lze upravovat pouze pokud jsi do něj připojený")                       
     else:
         await ch.send("Tenhle command funguje pouze v chatu voice channelů")  
 
