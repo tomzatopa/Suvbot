@@ -189,6 +189,12 @@ async def on_member_update(before,after):
         elif new_role.name in ('Core'):
             await after.send(read_file("coreWelcomeMessage.txt"))
 
+@bot.event
+async def on_voice_state_update(member, before, after):
+    if len(after.members)==0:
+        await after.send("Test")  
+
+
 ### shit aby fungoval WCL API Call
 
 #GraphQL query load
