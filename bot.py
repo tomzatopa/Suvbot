@@ -1185,11 +1185,18 @@ async def leave(ctx):
 #limit channel command
 @bot.command(name='limit')
 async def limit(ctx,arg):
-    ch=ctx.channel
-    await ctx.send('lim: '+arg)
-    if isinstance(ch,discord.VoiceChannel):        
-        await ch.edit(user_limit=arg)
-
+    ch=ctx.channel    
+    if isinstance(ch,discord.VoiceChannel) and ctx.author.voice.channel==ch:  
+        lim = str(arg)   
+        if lim=="":
+            lim=0
+        else:
+            try:
+                lim = int(lim)
+            except ValueError:
+                await ch.send("Je potřeba zadat číslo")
+        await ch.edit(user_limit=lim)       
+    
 
 #gondorhelp command - na prani mistru lesiho a dapha
 @bot.command(name='gondorhelp')
