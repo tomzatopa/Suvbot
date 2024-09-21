@@ -1187,8 +1187,9 @@ async def leave(ctx):
 async def limit(ctx,arg):
     ch=ctx.channel
     lim=int(arg)
-    if isinstance(ch, discord.VoiceChannel):        
-        ch.edit(user_limit=lim)
+    await ctx.send('lim: '+lim)
+    if isinstance(ch,discord.VoiceChannel):        
+        await ch.edit(user_limit=lim)
 
 
 #gondorhelp command - na prani mistru lesiho a dapha
