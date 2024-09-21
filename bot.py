@@ -1184,13 +1184,13 @@ async def leave(ctx):
 
 #limit channel command
 @bot.command(name='limit')
-async def limit(ctx,arg):
+async def limit(ctx,*args):
     ch=ctx.channel    
     if isinstance(ch,discord.VoiceChannel) and ctx.author.voice.channel==ch:  
-        if not arg:
+        if  len(args)==0:
             lim=0
         else:
-            lim = str(arg)  
+            lim = str(args[0])  
             try:
                 lim = int(lim)
             except ValueError:
