@@ -191,8 +191,8 @@ async def on_member_update(before,after):
 
 @bot.event
 async def on_voice_state_update(member, before, after):
-    if len(after.members)==0:
-        await after.send("Test")  
+    if len(before.channel.members)==0:
+        await before.channel.send("Test")  
 
 
 ### shit aby fungoval WCL API Call
