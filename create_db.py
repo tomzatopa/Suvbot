@@ -14,6 +14,12 @@ def create():
     except: pass
     try: db_cursor.execute("CREATE TABLE saved_quotes(guild_id, channel_id, message_id UNIQUE, message_content, locked)")
     except: pass
+    try: db_cursor.execute("CREATE TABLE counters(key, value)")
+    except: pass
+    try: 
+        db_cursor.execute("INSERT INTO counters (key, value) VALUES ('banan_copypasta', 3)")
+        db_connection.commit()
+    except: pass
 
 if __name__ == "__main__":
     create()
