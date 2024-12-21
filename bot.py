@@ -206,6 +206,12 @@ async def on_member_update(before,after):
         elif new_role.name in ('Core'):
             await after.send(read_file("coreWelcomeMessage.txt"))
 
+@bot.event
+async def on_voice_state_update(member, before, after):
+    if len(before.channel.members)==0:
+        await before.channel.edit(user_limit=0)
+
+
 ### shit aby fungoval WCL API Call
 
 #GraphQL query load
@@ -1198,6 +1204,29 @@ async def leave(ctx):
         await vc.disconnect()
     else:
         await ctx.send('nope', delete_after=5)
+
+#limit channel command
+@bot.command(name='limit')
+async def limit(ctx,*args):
+    ch=ctx.channel    
+    if isinstance(ch,discord.VoiceChannel):
+        if ctx.author.voice.channel==ch:
+            if  len(args)==0:
+                lim=0
+            else:
+                lim = str(args[0])  
+                try:
+                    lim = int(lim)
+                except ValueError:
+                    await ch.send("Je potřeba zadat číslo")
+            if lim>=0 and lim<100:
+                await ch.edit(user_limit=lim)
+            else:
+                await ch.send("Je potřeba zadat číslo od 0 do 99")  
+        else:
+            await ch.send("Limit voice channelu lze upravovat pouze pokud jsi do něj připojený")                       
+    else:
+        await ch.send("Tenhle command funguje pouze v chatu voice channelů")  
 
 #gondorhelp command - na prani mistru lesiho a dapha
 @bot.command(name='gondorhelp')
