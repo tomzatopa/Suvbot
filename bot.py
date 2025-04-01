@@ -1463,6 +1463,17 @@ async def changeicon(ctx:commands.Context,arg):
             icon = f.read()
         await ctx.message.guild.edit(icon=icon)
 
+@bot.command(name="weeklinka")
+async def weeklinka(ctx:commands.Context,arg):
+    if datetime.datetime.today().weekday() == 1:
+        tank1="161886775000825857"
+        tank2="556539219003047936"
+        tank3="171216311362256897"
+        tank4="273852645741953024"
+        await ctx.send(f"Pls help s weeklinkou <@{tank1}> <@{tank2}> <@{tank3}> <@{tank4}>")
+    else: 
+        await ctx.send("Ještě není úterý")
+        
 """
 #vote command - je to mess ale funguje to a nejebte do toho
 @bot.command(name="vote")
