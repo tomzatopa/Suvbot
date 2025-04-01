@@ -1462,6 +1462,8 @@ async def changeicon(ctx:commands.Context,arg):
         with open('./icons/'+arg+suff, 'rb') as f:
             icon = f.read()
         await ctx.message.guild.edit(icon=icon)
+    else:
+        await ctx.send('nope', delete_after=5)    
 
 @bot.command(name="weeklinka")
 async def weeklinka(ctx:commands.Context):
