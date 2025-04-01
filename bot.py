@@ -1465,7 +1465,7 @@ async def changeicon(ctx:commands.Context,arg):
 
 @bot.command(name="weeklinka")
 async def weeklinka(ctx:commands.Context,arg):
-    if datetime.now().strftime('%w') == 2:
+    if datetime.now().strftime('%w') == "2":
         if ctx.channel.id==798224390579421244:
             tank1="161886775000825857"
             tank2="556539219003047936"
