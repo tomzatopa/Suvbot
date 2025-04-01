@@ -1467,11 +1467,8 @@ async def changeicon(ctx:commands.Context,arg):
 async def weeklinka(ctx:commands.Context):
     if datetime.now().strftime('%w') == "2":        
         if ctx.channel.id==798224390579421244:
-            tank1="161886775000825857"
-            tank2="556539219003047936"
-            tank3="171216311362256897"
-            tank4="273852645741953024"
-            await ctx.send(f"Pls help s weeklinkou <@{tank1}> <@{tank2}> <@{tank3}> <@{tank4}>")
+            tank= random.choice(["161886775000825857", "556539219003047936","171216311362256897","273852645741953024"])
+            await ctx.send(f"Pls help s weeklinkou <@{tank}> ")
         else:
             await ctx.send("Tady ne")
     else: 
