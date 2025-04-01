@@ -1466,14 +1466,17 @@ async def changeicon(ctx:commands.Context,arg):
 @bot.command(name="weeklinka")
 async def weeklinka(ctx:commands.Context,arg):
     if datetime.datetime.today().weekday() == 1:
-        tank1="161886775000825857"
-        tank2="556539219003047936"
-        tank3="171216311362256897"
-        tank4="273852645741953024"
-        await ctx.send(f"Pls help s weeklinkou <@{tank1}> <@{tank2}> <@{tank3}> <@{tank4}>")
+        if ctx.channel.id==798224390579421244:
+            tank1="161886775000825857"
+            tank2="556539219003047936"
+            tank3="171216311362256897"
+            tank4="273852645741953024"
+            await ctx.send(f"Pls help s weeklinkou <@{tank1}> <@{tank2}> <@{tank3}> <@{tank4}>")
+        else:
+            await ctx.send("Tady ne")
     else: 
         await ctx.send("Ještě není úterý")
-        
+
 """
 #vote command - je to mess ale funguje to a nejebte do toho
 @bot.command(name="vote")
