@@ -1466,16 +1466,10 @@ async def changeicon(ctx:commands.Context,arg):
 @bot.command(name="weeklinka")
 async def weeklinka(ctx:commands.Context):
     if datetime.now().strftime('%w') == "2":        
-        if ctx.channel.id==798224390579421244:            
-            tank= random.randint(1, 4)
-            if tank==1:
-                await ctx.send("<@161886775000825857> kámo, pomož mi s weeklinkou.")
-            elif tank==2:
-                await ctx.send("<@556539219003047936> kámo, pomož mi s weeklinkou.")
-            elif tank==3:
-                await ctx.send("<@171216311362256897> kámo, pomož mi s weeklinkou.")
-            elif tank==4:
-                await ctx.send("<@273852645741953024> kámo, pomož mi s weeklinkou.")
+        if ctx.channel.id==798224390579421244:
+            tanks = ["161886775000825857", "556539219003047936","171216311362256897","273852645741953024"]
+            tank= random.choice(tanks)
+            await ctx.send("<@"+tank+"> kámo, pomož mi s weeklinkou.")
         else:
             await ctx.send("Tady ne")
     else: 
