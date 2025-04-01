@@ -1461,7 +1461,7 @@ async def changeicon(ctx:commands.Context,arg):
             suff=".png"
         with open('./icons/'+arg+suff, 'rb') as f:
             icon = f.read()
-        await bot.edit_server(ctx.message.server, icon=icon)    
+        await ctx.message.guild.edit(icon=icon)
 
 """
 #vote command - je to mess ale funguje to a nejebte do toho
