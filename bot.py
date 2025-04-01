@@ -1451,6 +1451,17 @@ async def iaoquote(ctx:commands.Context):
 
     pass
 
+@bot.command(name="changeicon")
+async def changeicon(ctx:commands.Context,arg):
+    sendinguserid = ctx.message.author.id
+    if sendinguserid in MAINTAINER:
+        if arg == "rotate" or arg == "HW" or arg == "CM":
+            suff=".gif"
+        else:
+            suff=".png"
+        with open('./icons/'+arg+suff, 'rb') as f:
+            icon = f.read()
+        await bot.edit_server(ctx.message.server, icon=icon)    
 
 """
 #vote command - je to mess ale funguje to a nejebte do toho
