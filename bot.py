@@ -1464,7 +1464,7 @@ async def changeicon(ctx:commands.Context,arg):
         await ctx.message.guild.edit(icon=icon)
 
 @bot.command(name="weeklinka")
-async def weeklinka(ctx:commands.Context,arg):
+async def weeklinka(ctx:commands.Context):
     await ctx.send(datetime.now().strftime('%w'))
     if datetime.now().strftime('%w') == "2":        
         if ctx.channel.id==798224390579421244:
