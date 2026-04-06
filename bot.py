@@ -18,7 +18,7 @@ import pymongo
 from datetime import timedelta, datetime
 from os import path
 from dotenv import load_dotenv
-from discord.ext import commands
+from discord.ext import commands, tasks
 from urllib.request import Request, urlopen
 from collections.abc import Sequence
 
@@ -111,8 +111,22 @@ bot.load_extension('music')
 ##########BOT EVENTS###########
 ###############################
 #nastaveni statusu
+@tasks.loop(time=datetime.time(hour=0, minute=0))
+async def april_icon():
+    now = datetime.datetime.now()
+    if now.month != 4:
+        return
+    icon_path = f"icons/{now.day}.png"
+    if not path.isfile(icon_path):
+        return
+    guild = bot.get_guild(153578963204046849)
+    with open(icon_path, "rb") as f:
+        await guild.edit(icon=f.read())
+
 @bot.event
 async def on_ready():
+    if not april_icon.is_running():
+        april_icon.start()
     akt=random.randrange(1,5)
     if akt==1:
         await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching,name='tvojí nahou mámu'))
