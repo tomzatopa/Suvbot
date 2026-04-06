@@ -15,7 +15,7 @@ import aiohttp
 import re
 import textwrap
 import pymongo
-from datetime import timedelta, datetime
+from datetime import timedelta, datetime, time as dt_time
 from os import path
 from dotenv import load_dotenv
 from discord.ext import commands, tasks
@@ -111,9 +111,9 @@ bot.load_extension('music')
 ##########BOT EVENTS###########
 ###############################
 #nastaveni statusu
-@tasks.loop(time=datetime.time(hour=0, minute=0))
+@tasks.loop(time=dt_time(hour=0, minute=0))
 async def april_icon():
-    now = datetime.datetime.now()
+    now = datetime.now()
     if now.month != 4:
         return
     icon_path = f"icons/{now.day}.png"
@@ -141,6 +141,7 @@ async def on_ready():
 
 @bot.event
 async def on_message(message:discord.message.Message):
+    if not CONFIG["bananpasta_enabled"] == "1": return
     if message.author.id == 982247835829424179 and not message.interaction:
         # tohle je tak strašně dementní solution, holy shit ### req = requests.get("http://130.61.245.173:6969/") # server co počítá
         day_num = DB_CURSOR.execute("SELECT value FROM counters WHERE key == 'banan_copypasta'").fetchall()[0][0] + 1
