@@ -1482,6 +1482,32 @@ async def iaoquote(ctx:commands.Context):
 
     pass
 
+@bot.command(name="changeicon")
+async def changeicon(ctx:commands.Context,arg):
+    sendinguserid = ctx.message.author.id
+    if sendinguserid in MAINTAINER:
+        if arg == "rotate" or arg == "HW" or arg == "CM":
+            suff=".gif"
+        else:
+            suff=".png"
+        with open('./icons/'+arg+suff, 'rb') as f:
+            icon = f.read()
+        await ctx.message.guild.edit(icon=icon)
+    else:
+        await ctx.send('nope', delete_after=5)    
+
+@bot.command(name="weeklinka")
+async def weeklinka(ctx:commands.Context):
+    if datetime.now().strftime('%w') == "2":        
+        if ctx.channel.id==798224390579421244:
+            tanks = ["161886775000825857", "556539219003047936","171216311362256897","273852645741953024"]
+            tank= random.choice(tanks)
+            await ctx.send("<@"+tank+"> kámo, pomož mi s weeklinkou.")
+        else:
+            await ctx.send("Tady ne")
+    else: 
+        await ctx.send("Ještě není úterý")
+
 
 """
 #vote command - je to mess ale funguje to a nejebte do toho
