@@ -15,10 +15,10 @@ import aiohttp
 import re
 import textwrap
 import pymongo
-from datetime import timedelta, datetime
+from datetime import timedelta, datetime, time as dt_time
 from os import path
 from dotenv import load_dotenv
-from discord.ext import commands
+from discord.ext import commands, tasks
 from urllib.request import Request, urlopen
 from collections.abc import Sequence
 
@@ -57,20 +57,24 @@ OTAZKY = {
     "dvaGen": "Celebrita - tohoto člověka vidíte na DC a máte nutkání za ním přijít a pokecat. Baví se a vychází v pohodě se všemi."
 }
 
-HRY_COUNT = [
-    "patnáctá", # 1
-    "čtrnáctá", # 2
-    "třináctá", # 3
-    "dvanáctá", # 4
-    "jedenáctá", # 5
-    "desátá", # 6
-    "devátá", # 7
-    "osmá", # 8
-    "sedmá", # 9
-    "šestá", # 1O
-    "pátá", # 11
-    "čtvrtá" # 12
-]
+### the fuck...
+### HRY_COUNT = [
+#    "patnáctá", # 1
+#    "čtrnáctá", # 2
+#    "třináctá", # 3
+#    "dvanáctá", # 4
+#    "jedenáctá", # 5
+#    "desátá", # 6
+#    "devátá", # 7
+#    "osmá", # 8
+#    "sedmá", # 9
+#    "šestá", # 1O
+#    "pátá", # 11
+#    "čtvrtá" # 12
+#]
+
+HRY_COUNT = ["nultá :)", "první", "druhá", "třetí", "čtvrtá", "pátá", "šestá", "sedmá", "osmá", "devátá", "desátá", "jedenáctá", "dvanáctá"]
+TOTAL_HRY_COUNT = 8 # ah yes, czenglish
 
 class PRIHLASKA:
     jedna = "Nick a class tvojí postavy:"
@@ -107,8 +111,22 @@ bot.load_extension('music')
 ##########BOT EVENTS###########
 ###############################
 #nastaveni statusu
+@tasks.loop(time=dt_time(hour=0, minute=0))
+async def april_icon():
+    now = datetime.now()
+    if now.month != 4:
+        return
+    icon_path = f"icons/{now.day}.png"
+    if not path.isfile(icon_path):
+        return
+    guild = bot.get_guild(153578963204046849)
+    with open(icon_path, "rb") as f:
+        await guild.edit(icon=f.read())
+
 @bot.event
 async def on_ready():
+    if not april_icon.is_running():
+        april_icon.start()
     akt=random.randrange(1,5)
     if akt==1:
         await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching,name='tvojí nahou mámu'))
@@ -120,6 +138,20 @@ async def on_ready():
         await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.playing,name='si s tvojí mámou'))
     #await checkWcl()
     await check_warframe_worldstate()
+
+@bot.event
+async def on_message(message:discord.message.Message):
+    if not CONFIG["bananpasta_enabled"] == "1": return
+    if message.author.id == 982247835829424179 and not message.interaction:
+        # tohle je tak strašně dementní solution, holy shit ### req = requests.get("http://130.61.245.173:6969/") # server co počítá
+        day_num = DB_CURSOR.execute("SELECT value FROM counters WHERE key == 'banan_copypasta'").fetchall()[0][0] + 1
+        DB_CURSOR.execute(f"UPDATE counters SET value={day_num} WHERE key == 'banan_copypasta'")
+        if day_num > TOTAL_HRY_COUNT:
+            await message.reply("<@287350140904407041><@270147622973603848> už to vypněte, už to není aktuální")
+            return
+        await message.reply(f"^ tohle je {HRY_COUNT[day_num-1]} free hra na epicu z vánoční sezóny, narozdíl od běžného stavu, kdy to tam visí týden, bude následujících cca {TOTAL_HRY_COUNT - day_num} her nebo kolik rotovat **__daily__**, takže to claimujte rychle, pokud nechcete, aby vám něco uteklo")
+        return
+    await bot.process_commands (message)
 
 @bot.event
 async def on_raw_reaction_add(payload:discord.RawReactionActionEvent):
