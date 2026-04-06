@@ -15,7 +15,7 @@ import aiohttp
 import re
 import textwrap
 import pymongo
-from datetime import timedelta, datetime, time as dt_time
+from datetime import timedelta, timezone, datetime, time as dt_time
 from os import path
 from dotenv import load_dotenv
 from discord.ext import commands, tasks
@@ -111,7 +111,8 @@ bot.load_extension('music')
 ##########BOT EVENTS###########
 ###############################
 #nastaveni statusu
-@tasks.loop(time=dt_time(hour=0, minute=0))
+utc_offset = timezone(timedelta(hours=1))
+@tasks.loop(time=dt_time(hour=0, minute=0, tzinfo=utc_offset))
 async def april_icon():
     now = datetime.now()
     if now.month != 4:
@@ -122,6 +123,7 @@ async def april_icon():
     guild = bot.get_guild(153578963204046849)
     with open(icon_path, "rb") as f:
         await guild.edit(icon=f.read())
+        print(f"Changed icon to {icon_path}")
 
 @bot.event
 async def on_ready():
