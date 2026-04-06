@@ -141,7 +141,9 @@ async def on_ready():
 
 @bot.event
 async def on_message(message:discord.message.Message):
-    if not CONFIG["bananpasta_enabled"] == "1": return
+    if not CONFIG["bananpasta_enabled"] == "1": 
+        await bot.process_commands (message)
+        return
     if message.author.id == 982247835829424179 and not message.interaction:
         # tohle je tak strašně dementní solution, holy shit ### req = requests.get("http://130.61.245.173:6969/") # server co počítá
         day_num = DB_CURSOR.execute("SELECT value FROM counters WHERE key == 'banan_copypasta'").fetchall()[0][0] + 1
