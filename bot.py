@@ -119,6 +119,13 @@ async def handle_ipc_client(reader, writer):
     print(f"IPC received: {msg}")
     if msg == "april_icon":
         now = datetime.now()
+
+        if now.month != 4:
+            writer.write(b"not april\n")
+            await writer.drain()
+            writer.close()
+            return
+
         icon_path = f"icons/{now.day}.png"
         if path.isfile(icon_path):
             guild = bot.get_guild(153578963204046849)
