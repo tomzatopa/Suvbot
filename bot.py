@@ -15,10 +15,10 @@ import aiohttp
 import re
 import textwrap
 import pymongo
-from datetime import timedelta, timezone, datetime, time as dt_time
+from datetime import timedelta, datetime
 from os import path
 from dotenv import load_dotenv
-from discord.ext import commands, tasks
+from discord.ext import commands
 from urllib.request import Request, urlopen
 from collections.abc import Sequence
 
@@ -110,25 +110,40 @@ bot.load_extension('music')
 ###############################
 ##########BOT EVENTS###########
 ###############################
-#nastaveni statusu
-utc_offset = timezone(timedelta(hours=1))
-@tasks.loop(time=dt_time(hour=0, minute=0, tzinfo=utc_offset))
-async def april_icon():
-    now = datetime.now()
-    if now.month != 4:
-        return
-    icon_path = f"icons/{now.day}.png"
-    if not path.isfile(icon_path):
-        return
-    guild = bot.get_guild(153578963204046849)
-    with open(icon_path, "rb") as f:
-        await guild.edit(icon=f.read())
-        print(f"Changed icon to {icon_path}")
+#IPC socket for external commands
+SOCKET_PATH = "/tmp/suvbot.sock"
+
+async def handle_ipc_client(reader, writer):
+    data = await reader.read(1024)
+    msg = data.decode().strip()
+    print(f"IPC received: {msg}")
+    if msg == "april_icon":
+        now = datetime.now()
+        icon_path = f"icons/{now.day}.png"
+        if path.isfile(icon_path):
+            guild = bot.get_guild(153578963204046849)
+            with open(icon_path, "rb") as f:
+                print(f"Changed icon to {icon_path}")
+                await guild.edit(icon=f.read())
+            writer.write(b"ok\n")
+        else:
+            writer.write(f"no icon for day {now.day}\n".encode())
+    else:
+        writer.write(b"unknown command\n")
+    await writer.drain()
+    writer.close()
+
+async def start_ipc_server():
+    if path.exists(SOCKET_PATH):
+        os.unlink(SOCKET_PATH)
+    server = await asyncio.start_unix_server(handle_ipc_client, path=SOCKET_PATH)
+    print(f"IPC server listening on {SOCKET_PATH}")
+    return server
 
 @bot.event
 async def on_ready():
-    if not april_icon.is_running():
-        april_icon.start()
+    if not hasattr(bot, '_ipc_server'):
+        bot._ipc_server = await start_ipc_server()
     akt=random.randrange(1,5)
     if akt==1:
         await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching,name='tvojí nahou mámu'))
