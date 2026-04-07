@@ -113,7 +113,7 @@ bot.load_extension('music')
 #IPC socket for external commands
 SOCKET_PATH = "/tmp/suvbot.sock"
 
-async def handle_ipc_client(reader, writer):
+async def handle_ipc_client(reader: asyncio.StreamReader, writer: asyncio.StreamWriter) -> None:
     data = await reader.read(1024)
     msg = data.decode().strip()
     print(f"IPC received: {msg}")
@@ -130,8 +130,8 @@ async def handle_ipc_client(reader, writer):
         if path.isfile(icon_path):
             guild = bot.get_guild(153578963204046849)
             with open(icon_path, "rb") as f:
-                print(f"Changed icon to {icon_path}")
                 await guild.edit(icon=f.read())
+                print(f"Changed icon to {icon_path}")
             writer.write(b"ok\n")
         else:
             writer.write(f"no icon for day {now.day}\n".encode())
@@ -140,7 +140,7 @@ async def handle_ipc_client(reader, writer):
     await writer.drain()
     writer.close()
 
-async def start_ipc_server():
+async def start_ipc_server() -> asyncio.Server:
     if path.exists(SOCKET_PATH):
         os.unlink(SOCKET_PATH)
     server = await asyncio.start_unix_server(handle_ipc_client, path=SOCKET_PATH)
